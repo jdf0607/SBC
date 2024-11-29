@@ -1,0 +1,210 @@
+@prefix : <http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/> .
+
+<http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/conté
+:conté rdf:type owl:ObjectProperty ;
+       rdfs:domain :Sala ;
+       rdfs:range :Obra_de_Arte .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/crea
+:crea rdf:type owl:ObjectProperty ;
+      rdfs:subPropertyOf owl:topObjectProperty ;
+      rdfs:domain :Pintor ;
+      rdfs:range :Obra_de_Arte .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/prop_de
+:prop_de rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf owl:topObjectProperty ;
+         rdfs:domain :Sala ;
+         rdfs:range :Sala .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/visita
+:visita rdf:type owl:ObjectProperty ;
+        rdfs:subPropertyOf owl:topObjectProperty ;
+        rdfs:domain :Visitant ;
+        rdfs:range :Sala .
+
+
+###  http://www.w3.org/2002/07/owl#topObjectProperty
+owl:topObjectProperty rdfs:domain :Visitant ;
+                      rdfs:range [ rdf:type owl:Restriction ;
+                                   owl:onProperty owl:topDataProperty ;
+                                   owl:someValuesFrom xsd:int
+                                 ] .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/any_de_creació
+:any_de_creació rdf:type owl:DatatypeProperty ;
+                rdfs:domain :Obra_de_Arte ;
+                rdfs:range xsd:int .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/característiques
+:característiques rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/coneixement
+:coneixement rdf:type owl:DatatypeProperty ;
+             rdfs:range xsd:int .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/dies
+:dies rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/dimensions
+:dimensions rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/hores
+:hores rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/nacionalitat
+:nacionalitat rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/nens
+:nens rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/relevancia
+:relevancia rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/temàtica
+:temàtica rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/època
+:època rdf:type owl:DatatypeProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/Familia
+:Familia rdf:type owl:Class ;
+         rdfs:subClassOf :Visitant .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/Grup
+:Grup rdf:type owl:Class ;
+      rdfs:subClassOf :Visitant .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/Grup_Gran
+:Grup_Gran rdf:type owl:Class ;
+           rdfs:subClassOf :Grup .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/Grup_Petit
+:Grup_Petit rdf:type owl:Class ;
+            rdfs:subClassOf :Grup .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/Individu
+:Individu rdf:type owl:Class ;
+          rdfs:subClassOf :Visitant .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/Obra_de_Arte
+:Obra_de_Arte rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/Pintor
+:Pintor rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/Sala
+:Sala rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/Visitant
+:Visitant rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#Diego_Velazquez
+:Diego_Velazquez rdf:type owl:NamedIndividual ,
+                          :Pintor ;
+                 :crea :Las_Meninas .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#Grup1
+:Grup1 rdf:type owl:NamedIndividual ,
+                :Visitant .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#La_Gioconda
+:La_Gioconda rdf:type owl:NamedIndividual ,
+                      :Obra_de_Arte .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#La_nit_estrellada
+:La_nit_estrellada rdf:type owl:NamedIndividual ,
+                            :Obra_de_Arte .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#Las_Meninas
+:Las_Meninas rdf:type owl:NamedIndividual ,
+                      :Obra_de_Arte .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#Leonardo_Da_Vinci
+:Leonardo_Da_Vinci rdf:type owl:NamedIndividual ,
+                            :Pintor ;
+                   :crea :La_Gioconda .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#Sala1
+:Sala1 rdf:type owl:NamedIndividual ,
+                :Sala ;
+       :conté :La_Gioconda ,
+              :La_nit_estrellada ,
+              :Las_Meninas .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#VIncent_Van_GOgh
+:VIncent_Van_GOgh rdf:type owl:NamedIndividual ,
+                           :Pintor ;
+                  :crea :La_nit_estrellada .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :Familia
+                :Grup_Gran
+                :Grup_Petit
+                :Individu
+              )
+] .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
