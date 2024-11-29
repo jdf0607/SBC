@@ -12,6 +12,12 @@
 #    Object Properties
 #################################################################
 
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#porta_a
+:porta_a rdf:type owl:ObjectProperty ;
+         rdfs:domain :Sala ;
+         rdfs:range :Sala .
+
+
 ###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/conté
 :conté rdf:type owl:ObjectProperty ;
        rdfs:domain :Sala ;
@@ -23,13 +29,6 @@
       rdfs:subPropertyOf owl:topObjectProperty ;
       rdfs:domain :Pintor ;
       rdfs:range :Obra_de_Arte .
-
-
-###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/prop_de
-:prop_de rdf:type owl:ObjectProperty ;
-         rdfs:subPropertyOf owl:topObjectProperty ;
-         rdfs:domain :Sala ;
-         rdfs:range :Sala .
 
 
 ###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/visita
@@ -51,23 +50,30 @@ owl:topObjectProperty rdfs:domain :Visitant ;
 #    Data properties
 #################################################################
 
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#estil
+:estil rdf:type owl:DatatypeProperty ;
+       rdfs:domain :Obra_de_Arte ,
+                   :Pintor ,
+                   :Sala ;
+       rdfs:range xsd:string .
+
+
 ###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/any_de_creació
 :any_de_creació rdf:type owl:DatatypeProperty ;
                 rdfs:domain :Obra_de_Arte ;
                 rdfs:range xsd:int .
 
 
-###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/característiques
-:característiques rdf:type owl:DatatypeProperty .
-
-
 ###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/coneixement
 :coneixement rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Visitant ;
              rdfs:range xsd:int .
 
 
 ###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/dies
-:dies rdf:type owl:DatatypeProperty .
+:dies rdf:type owl:DatatypeProperty ;
+      rdfs:domain :Visitant ;
+      rdfs:range xsd:int .
 
 
 ###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/dimensions
@@ -76,27 +82,43 @@ owl:topObjectProperty rdfs:domain :Visitant ;
 
 
 ###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/hores
-:hores rdf:type owl:DatatypeProperty .
+:hores rdf:type owl:DatatypeProperty ;
+       rdfs:domain :Visitant ;
+       rdfs:range xsd:int .
 
 
 ###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/nacionalitat
-:nacionalitat rdf:type owl:DatatypeProperty .
+:nacionalitat rdf:type owl:DatatypeProperty ;
+              rdfs:domain :Pintor ;
+              rdfs:range xsd:string .
 
 
 ###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/nens
-:nens rdf:type owl:DatatypeProperty .
+:nens rdf:type owl:DatatypeProperty ;
+      rdfs:domain :Familia ,
+                  :Grup .
 
 
 ###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/relevancia
-:relevancia rdf:type owl:DatatypeProperty .
+:relevancia rdf:type owl:DatatypeProperty ;
+            rdfs:domain :Obra_de_Arte ,
+                        :Pintor ;
+            rdfs:range xsd:string .
 
 
 ###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/temàtica
-:temàtica rdf:type owl:DatatypeProperty .
+:temàtica rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Obra_de_Arte ,
+                      :Pintor ,
+                      :Sala ;
+          rdfs:range xsd:string .
 
 
 ###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/època
-:època rdf:type owl:DatatypeProperty .
+:època rdf:type owl:DatatypeProperty ;
+       rdfs:domain :Obra_de_Arte ,
+                   :Pintor ,
+                   :Sala .
 
 
 #################################################################
@@ -148,39 +170,39 @@ owl:topObjectProperty rdfs:domain :Visitant ;
 #    Individuals
 #################################################################
 
-###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#Diego_Velazquez
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/Diego_Velazquez
 :Diego_Velazquez rdf:type owl:NamedIndividual ,
                           :Pintor ;
                  :crea :Las_Meninas .
 
 
-###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#Grup1
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/Grup1
 :Grup1 rdf:type owl:NamedIndividual ,
                 :Visitant .
 
 
-###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#La_Gioconda
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/La_Gioconda
 :La_Gioconda rdf:type owl:NamedIndividual ,
                       :Obra_de_Arte .
 
 
-###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#La_nit_estrellada
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/La_nit_estrellada
 :La_nit_estrellada rdf:type owl:NamedIndividual ,
                             :Obra_de_Arte .
 
 
-###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#Las_Meninas
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/Las_Meninas
 :Las_Meninas rdf:type owl:NamedIndividual ,
                       :Obra_de_Arte .
 
 
-###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#Leonardo_Da_Vinci
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/Leonardo_Da_Vinci
 :Leonardo_Da_Vinci rdf:type owl:NamedIndividual ,
                             :Pintor ;
                    :crea :La_Gioconda .
 
 
-###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#Sala1
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/Sala1
 :Sala1 rdf:type owl:NamedIndividual ,
                 :Sala ;
        :conté :La_Gioconda ,
@@ -188,7 +210,7 @@ owl:topObjectProperty rdfs:domain :Visitant ;
               :Las_Meninas .
 
 
-###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#VIncent_Van_GOgh
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/VIncent_Van_GOgh
 :VIncent_Van_GOgh rdf:type owl:NamedIndividual ,
                            :Pintor ;
                   :crea :La_nit_estrellada .
