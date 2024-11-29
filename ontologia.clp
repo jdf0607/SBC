@@ -157,3 +157,98 @@
     )
 
 )
+; -----------------------------------------
+; -----------------------------------------
+; ----------------  CODI  -----------------
+; -----------------------------------------
+; -----------------------------------------
+
+; ------------------------------------
+; 				  MAIN 
+; ------------------------------------
+
+;Modul Main
+(defmodule Main (export ?ALL))
+
+;Modul recopilació d'informació visitant
+(defmodule recopilacio-informacio-visitant
+	(import MAIN ?ALL)
+	(export ?ALL)
+)
+
+;Modul de recopilació de restriccions del visitant
+(defmodule recopilacio-informacio-usuari
+	(import MAIN ?ALL)
+	(export ?ALL)
+)
+
+;Modul d'Abstracció de dades
+(defmodule abstaccio-dades
+	(import MAIN ?ALL)
+	(import recopilacio-informacio-visitant ?ALL)
+	(import recopilacio-informacio-usuari ?ALL)
+	(export ?ALL)
+)
+
+;Modul d'abstracció d'inferència
+(defmodule inferir-dades
+	(import MAIN ?ALL)
+	(export ?ALL)
+)
+
+;Modul d'abstracció de sintesis
+(defmodule sintesis
+	(import MAIN ?ALL)
+	(export ?ALL)
+)
+
+;Modul per imprimir la ruta (solución)
+(defmodule imprimir-rutina
+	(import MAIN ?ALL)
+	(import recopilacio-informacio-visitant ?ALL)
+	(import recopilacio-restriccions-visitant ?ALL)
+	(import abstraccio-dades ?ALL)
+	(import inferir-dades ?ALL)
+	(import sintesis ?ALL)
+	(export ?ALL)
+)
+
+(defrule MAIN::initialRule "recla inicial"
+	(declare (salience 10))
+	=>
+	(printout t crlf)
+	(printout t "--------------- Sistema de Recomenació de Rutes pel nostre Museu ---------------" crlf)
+	(printout t crlf)
+	(focus recopilacion-informacion-usuario)
+)
+
+; -----------------------------------------
+; 				 TEMPLATES 
+; -----------------------------------------
+
+
+; --------------------------------------------------
+; 					 FUNCIONES 
+; --------------------------------------------------
+
+; --------------------------------------------------
+; 				 MODUL RECOPILACIO 
+; --------------------------------------------------
+
+; --------------------------------------------------
+; 				MODUL ABSTRACCIO
+; --------------------------------------------------
+
+; --------------------------------------------------
+; 				MODUL Inferencia 
+; --------------------------------------------------
+
+
+; --------------------------------------------------
+; 			MODUL SINTESIS
+; --------------------------------------------------
+
+
+; --------------------------------------------------
+; 			  MODUL IMPRIMIR RUTA
+; --------------------------------------------------
