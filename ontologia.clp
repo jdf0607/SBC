@@ -226,6 +226,24 @@
 ; 				 TEMPLATES 
 ; -----------------------------------------
 
+(deftemplate visita
+    (slot num_persones (type INTEGER) (default 1))
+    (slot familia (type SYMBOL) (allowed-values TRUE FALSE) (default FALSE))
+    (slot num_nens (type INTEGER) (default 0))
+    (slot num_dies (type INTEGER) (default 1))
+    (slot hores_visita (type INTEGER) (default 4))
+    (multislot preferencies (type INSTANCE))
+    (slot nivell_cultural (type FLOAT) (default 5.0))
+)
+
+; Potser es necessitaria una classe per definir el recorregut d'una visita.
+(deftemplate recorregut_sala
+    (multislot quadres (type INSTANCE))
+)
+
+(deftemplate recorregut_museu
+    (multislot sales (type INSTANCE))
+)
 
 ; --------------------------------------------------
 ; 					 FUNCIONS
