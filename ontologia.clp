@@ -230,8 +230,19 @@
 ; --------------------------------------------------
 ; 					 FUNCIONS
 ; --------------------------------------------------
-;funcio par a preguntar dades amb rang de valors
-deffunction MAIN::pregunta-puntuacio(?pregunta ?limitInferior ?limitSuperior)
+;funcio per a preguntar dades obertes (per exemple: el nom)
+(deffunction preguntar_dades (?pregunta)
+    (format t "%s" ?pregunta)
+        (bind ?resposta (read))
+        (while (not (lexemep ?resposta)) do
+            (format t "%s " ?pregunta)
+            (binf ?resposta (read))
+         )
+    ?resposta
+)
+
+;funcio par a preguntar dades amb rang de valors (per exemple: valoració de quadre o edat)
+deffunction MAIN::pregunta-numero(?pregunta ?limitInferior ?limitSuperior)
     (format t "%s (De %d hasta %d) " ?pregunta ?limitInferior ?limitSuperior)
     (bind ?resposta (read))
     (while (not(and(>= ?resposta ?limitInferior)(<= ?resposta ?limitSuperior))) do
@@ -240,27 +251,75 @@ deffunction MAIN::pregunta-puntuacio(?pregunta ?limitInferior ?limitSuperior)
      )
      ?resposta
 )
-
-;funcio per a preguntes amb moltes opcions
+;funcio per a preguntes tancades (si/no)
+(deffunction MAIN::pregunta-tancada (?pregunta)
+   (bind ?response (pregunta-opcions ?pregunta si no))
+   (if (or (eq ?response si) (eq ?response s))
+       then TRUE
+       else FALSE)
+)
+;funcio per a preguntes amb opcions textuals limitades
+(deffunction MAIN::pregunta-limitada ?pregunta $?opcions)
+   (format t "%s "?pregunta)
+   (progn$ (?actual $?opcions)
+       (format t "[%s]" ?actual)
+   )
+   (printout t ": ")
+   (bind ?answer (read))
+   (if (lexemep ?resposta)
+       then (bind ?resposta (lowcase ?answer)))
+   (while (not (member ?resposta ?opcions)) do
+      (format t "%s "?pregunta)
+     (progn$ (?actual $?opcions)
+       (format t "[%s]" ?actual)
+     )
+     (printout t ": ")
+     (bind ?resposta (read))
+     (if (lexemep ?answer)
+         then (bind ?answer (lowcase ?resposta))))
+  ?resposta
+)
+;funcio per a preguntes amb moltes opcions i associar-les a un index
 (deffunction MAIN::pregunta-opcions (?pregunta $?respostes-posibles)
     (bind ?linia (format nil "%s" ?pregunta))
     (printout t ?linia crlf)
     (progn$ (?var ?respostes-posibles)
-            (bind ?linia (format nil "  %d. %s" ?var-index ?var))
+            (bind ?linia (format nil "  %d. %s" ?index ?var))
             (printout t ?linia crlf)
     )
-    (bind ?resposta (pregunta-puntuacio "Escull una opcio:" 1 (length$ ?respostes-posibles)))
+    (bind ?resposta (pregunta-numero "Escull una opcio:" 1 (length$ ?respostes-posibles)))
 	?resposta
 )
-;funcio per a preguntes cerradas (si/no)
-;funcio per a preguntes con respuestas limitadas a opciones numeradas
-;funcio per a preguntes con respuestas limitadas a opciones no numeradas
+
+;funcio per fer preguntes multiresposta amb index
+(deffunction MAIN::pregunta-multiresposta (?pregunta $?opcions)
+    (bind ?linia (format nil "%s" ?pregunta))
+    (printout t ?linia crlf)
+    (progn$ (?var ?opcions)
+            (bind ?linia (format nil "  %d. %s" ?index ?var))
+            (printout t ?linia crlf)
+    )
+    (format t "%s" "Respon amb els nombres associats a les teves respostes separts per un espai ")
+    (bind ?resp (readline))
+    (bind ?numeros (str-explode ?resp))
+    (bind $?llista (create$))
+    (progn$ (?var ?numeros)
+        (if (and (integerp ?var) (and (>= ?var 0) (<= ?var (length$ ?opcions))))
+            then
+                (if (not (member$ ?var ?llista))
+                    then (bind ?llista (insert$ ?llista (+ (length$ ?llista) 1) ?var))
+                )
+        )
+    )
+    (if (or(member$ 0 ?llista)(= (length$ ?llista) 0)) then (bind ?llista (create$ )))
+    ?llista
+)
 ;funcio per a trobar els elements  amb millor puntuacio
 (deffunction trobar-maxim ($?llista)
 	(bind ?maxim -1)
 	(bind ?element nil)
 	(progn$ (?actual $?llista)
-		(bind ?actual (send ?actualc get-puntuacio))
+		(bind ?actual (send ?actual get-puntuacio))
 		(if (> ?actual ?maxim)
 			then
 			(bind ?maxim ?actual)
@@ -269,8 +328,21 @@ deffunction MAIN::pregunta-puntuacio(?pregunta ?limitInferior ?limitSuperior)
 	)
 	?element
 )
-;funcion para ordenar salas
-deffunction ordre-sales
+;funcion para ordenar sales
+deffunction ordenar-sales ($?llista)
+    (bind ?minim 6)
+    	(bind ?element nil)
+        (progn$ (?actual $?lista)
+             (bind ?QuadreActual (send ?actual get-nomQuadre))
+             (bind ?SalaActual (send ?QuadreActual get-Sala))
+            (if (<= ?SalaActual ?minim)
+                then
+                (bind ?minim ?SalaActual)
+                (bind ?elemento ?actual)
+             )
+         )
+    	?elemento
+    )
 ; --------------------------------------------------
 ; 				 MODUL RECOPILACIO 
 ; --------------------------------------------------
