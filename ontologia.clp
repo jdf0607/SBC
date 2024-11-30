@@ -228,9 +228,49 @@
 
 
 ; --------------------------------------------------
-; 					 FUNCIONES 
+; 					 FUNCIONS
 ; --------------------------------------------------
+;funcio par a preguntar dades amb rang de valors
+deffunction MAIN::pregunta-puntuacio(?pregunta ?limitInferior ?limitSuperior)
+    (format t "%s (De %d hasta %d) " ?pregunta ?limitInferior ?limitSuperior)
+    (bind ?resposta (read))
+    (while (not(and(>= ?resposta ?limitInferior)(<= ?resposta ?limitSuperior))) do
+        (format t "%s (De %d hasta %d) " ?pregunta ?limitInferior ?limitSuperior)
+        (bind ?resposta (read))
+     )
+     ?resposta
+)
 
+;funcio per a preguntes amb moltes opcions
+(deffunction MAIN::pregunta-opcions (?pregunta $?respostes-posibles)
+    (bind ?linia (format nil "%s" ?pregunta))
+    (printout t ?linia crlf)
+    (progn$ (?var ?respostes-posibles)
+            (bind ?linia (format nil "  %d. %s" ?var-index ?var))
+            (printout t ?linia crlf)
+    )
+    (bind ?resposta (pregunta-puntuacio "Escull una opcio:" 1 (length$ ?respostes-posibles)))
+	?resposta
+)
+;funcio per a preguntes cerradas (si/no)
+;funcio per a preguntes con respuestas limitadas a opciones numeradas
+;funcio per a preguntes con respuestas limitadas a opciones no numeradas
+;funcio per a trobar els elements  amb millor puntuacio
+(deffunction trobar-maxim ($?llista)
+	(bind ?maxim -1)
+	(bind ?element nil)
+	(progn$ (?actual $?llista)
+		(bind ?actual (send ?actualc get-puntuacio))
+		(if (> ?actual ?maxim)
+			then
+			(bind ?maxim ?actual)
+			(bind ?element ?actual)
+		)
+	)
+	?element
+)
+;funcion para ordenar salas
+deffunction ordre-sales
 ; --------------------------------------------------
 ; 				 MODUL RECOPILACIO 
 ; --------------------------------------------------
