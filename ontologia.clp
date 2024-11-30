@@ -347,6 +347,41 @@ deffunction ordenar-sales ($?llista)
 ; 				 MODUL RECOPILACIO 
 ; --------------------------------------------------
 
+; Funció per recopilar totes les obres d'art disponibles
+(deffunction recopilar-obres ()
+    (bind ?obres (find-all-facts ((?f Obra_de_Arte)) TRUE))
+    ?obres
+)
+
+; Funció per recopilar totes les sales disponibles
+(deffunction recopilar-sales ()
+    (bind ?sales (find-all-facts ((?f Sala)) TRUE))
+    ?sales
+)
+
+
+; Funció per recopilar tots els pintors disponibles
+(deffunction recopilar-pintors ()
+    (bind ?pintors (find-all-facts ((?f Pintor)) TRUE))
+    ?pintors
+)
+
+
+; Regla per iniciar la recopilació de dades
+(defrule iniciar-recopilacio
+    =>
+    (bind ?llista-pintors (recopilar-pintors))
+    (bind ?llista-sales (recopilar-sales))
+    (bind ?llista-obres (recopilar-obres))
+    (assert (dades-recopilades (pintors $?llista-pintors) (obres $?llista-obres) (sales $?llista-sales)))
+    (printout t "Recopilació completada: " 
+              (fact-slot-value (find-fact ((?f dades-recopilades)) TRUE) pintors) 
+              " " 
+              (fact-slot-value (find-fact ((?f dades-recopilades)) TRUE) obres)
+              " " 
+              (fact-slot-value (find-fact ((?f dades-recopilades)) TRUE) sales) crlf)
+)
+
 ; --------------------------------------------------
 ; 				MODUL ABSTRACCIO
 ; --------------------------------------------------
