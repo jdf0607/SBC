@@ -259,8 +259,8 @@
     ?resposta
 )
 
-;funcio par a preguntar dades amb rang de valors (per exemple: valoració de quadre o edat)
-deffunction MAIN::pregunta-numero(?pregunta ?limitInferior ?limitSuperior)
+;funcio par a preguntar dades amb rang de valors per exemple: valoracio de quadre o edat
+(deffunction MAIN::pregunta-numero(?pregunta ?limitInferior ?limitSuperior)
     (format t "%s (De %d hasta %d) " ?pregunta ?limitInferior ?limitSuperior)
     (bind ?resposta (read))
     (while (not(and(>= ?resposta ?limitInferior)(<= ?resposta ?limitSuperior))) do
@@ -277,7 +277,7 @@ deffunction MAIN::pregunta-numero(?pregunta ?limitInferior ?limitSuperior)
        else FALSE)
 )
 ;funcio per a preguntes amb opcions textuals limitades
-(deffunction MAIN::pregunta-limitada ?pregunta $?opcions)
+(deffunction MAIN::pregunta-limitada (?pregunta $?opcions)
    (format t "%s "?pregunta)
    (progn$ (?actual $?opcions)
        (format t "[%s]" ?actual)
@@ -347,7 +347,7 @@ deffunction MAIN::pregunta-numero(?pregunta ?limitInferior ?limitSuperior)
 	?element
 )
 ;funcion para ordenar sales
-deffunction ordenar-sales ($?llista)
+(deffunction ordenar-sales ($?llista)
     (bind ?minim 6)
     	(bind ?element nil)
         (progn$ (?actual $?lista)
