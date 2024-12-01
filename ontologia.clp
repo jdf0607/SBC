@@ -365,40 +365,90 @@
 ; 				 MODUL RECOPILACIO 
 ; --------------------------------------------------
 
-; Funció per recopilar totes les obres d'art disponibles
-(deffunction recopilar-obres ()
-    (bind ?obres (find-all-facts ((?f Obra_de_Arte)) TRUE))
-    ?obres
-)
 
-; Funció per recopilar totes les sales disponibles
-(deffunction recopilar-sales ()
-    (bind ?sales (find-all-facts ((?f Sala)) TRUE))
-    ?sales
-)
-
-
-; Funció per recopilar tots els pintors disponibles
-(deffunction recopilar-pintors ()
-    (bind ?pintors (find-all-facts ((?f Pintor)) TRUE))
-    ?pintors
-)
-
-
-; Regla per iniciar la recopilació de dades
-(defrule iniciar-recopilacio
+(defrule determinar-familia
+    ?v <- (visita (familia ?f))
+    (test (= ?f FALSE))
     =>
-    (bind ?llista-pintors (recopilar-pintors))
-    (bind ?llista-sales (recopilar-sales))
-    (bind ?llista-obres (recopilar-obres))
-    (assert (dades-recopilades (pintors $?llista-pintors) (obres $?llista-obres) (sales $?llista-sales)))
-    (printout t "Recopilació completada: " 
-              (fact-slot-value (find-fact ((?f dades-recopilades)) TRUE) pintors) 
-              " " 
-              (fact-slot-value (find-fact ((?f dades-recopilades)) TRUE) obres)
-              " " 
-              (fact-slot-value (find-fact ((?f dades-recopilades)) TRUE) sales) crlf)
+    (bind ?familia (pregunta-opcions "El grup és una família? (1: Sí, 2: No)" (create$ "Sí" "No")))
+    (if (= ?familia 1) then (modify ?v (familia TRUE)) else (modify ?v (familia FALSE)))
 )
+
+(defrule establir-num-nens
+    ?v <- (visita (num_nens ?))
+    (test (> (visita (num_persones ?np)) 0))
+    =>
+    (bind ?nens (pregunta-numero "Quants nens hi ha al grup? " 0 ?np))
+    (modify ?v (num_nens ?nens))
+)
+
+(defrule establir-duracio-visita
+    ?v <- (visita (num_dies ?d) (hores_visita ?h))
+    (test (or (< ?d 1) (< ?h 1)))
+    =>
+    (bind ?dies (pregunta-numero "Quants dies durarà la visita? " 1 365))
+    (bind ?hores (pregunta-numero "Quantes hores per dia dedicarà a la visita? " 1 24))
+    (modify ?v (num_dies ?dies) (hores_visita ?hores))
+)
+
+(defrule calcular-nivell-cultural
+    ?v <- (visita (nivell_cultural ?n))
+    (test (< ?n 0))
+    =>
+    (bind ?puntuacio 0.0)
+    (bind ?format (create$ "Sí" "No"))
+
+    (bind ?resp (pregunta-opcions "Coneixes 'El Grito' de Munch?" ?format))
+    (if (= ?resp 1) then (bind ?puntuacio (+ 10.0 ?puntuacio)))
+
+    (bind ?resp (pregunta-opcions "Coneixes 'Las Meninas' de Velázquez?" ?format))
+    (if (= ?resp 1) then (bind ?puntuacio (+ 10.0 ?puntuacio)))
+
+    (bind ?resp (pregunta-opcions "Coneixes 'El Greco' de Goya?" ?format))
+    (if (= ?resp 1) then (bind ?puntuacio (+ 10.0 ?puntuacio)))
+
+    (bind ?resp (pregunta-opcions "Coneixes 'La Gioconda' de Da Vinci?" ?format))
+    (if (= ?resp 1) then (bind ?puntuacio (+ 10.0 ?puntuacio)))
+
+    (bind ?resp (pregunta-opcions "Coneixes 'La Nit Estrallada' de Van Gogh?" ?format))
+    (if (= ?resp 1) then (bind ?puntuacio (+ 10.0 ?puntuacio)))
+
+    (bind ?tria (create$ "Klimt" "Tiziano" "Yanyez" "El Greco"))
+	(bind ?resp (pregunta-opcions "Qui va pintar el quadre 'El Beso'?" ?tria))
+	(if (= ?resp 1) then (bind ?puntuacio (+ 10.0 ?puntuacio)))
+
+    (bind ?tria (create$ "El Greco." "Francisco de Goya." "Diego Velazquez."))
+	(bind ?resp (pregunta-opcions "¿Qui va pintar el quadre 'Las Hilanderas'?" ?tria))
+	(if (= ?resp 3) then (bind ?puntuacio (+ 10.0 ?puntuacio)))
+
+    (bind ?tria (create$ "La Pietà" "David" "El Moisès" "Venus de Milo"))
+    (bind ?resp (pregunta-opcions "Quina obra és de Miguel Ángel?" ?tria))
+    (if (= ?resp 2) then (bind ?puntuacio (+ 10.0 ?puntuacio)))
+
+    (bind ?tria (create$ "Pablo Picasso" "Salvador Dalí" "Marc Chagall" "Henri Matisse"))
+    (bind ?resp (pregunta-opcions "Qui va pintar 'El Guernica'?" ?tria))
+    (if (= ?resp 1) then (bind ?puntuacio (+ 10.0 ?puntuacio)))
+
+    (bind ?tria (create$ "Salvador Dalí" "Vincent van Gogh" "Claude Monet" "Frida Kahlo"))
+    (bind ?resp (pregunta-indice "Quin pintor va ser conegut pel seu estil surrealista?" ?tria))
+    (if (= ?resp 1) then (bind ?puntuacio (+ 10.0 ?puntuacio)))
+
+    ;; Afegegir més preguntes si fa falta
+
+
+    (modify ?v (nivell_cultural (/ ?puntuacio 10.0)))
+)
+
+
+(defrule passar-a-preferencies
+    ?v <- (visita (num_persones ?np) (nivell_cultural ?nc) (num_dies ?d) (hores_visita ?h))
+    (test (and (> ?np 0) (> ?nc 0) (> ?d 0) (> ?h 0)))
+    =>
+    (printout t "Passant al mòdul de preferències..." crlf)
+    (focus preferencies)
+)
+
+
 
 ; --------------------------------------------------
 ; 				MODUL ABSTRACCIO
