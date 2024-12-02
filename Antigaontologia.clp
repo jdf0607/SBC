@@ -1,8 +1,8 @@
 ;;; ---------------------------------------------------------
-;;; ontologia.clp
+;;; Ontologia.clp
 ;;; Translated by owl2clips
-;;; Translated to CLIPS from ontology ontologia.ttl
-;;; :Date 02/12/2024 20:30:18
+;;; Translated to CLIPS from ontology Ontologia.ttl
+;;; :Date 29/11/2024 19:35:55
 
 (defclass Visitant
     (is-a USER)
@@ -65,10 +65,13 @@
     (is-a USER)
     (role concrete)
     (pattern-match reactive)
+    (multislot estil
+        (type STRING)
+        (create-accessor read-write))
     (multislot any_de_creació
         (type INTEGER)
         (create-accessor read-write))
-    (multislot estil
+    (multislot relevancia
         (type STRING)
         (create-accessor read-write))
     (multislot temàtica
@@ -92,6 +95,9 @@
     (multislot nacionalitat
         (type STRING)
         (create-accessor read-write))
+    (multislot relevancia
+        (type STRING)
+        (create-accessor read-write))
     (multislot temàtica
         (type STRING)
         (create-accessor read-write))
@@ -104,10 +110,10 @@
     (is-a USER)
     (role concrete)
     (pattern-match reactive)
-    (multislot conté
+    (multislot porta_a
         (type INSTANCE)
         (create-accessor read-write))
-    (multislot porta_a
+    (multislot conté
         (type INSTANCE)
         (create-accessor read-write))
     (multislot estil
@@ -122,144 +128,35 @@
 )
 
 (definstances instances
-    ([El_dinar_campestre] of Obra_de_Arte
-         (any_de_creació  1863)
-         (estil  "Impressionisme")
-         (temàtica  "Vida quotidiana")
-         (època  "XIX")
-    )
-
-    ([El_gronxador] of Obra_de_Arte
-         (any_de_creació  1767)
-         (estil  "Barroc tardà")
-         (temàtica  "Vida quotidiana")
-         (època  "XVIII")
-    )
-
-    ([El_jurament_dels_Horacis] of Obra_de_Arte
-         (any_de_creació  1784)
-         (estil  "Neoclassicisme")
-         (temàtica  "Cultura grecoromana")
-         (època  "XVIII")
-    )
-
-    ([El_rapte_de_Prosèrpina] of Obra_de_Arte
-         (any_de_creació  1636)
-         (estil  "Barroc")
-         (temàtica  "Cultura grecoromana")
-         (època  "XVII")
-    )
-
-    ([El_tres_de_maig_de_1808] of Obra_de_Arte
-         (any_de_creació  1814)
-         (estil  "Romanticisme")
-         (temàtica  "Esdeveniments històrics")
-         (època  "XIX")
-    )
-
-    ([Eugène_Delacroix] of Pintor
-         (crea  [La_Llibertat_guiant_al_poble])
-         (nacionalitat  "Francesa")
-    )
-
-    ([Francisco_de_Goya] of Pintor
-         (crea  [El_tres_de_maig_de_1808])
-         (nacionalitat  "Espanyola")
-    )
-
-    ([Jacques-Louis_David] of Pintor
-         (crea  [El_jurament_dels_Horacis] [La_mort_de_Sòcrates])
-         (nacionalitat  "Francesa")
-    )
-
-    ([Jean-Honoré_Fragonard] of Pintor
-         (crea  [El_gronxador])
-         (nacionalitat  "Francesa")
-    )
-
-    ([La_Llibertat_guiant_al_poble] of Obra_de_Arte
-         (any_de_creació  1830)
-         (estil  "Romanticisme")
-         (temàtica  "Esdeveniments històrics")
-         (època  "XIX")
-    )
-
-    ([La_Ronda_de_Nit] of Obra_de_Arte
-         (any_de_creació  1642)
-         (estil  "Barroc")
-         (època  "XVII")
-    )
-
-    ([La_mort_de_Sòcrates] of Obra_de_Arte
-         (any_de_creació  1787)
-         (estil  "Neoclassicisme")
-         (època  "XVIII")
-    )
-
-    ([Les_Menines] of Obra_de_Arte
-         (any_de_creació  1656)
-         (estil  "Barroc")
-         (temàtica  "Vida quotidiana")
-         (època  "XVII")
-    )
-
-    ([Peter_Paul_Rubens] of Pintor
-         (crea  [El_rapte_de_Prosèrpina])
-         (nacionalitat  "Flamenca")
-    )
-
-    ([Rembrandt_van_Rijn] of Pintor
-         (crea  [La_Ronda_de_Nit])
-         (nacionalitat  "Holandesa")
-    )
-
-    ([Sala2] of Sala
-         (conté  [El_dinar_campestre] [El_gronxador] [Les_Menines])
-         (porta_a  [Sala3] [Sala4] [Sala1])
-         (temàtica  "Vida quptidiana")
-    )
-
-    ([Sala3] of Sala
-         (conté  [El_jurament_dels_Horacis] [El_rapte_de_Prosèrpina] [La_mort_de_Sòcrates])
-         (porta_a  [Sala2] [Sala4] [Sala1])
-         (temàtica  "Cultura grecoromana")
-    )
-
-    ([Sala4] of Sala
-         (conté  [El_tres_de_maig_de_1808])
-         (porta_a  [Sala2] [Sala3] [Sala1])
-         (temàtica  "Esdeveniments històrics")
-    )
-
-    ([Vincent_Van_Gogh] of Pintor
-         (crea  [La_nit_estrellada])
-         (nacionalitat  "Holandesa")
-    )
-
-    ([Édouard_Manet] of Pintor
-         (crea  [El_dinar_campestre])
-         (nacionalitat  "Francesa")
-    )
-
     ([Diego_Velazquez] of Pintor
-         (crea  [Les_Menines])
-         (nacionalitat  "Espanyola")
+         (crea  [Las_Meninas])
+    )
+
+    ([Grup1] of Visitant
+    )
+
+    ([La_Gioconda] of Obra_de_Arte
     )
 
     ([La_nit_estrellada] of Obra_de_Arte
-         (any_de_creació  1889)
-         (estil  "Postimpressionisme")
-         (època  "XIX")
+    )
+
+    ([Las_Meninas] of Obra_de_Arte
+    )
+
+    ([Leonardo_Da_Vinci] of Pintor
+         (crea  [La_Gioconda])
     )
 
     ([Sala1] of Sala
-         (conté  [La_Ronda_de_Nit] [La_nit_estrellada])
-         (porta_a  [Sala2] [Sala3] [Sala4])
-         (temàtica  "Paisatges i emocions")
+         (conté  [La_Gioconda] [La_nit_estrellada] [Las_Meninas])
+    )
+
+    ([VIncent_Van_GOgh] of Pintor
+         (crea  [La_nit_estrellada])
     )
 
 )
-
 ; -----------------------------------------
 ; -----------------------------------------
 ; ----------------  CODI  -----------------
@@ -357,15 +254,10 @@
         (bind ?resposta (read))
         (while (not (lexemep ?resposta)) do
             (format t "%s " ?pregunta)
-            (bind ?resposta (read))
+            (binf ?resposta (read))
          )
     ?resposta
 )
-
-(deffunction member
-   (?element $?list)
-   (if (member$ ?element ?list) then TRUE else FALSE))
-
 
 ;funcio par a preguntar dades amb rang de valors per exemple: valoracio de quadre o edat
 (deffunction MAIN::pregunta-numero(?pregunta ?limitInferior ?limitSuperior)
@@ -376,19 +268,6 @@
         (bind ?resposta (read))
      )
      ?resposta
-)
-;funcio per a preguntes amb moltes opcions i associar-les a un index
-(deffunction MAIN::pregunta-opcions (?pregunta $?respostes-posibles)
-    (bind ?linia (format nil "%s" ?pregunta))
-    (printout t ?linia crlf)
-    (bind ?index 1) 
-    (progn$ (?var ?respostes-posibles)
-            (bind ?linia (format nil "  %d. %s" ?index ?var))
-            (printout t ?linia crlf)
-            (bind ?index (+ ?index 1))
-    )
-    (bind ?resposta (pregunta-numero "Escull una opcio:" 1 (length$ ?respostes-posibles)))
-	?resposta
 )
 ;funcio per a preguntes tancades (si/no)
 (deffunction MAIN::pregunta-tancada (?pregunta)
@@ -418,61 +297,70 @@
          then (bind ?answer (lowcase ?resposta))))
   ?resposta
 )
-
+;funcio per a preguntes amb moltes opcions i associar-les a un index
+(deffunction MAIN::pregunta-opcions (?pregunta $?respostes-posibles)
+    (bind ?linia (format nil "%s" ?pregunta))
+    (printout t ?linia crlf)
+    (progn$ (?var ?respostes-posibles)
+            (bind ?linia (format nil "  %d. %s" ?index ?var))
+            (printout t ?linia crlf)
+    )
+    (bind ?resposta (pregunta-numero "Escull una opcio:" 1 (length$ ?respostes-posibles)))
+	?resposta
+)
 
 ;funcio per fer preguntes multiresposta amb index
 (deffunction MAIN::pregunta-multiresposta (?pregunta $?opcions)
-   (bind ?linia (format nil "%s" ?pregunta))
-   (printout t ?linia crlf)
-   (bind ?index 1) 
-   (foreach ?opcio $?opcions
-      (bind ?linia (format nil "  %d. %s" ?index ?opcio))
-      (printout t ?linia crlf)
-      (bind ?index (+ ?index 1)) 
-   )
-   (format t "%s" "Respon amb els nombres associats a les teves respostes separes per un espai ")
-   (bind ?resp (readline))
-   (bind ?numeros (str-explode ?resp " "))  
-   ?numeros
+    (bind ?linia (format nil "%s" ?pregunta))
+    (printout t ?linia crlf)
+    (progn$ (?var ?opcions)
+            (bind ?linia (format nil "  %d. %s" ?index ?var))
+            (printout t ?linia crlf)
+    )
+    (format t "%s" "Respon amb els nombres associats a les teves respostes separts per un espai ")
+    (bind ?resp (readline))
+    (bind ?numeros (str-explode ?resp))
+    (bind $?llista (create$))
+    (progn$ (?var ?numeros)
+        (if (and (integerp ?var) (and (>= ?var 0) (<= ?var (length$ ?opcions))))
+            then
+                (if (not (member$ ?var ?llista))
+                    then (bind ?llista (insert$ ?llista (+ (length$ ?llista) 1) ?var))
+                )
+        )
+    )
+    (if (or(member$ 0 ?llista)(= (length$ ?llista) 0)) then (bind ?llista (create$ )))
+    ?llista
 )
-
 ;funcio per a trobar els elements  amb millor puntuacio
 (deffunction trobar-maxim ($?llista)
 	(bind ?maxim -1)
 	(bind ?element nil)
-	(foreach ?actual $?llista
-      (bind ?puntuacio (send ?actual get-puntuacio))
-      (if (> ?puntuacio ?maxim)
-         then
-            (bind ?maxim ?puntuacio)
-            (bind ?element ?actual)
-      )
-   )
-   ?element
+	(progn$ (?actual $?llista)
+		(bind ?actual (send ?actual get-puntuacio))
+		(if (> ?actual ?maxim)
+			then
+			(bind ?maxim ?actual)
+			(bind ?element ?actual)
+		)
+	)
+	?element
 )
-
-
 ;funcion para ordenar sales
-(deffunction MAIN::ordenar-sales ($?llista)
-   (bind ?minim 4) 
-   (bind ?element nil)
-   (foreach ?actual $?llista
-      (bind ?QuadreActual (send ?actual get-nomQuadre))
-      (bind ?SalaValor (send ?QuadreActual get-Sala))
-      (if (not (numberp ?SalaValor)) then
-         (bind ?SalaActual (str-to-int ?SalaValor))
-         else
-         (bind ?SalaActual ?SalaValor)) ; Ya es un número
-      (if (<= ?SalaActual ?minim) 
-         then
-           (bind ?minim ?SalaActual) 
-           (bind ?element ?actual)
-      )
-   )
-   ?element
-)
-
-
+(deffunction ordenar-sales ($?llista)
+    (bind ?minim 6)
+    	(bind ?element nil)
+        (progn$ (?actual $?lista)
+             (bind ?QuadreActual (send ?actual get-nomQuadre))
+             (bind ?SalaActual (send ?QuadreActual get-Sala))
+            (if (<= ?SalaActual ?minim)
+                then
+                (bind ?minim ?SalaActual)
+                (bind ?elemento ?actual)
+             )
+         )
+    	?elemento
+    )
 ; --------------------------------------------------
 ; 				 MODUL RECOPILACIO 
 ; --------------------------------------------------
@@ -522,7 +410,7 @@
     (bind ?resp (pregunta-opcions "Coneixes 'La Gioconda' de Da Vinci?" ?format))
     (if (= ?resp 1) then (bind ?puntuacio (+ 10.0 ?puntuacio)))
 
-    (bind ?resp (pregunta-opcions "Coneixes 'La Nit Estrellada' de Van Gogh?" ?format))
+    (bind ?resp (pregunta-opcions "Coneixes 'La Nit Estrallada' de Van Gogh?" ?format))
     (if (= ?resp 1) then (bind ?puntuacio (+ 10.0 ?puntuacio)))
 
     (bind ?tria (create$ "Klimt" "Tiziano" "Yanyez" "El Greco"))
@@ -579,4 +467,3 @@
 ; --------------------------------------------------
 ; 			  MODUL IMPRIMIR RUTA
 ; --------------------------------------------------
-
