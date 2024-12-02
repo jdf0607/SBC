@@ -12,12 +12,6 @@
 #    Object Properties
 #################################################################
 
-###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#porta_a
-:porta_a rdf:type owl:ObjectProperty ;
-         rdfs:domain :Sala ;
-         rdfs:range :Sala .
-
-
 ###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/conté
 :conté rdf:type owl:ObjectProperty ;
        rdfs:domain :Sala ;
@@ -29,6 +23,12 @@
       rdfs:subPropertyOf owl:topObjectProperty ;
       rdfs:domain :Pintor ;
       rdfs:range :Obra_de_Arte .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/porta_a
+:porta_a rdf:type owl:ObjectProperty ;
+         rdfs:domain :Sala ;
+         rdfs:range :Sala .
 
 
 ###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/visita
@@ -50,12 +50,8 @@ owl:topObjectProperty rdfs:domain :Visitant ;
 #    Data properties
 #################################################################
 
-###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#estil
-:estil rdf:type owl:DatatypeProperty ;
-       rdfs:domain :Obra_de_Arte ,
-                   :Pintor ,
-                   :Sala ;
-       rdfs:range xsd:string .
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#rellevància
+:rellevància rdf:type owl:DatatypeProperty .
 
 
 ###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/any_de_creació
@@ -81,6 +77,14 @@ owl:topObjectProperty rdfs:domain :Visitant ;
             rdfs:subPropertyOf owl:topDataProperty .
 
 
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/estil
+:estil rdf:type owl:DatatypeProperty ;
+       rdfs:domain :Obra_de_Arte ,
+                   :Pintor ,
+                   :Sala ;
+       rdfs:range xsd:string .
+
+
 ###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/hores
 :hores rdf:type owl:DatatypeProperty ;
        rdfs:domain :Visitant ;
@@ -97,13 +101,6 @@ owl:topObjectProperty rdfs:domain :Visitant ;
 :nens rdf:type owl:DatatypeProperty ;
       rdfs:domain :Familia ,
                   :Grup .
-
-
-###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/relevancia
-:relevancia rdf:type owl:DatatypeProperty ;
-            rdfs:domain :Obra_de_Arte ,
-                        :Pintor ;
-            rdfs:range xsd:string .
 
 
 ###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/temàtica
@@ -170,50 +167,213 @@ owl:topObjectProperty rdfs:domain :Visitant ;
 #    Individuals
 #################################################################
 
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#El_dinar_campestre
+:El_dinar_campestre rdf:type owl:NamedIndividual ,
+                             :Obra_de_Arte ;
+                    :rellevància "Referent" ;
+                    :any_de_creació 1863 ;
+                    :estil "Impressionisme" ;
+                    :temàtica "Vida quotidiana" ;
+                    :època "XIX" .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#El_gronxador
+:El_gronxador rdf:type owl:NamedIndividual ,
+                       :Obra_de_Arte ;
+              :rellevància "Destacat" ;
+              :any_de_creació 1767 ;
+              :estil "Barroc tardà" ;
+              :temàtica "Vida quotidiana" ;
+              :època "XVIII" .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#El_jurament_dels_Horacis
+:El_jurament_dels_Horacis rdf:type owl:NamedIndividual ,
+                                   :Obra_de_Arte ;
+                          :rellevància "Universal" ;
+                          :any_de_creació 1784 ;
+                          :estil "Neoclassicisme" ;
+                          :temàtica "Cultura grecoromana" ;
+                          :època "XVIII" .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#El_rapte_de_Prosèrpina
+:El_rapte_de_Prosèrpina rdf:type owl:NamedIndividual ,
+                                 :Obra_de_Arte ;
+                        :rellevància "Referent" ;
+                        :any_de_creació 1636 ;
+                        :estil "Barroc" ;
+                        :temàtica "Cultura grecoromana" ;
+                        :època "XVII" .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#El_tres_de_maig_de_1808
+:El_tres_de_maig_de_1808 rdf:type owl:NamedIndividual ,
+                                  :Obra_de_Arte ;
+                         :rellevància "Universal" ;
+                         :any_de_creació 1814 ;
+                         :estil "Romanticisme" ;
+                         :temàtica "Esdeveniments històrics" ;
+                         :època "XIX" .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#Eugène_Delacroix
+:Eugène_Delacroix rdf:type owl:NamedIndividual ,
+                           :Pintor ;
+                  :crea :La_Llibertat_guiant_al_poble ;
+                  :nacionalitat "Francesa" .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#Francisco_de_Goya
+:Francisco_de_Goya rdf:type owl:NamedIndividual ,
+                            :Pintor ;
+                   :crea :El_tres_de_maig_de_1808 ;
+                   :nacionalitat "Espanyola" .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#Jacques-Louis_David
+:Jacques-Louis_David rdf:type owl:NamedIndividual ,
+                              :Pintor ;
+                     :crea :El_jurament_dels_Horacis ,
+                           :La_mort_de_Sòcrates ;
+                     :nacionalitat "Francesa" .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#Jean-Honoré_Fragonard
+:Jean-Honoré_Fragonard rdf:type owl:NamedIndividual ,
+                                :Pintor ;
+                       :crea :El_gronxador ;
+                       :nacionalitat "Francesa" .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#La_Llibertat_guiant_al_poble
+:La_Llibertat_guiant_al_poble rdf:type owl:NamedIndividual ,
+                                       :Obra_de_Arte ;
+                              :rellevància "Magistral" ;
+                              :any_de_creació 1830 ;
+                              :estil "Romanticisme" ;
+                              :temàtica "Esdeveniments històrics" ;
+                              :època "XIX" .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#La_Ronda_de_Nit
+:La_Ronda_de_Nit rdf:type owl:NamedIndividual ,
+                          :Obra_de_Arte ;
+                 :rellevància "Magistral" ,
+                              "Paisatges i Emocions" ;
+                 :any_de_creació 1642 ;
+                 :estil "Barroc" ;
+                 :època "XVII" .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#La_mort_de_Sòcrates
+:La_mort_de_Sòcrates rdf:type owl:NamedIndividual ,
+                              :Obra_de_Arte ;
+                     :rellevància "Cultura grecoromana" ,
+                                  "Magistral" ;
+                     :any_de_creació 1787 ;
+                     :estil "Neoclassicisme" ;
+                     :època "XVIII" .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#Les_Menines
+:Les_Menines rdf:type owl:NamedIndividual ,
+                      :Obra_de_Arte ;
+             :rellevància "Universal" ;
+             :any_de_creació 1656 ;
+             :estil "Barroc" ;
+             :temàtica "Vida quotidiana" ;
+             :època "XVII" .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#Peter_Paul_Rubens
+:Peter_Paul_Rubens rdf:type owl:NamedIndividual ,
+                            :Pintor ;
+                   :crea :El_rapte_de_Prosèrpina ;
+                   :nacionalitat "Flamenca" .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#Rembrandt_van_Rijn
+:Rembrandt_van_Rijn rdf:type owl:NamedIndividual ,
+                             :Pintor ;
+                    :crea :La_Ronda_de_Nit ;
+                    :nacionalitat "Holandesa" .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#Sala2
+:Sala2 rdf:type owl:NamedIndividual ,
+                :Sala ;
+       :conté :El_dinar_campestre ,
+              :El_gronxador ,
+              :Les_Menines ;
+       :porta_a :Sala3 ,
+                :Sala4 ,
+                :Sala1 ;
+       :temàtica "Vida quptidiana" .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#Sala3
+:Sala3 rdf:type owl:NamedIndividual ,
+                :Sala ;
+       :conté :El_jurament_dels_Horacis ,
+              :El_rapte_de_Prosèrpina ,
+              :La_mort_de_Sòcrates ;
+       :porta_a :Sala2 ,
+                :Sala4 ,
+                :Sala1 ;
+       :temàtica "Cultura grecoromana" .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#Sala4
+:Sala4 rdf:type owl:NamedIndividual ,
+                :Sala ;
+       :conté :El_tres_de_maig_de_1808 ;
+       :porta_a :Sala2 ,
+                :Sala3 ,
+                :Sala1 ;
+       :temàtica "Esdeveniments històrics" .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#Vincent_Van_Gogh
+:Vincent_Van_Gogh rdf:type owl:NamedIndividual ,
+                           :Pintor ;
+                  :crea :La_nit_estrellada ;
+                  :nacionalitat "Holandesa" .
+
+
+###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#Édouard_Manet
+:Édouard_Manet rdf:type owl:NamedIndividual ,
+                        :Pintor ;
+               :crea :El_dinar_campestre ;
+               :nacionalitat "Francesa" .
+
+
 ###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/Diego_Velazquez
 :Diego_Velazquez rdf:type owl:NamedIndividual ,
                           :Pintor ;
-                 :crea :Las_Meninas .
-
-
-###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/Grup1
-:Grup1 rdf:type owl:NamedIndividual ,
-                :Visitant .
-
-
-###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/La_Gioconda
-:La_Gioconda rdf:type owl:NamedIndividual ,
-                      :Obra_de_Arte .
+                 :crea :Les_Menines ;
+                 :nacionalitat "Espanyola" .
 
 
 ###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/La_nit_estrellada
 :La_nit_estrellada rdf:type owl:NamedIndividual ,
-                            :Obra_de_Arte .
-
-
-###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/Las_Meninas
-:Las_Meninas rdf:type owl:NamedIndividual ,
-                      :Obra_de_Arte .
-
-
-###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/Leonardo_Da_Vinci
-:Leonardo_Da_Vinci rdf:type owl:NamedIndividual ,
-                            :Pintor ;
-                   :crea :La_Gioconda .
+                            :Obra_de_Arte ;
+                   :rellevància "Paisatges i Emocions" ,
+                                "Universal" ;
+                   :any_de_creació 1889 ;
+                   :estil "Postimpressionisme" ;
+                   :època "XIX" .
 
 
 ###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/Sala1
 :Sala1 rdf:type owl:NamedIndividual ,
                 :Sala ;
-       :conté :La_Gioconda ,
-              :La_nit_estrellada ,
-              :Las_Meninas .
-
-
-###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/VIncent_Van_GOgh
-:VIncent_Van_GOgh rdf:type owl:NamedIndividual ,
-                           :Pintor ;
-                  :crea :La_nit_estrellada .
+       :conté :La_Ronda_de_Nit ,
+              :La_nit_estrellada ;
+       :porta_a :Sala2 ,
+                :Sala3 ,
+                :Sala4 ;
+       :temàtica "Paisatges i emocions" .
 
 
 #################################################################
