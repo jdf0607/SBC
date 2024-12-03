@@ -339,6 +339,10 @@
     (slot nivell_cultural (type FLOAT) (default 5.0))
 )
 
+(deftemplate preferencies
+    (multislot autors (type INSTANCE))
+)
+
 ; Potser es necessitaria una classe per definir el recorregut d'una visita.
 (deftemplate recorregut_sala
     (multislot quadres (type INSTANCE))
