@@ -213,11 +213,11 @@
 	(export ?ALL)
 )
 
-(defrule MAIN::initialRule "recla inicial"
+(defrule MAIN::initialRule "regla inicial"
 	(declare (salience 10))
 	=>
 	(printout t crlf)
-	(printout t "--------------- Sistema de Recomenació de Rutes pel nostre Museu ---------------" crlf)
+	(printout t "--------------- Sistema de Recomanació de Rutes pel Museu ---------------" crlf)
 	(printout t crlf)
 	(focus recopilacion-informacion-usuario)
 )
@@ -386,8 +386,8 @@
     ?v <- (visita (num_dies ?d) (hores_visita ?h))
     (test (or (< ?d 1) (< ?h 1)))
     =>
-    (bind ?dies (pregunta-numero "Quants dies durarà la visita? " 1 365))
-    (bind ?hores (pregunta-numero "Quantes hores per dia dedicarà a la visita? " 1 24))
+    (bind ?dies (pregunta-numero "Quants dies durarà la visita? " 1 15))
+    (bind ?hores (pregunta-numero "Quantes hores per dia dedicarà a la visita? " 1 8))
     (modify ?v (num_dies ?dies) (hores_visita ?hores))
 )
 
@@ -410,7 +410,7 @@
     (bind ?resp (pregunta-opcions "Coneixes 'La Gioconda' de Da Vinci?" ?format))
     (if (= ?resp 1) then (bind ?puntuacio (+ 10.0 ?puntuacio)))
 
-    (bind ?resp (pregunta-opcions "Coneixes 'La Nit Estrallada' de Van Gogh?" ?format))
+    (bind ?resp (pregunta-opcions "Coneixes 'La Nit Estrellada' de Van Gogh?" ?format))
     (if (= ?resp 1) then (bind ?puntuacio (+ 10.0 ?puntuacio)))
 
     (bind ?tria (create$ "Klimt" "Tiziano" "Yanyez" "El Greco"))
@@ -422,11 +422,11 @@
 	(if (= ?resp 3) then (bind ?puntuacio (+ 10.0 ?puntuacio)))
 
     (bind ?tria (create$ "La Pietà" "David" "El Moisès" "Venus de Milo"))
-    (bind ?resp (pregunta-opcions "Quina obra és de Miguel Ángel?" ?tria))
+    (bind ?resp (pregunta-opcions "Quina obra és de Miquel Àngel?" ?tria))
     (if (= ?resp 2) then (bind ?puntuacio (+ 10.0 ?puntuacio)))
 
     (bind ?tria (create$ "Pablo Picasso" "Salvador Dalí" "Marc Chagall" "Henri Matisse"))
-    (bind ?resp (pregunta-opcions "Qui va pintar 'El Guernica'?" ?tria))
+    (bind ?resp (pregunta-opcions "Qui va pintar 'Gernika'?" ?tria))
     (if (= ?resp 1) then (bind ?puntuacio (+ 10.0 ?puntuacio)))
 
     (bind ?tria (create$ "Salvador Dalí" "Vincent van Gogh" "Claude Monet" "Frida Kahlo"))
@@ -453,6 +453,21 @@
 ; --------------------------------------------------
 ; 				MODUL ABSTRACCIO
 ; --------------------------------------------------
+
+(defrule crear-visitant
+    ?vis <- (visita (?np num_persones) (?nn num_nens) (?fam familia) (?nd num_dies) (?hd hores_visita) (?nc nivell_cultural))
+    (not instVisitant)
+    =>
+    (if (eq ?fam TRUE) then (make-instance instVisitant of Familia)
+    else (if (eq ?np 1) then (make-instance instVisitant of Individu)
+        else (if (> ?np 9) then (make-instance instVisitant of Grup_Gran)
+            else (make-instance instVisitant of Grup_Petit))))
+    ?vinst <- (object (is-a Visitant))
+    (if (> ?nn 0) then (send ?vinst put-nens TRUE))
+    (send ?vinst put-dies ?nd)
+    (send ?vinst put-hores ?hd)
+    (send ?vinst put-coneixement ?nc)
+)
 
 ; --------------------------------------------------
 ; 				MODUL Inferencia 
