@@ -629,20 +629,19 @@
 ; 				MODUL ABSTRACCIO - Ramóm
 ; --------------------------------------------------
 
-; (defrule crear-visitant
-;     ?vis <- (visita (?np num_persones) (?nn num_nens) (?fam familia) (?nd num_dies) (?hd hores_visita) (?nc nivell_cultural))
-;     (not instVisitant)
-;     =>
-;     (if (eq ?fam TRUE) then (make-instance instVisitant of Familia)
-;     else (if (eq ?np 1) then (make-instance instVisitant of Individu)
-;         else (if (> ?np 9) then (make-instance instVisitant of Grup_Gran)
-;             else (make-instance instVisitant of Grup_Petit))))
-;     ?vinst <- (object (is-a Visitant))
-;     (if (> ?nn 0) then (send ?vinst put-nens TRUE))
-;     (send ?vinst put-dies ?nd)
-;     (send ?vinst put-hores ?hd)
-;     (send ?vinst put-coneixement ?nc)
-; )
+(defrule crear-visitant
+    (visita (num_persones ?np) (num_nens ?nn) (familia ?fam) (num_dies ?nd) (hores_visita ?hd) (nivell_cultural ?nc))
+    (not (object(name [instVisitant])))
+    =>
+    (if (eq ?fam TRUE) then (make-instance instVisitant of Familia)
+    else (if (eq ?np 1) then (make-instance instVisitant of Individu)
+        else (if (> ?np 9) then (make-instance instVisitant of Grup_Gran)
+            else (make-instance instVisitant of Grup_Petit))))
+    (if (> ?nn 0) then (send [instVisitant] put-nens TRUE))
+    (send [instVisitant] put-dies ?nd)
+    (send [instVisitant] put-hores ?hd)
+    (send [instVisitant] put-coneixement ?nc)
+)
 
 ; --------------------------------------------------
 ; 				MODUL Inferencia - José
