@@ -521,10 +521,10 @@
       (bind ?QuadreActual (send ?actual get-nomQuadre))
       (bind ?SalaValor (send ?QuadreActual get-Sala))
 
-      (if (<= (format nil "%d" ?SalaValor) ?minim)  
+      (if (<= ?SalaValor ?minim)  
          then
-            (bind ?minim (format nil "%d" ?SalaValor)) 
+            (bind ?minim ?SalaValor) 
             (bind ?element ?actual)))  
 
-
    ?element)
+

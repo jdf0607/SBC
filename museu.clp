@@ -266,32 +266,75 @@
 ; -----------------------------------------
 ; -----------------------------------------
 
+;;
+;; Clases personalitzades
+;;
+;; PER ABSTRACCIO
+(defclass VisitantAbstracte
+    (is-a USER)
+    (role concrete)
+    (pattern-match reactive)
+    (slot aficio
+        (type STRING)
+        (create-accessor read-write))
+    (slot gust
+        (type STRING)
+        (create-accessor read-write))
+)
+;;PER INFERÈNCIA
+(defclass SolucioAbstracte
+    (is-a USER)
+    (role concrete)
+    (pattern-match reactive)
+    (multislot obresRecomenades
+        (type INSTANCE)
+        (create-accessor read-write))
+)
+;;PER REFINAMENT
+(defclass SolucioConcreta
+    (is-a USER)
+    (role concrete)
+    (pattern-match reactive)
+    (multislot obresRecomenades
+        (type INSTANCE)
+        (create-accessor read-write))
+    (slot tempsTotal
+        (type INTEGER)
+        (create-accessor read-write))
+)
 ; ------------------------------------
 ; 				  MAIN 
 ; ------------------------------------
 
 ;Modul Main
-(defmodule Main (export ?ALL))
+(defmodule MAIN 
+    (export ?ALL)
+)
 
+(defrule MAIN::inici 
+	(declare (salience 20)) 
+	=> 
+	(focus recopilacio-informacio-visitant)
+)
 ;Modul recopilació d'informació visitant
 (defmodule recopilacio-informacio-visitant
 	(import MAIN ?ALL)
 	(export ?ALL)
 )
 
-;Modul de recopilació de restriccions del visitant
-(defmodule recopilacio-informacio-usuari
+;Modul d'Abstracció de dades
+(defmodule abstraccio-dades
 	(import MAIN ?ALL)
+	(import recopilacio-informacio-visitant ?ALL)
 	(export ?ALL)
 )
 
-;Modul d'Abstracció de dades
-(defmodule abstaccio-dades
-	(import MAIN ?ALL)
-	(import recopilacio-informacio-visitant ?ALL)
-	(import recopilacio-informacio-usuari ?ALL)
-	(export ?ALL)
+(defrule abstraccio-dades::canvi-inferir-dades
+	(declare (salience -1))
+	=> 
+	(focus inferir-dades)
 )
+
 
 ;Modul d'abstracció d'inferència
 (defmodule inferir-dades
@@ -299,20 +342,31 @@
 	(export ?ALL)
 )
 
+(defrule inferir-dades::canvi_refinament
+    (declare (salience -1))
+    =>
+    (focus refinament)
+)
+
 ;Modul d'abstracció de sintesis
-(defmodule sintesis
+(defmodule refinament
 	(import MAIN ?ALL)
 	(export ?ALL)
+)
+
+(defrule refinament::canvi-imprimir-rutina
+    (declare (salience -1))
+    =>
+    (focus imprimir-rutina)
 )
 
 ;Modul per imprimir la ruta (solución)
 (defmodule imprimir-rutina
 	(import MAIN ?ALL)
 	(import recopilacio-informacio-visitant ?ALL)
-	(import recopilacio-restriccions-visitant ?ALL)
 	(import abstraccio-dades ?ALL)
 	(import inferir-dades ?ALL)
-	(import sintesis ?ALL)
+	(import refinament ?ALL)
 	(export ?ALL)
 )
 
@@ -337,10 +391,6 @@
     (slot hores_visita (type INTEGER) (default 4))
     (multislot preferencies (type INSTANCE))
     (slot nivell_cultural (type FLOAT) (default 5.0))
-)
-
-(deftemplate preferencies
-    (multislot autors (type INSTANCE))
 )
 
 ; Potser es necessitaria una classe per definir el recorregut d'una visita.
@@ -426,19 +476,24 @@
 
 ;funcio per fer preguntes multiresposta amb index
 (deffunction MAIN::pregunta-multiresposta (?pregunta $?opcions)
+  
    (bind ?linia (format nil "%s" ?pregunta))
    (printout t ?linia crlf)
+
    (bind ?index 1) 
    (foreach ?opcio $?opcions
       (bind ?linia (format nil "  %d. %s" ?index ?opcio))
       (printout t ?linia crlf)
       (bind ?index (+ ?index 1)) 
    )
-   (format t "%s" "Respon amb els nombres associats a les teves respostes separes per un espai ")
-   (bind ?resp (readline))
-   (bind ?numeros (str-explode ?resp " "))  
+
+   (format t "%s" "Respon amb els nombres associats a les teves respostes separats per un espai: ")
+   (bind ?resp (readline)) 
+
+   (bind ?numeros (explode$ ?resp))  
    ?numeros
 )
+
 
 ;funcio per a trobar els elements  amb millor puntuacio
 (deffunction trobar-maxim ($?llista)
@@ -456,25 +511,24 @@
 )
 
 
+
 ;funcion para ordenar sales
 (deffunction MAIN::ordenar-sales ($?llista)
    (bind ?minim 4) 
    (bind ?element nil)
+
    (foreach ?actual $?llista
       (bind ?QuadreActual (send ?actual get-nomQuadre))
       (bind ?SalaValor (send ?QuadreActual get-Sala))
-      (if (not (numberp ?SalaValor)) then
-         (bind ?SalaActual (str-to-int ?SalaValor))
-         else
-         (bind ?SalaActual ?SalaValor)) ; Ya es un número
-      (if (<= ?SalaActual ?minim) 
+
+      (if (<= ?SalaValor ?minim)  
          then
-           (bind ?minim ?SalaActual) 
-           (bind ?element ?actual)
-      )
-   )
-   ?element
-)
+            (bind ?minim ?SalaValor) 
+            (bind ?element ?actual)))  
+
+   ?element)
+
+
 
 
 ; --------------------------------------------------
@@ -484,7 +538,7 @@
 
 (defrule determinar-familia
     ?v <- (visita (familia ?f))
-    (test (= ?f FALSE))
+    (test (or (eq ?f FALSE) (eq ?f TRUE)))
     =>
     (bind ?familia (pregunta-opcions "El grup és una família? (1: Sí, 2: No)" (create$ "Sí" "No")))
     (if (= ?familia 1) then (modify ?v (familia TRUE)) else (modify ?v (familia FALSE)))
@@ -546,7 +600,7 @@
     (if (= ?resp 1) then (bind ?puntuacio (+ 10.0 ?puntuacio)))
 
     (bind ?tria (create$ "Salvador Dalí" "Vincent van Gogh" "Claude Monet" "Frida Kahlo"))
-    (bind ?resp (pregunta-indice "Quin pintor va ser conegut pel seu estil surrealista?" ?tria))
+    (bind ?resp (pregunta-opcions "Quin pintor va ser conegut pel seu estil surrealista?" ?tria))
     (if (= ?resp 1) then (bind ?puntuacio (+ 10.0 ?puntuacio)))
 
     ;; Afegegir més preguntes si fa falta
