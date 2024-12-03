@@ -546,10 +546,15 @@
 
 (defrule establir-num-nens
     ?v <- (visita (num_nens ?))
-    (test (> (visita (num_persones ?np)) 0))
+    ;(test (> (visita (num_persones ?np)) 0))
     =>
-    (bind ?nens (pregunta-numero "Quants nens hi ha al grup? " 0 ?np))
-    (modify ?v (num_nens ?nens))
+    (bind ?np (fact-slot-value ?v num_persones))
+    (if (> ?np 0) then
+        (bind ?nens (pregunta-numero "Quants nens hi ha al grup? " 0 ?np))
+        (modify ?v (num_nens ?nens))
+    else
+        (printout t "Error: El número de persones ha de ser més gran que 0." crlf)
+    )
 )
 
 (defrule establir-duracio-visita
@@ -624,20 +629,20 @@
 ; 				MODUL ABSTRACCIO
 ; --------------------------------------------------
 
-(defrule crear-visitant
-    ?vis <- (visita (?np num_persones) (?nn num_nens) (?fam familia) (?nd num_dies) (?hd hores_visita) (?nc nivell_cultural))
-    (not instVisitant)
-    =>
-    (if (eq ?fam TRUE) then (make-instance instVisitant of Familia)
-    else (if (eq ?np 1) then (make-instance instVisitant of Individu)
-        else (if (> ?np 9) then (make-instance instVisitant of Grup_Gran)
-            else (make-instance instVisitant of Grup_Petit))))
-    ?vinst <- (object (is-a Visitant))
-    (if (> ?nn 0) then (send ?vinst put-nens TRUE))
-    (send ?vinst put-dies ?nd)
-    (send ?vinst put-hores ?hd)
-    (send ?vinst put-coneixement ?nc)
-)
+; (defrule crear-visitant
+;     ?vis <- (visita (?np num_persones) (?nn num_nens) (?fam familia) (?nd num_dies) (?hd hores_visita) (?nc nivell_cultural))
+;     (not instVisitant)
+;     =>
+;     (if (eq ?fam TRUE) then (make-instance instVisitant of Familia)
+;     else (if (eq ?np 1) then (make-instance instVisitant of Individu)
+;         else (if (> ?np 9) then (make-instance instVisitant of Grup_Gran)
+;             else (make-instance instVisitant of Grup_Petit))))
+;     ?vinst <- (object (is-a Visitant))
+;     (if (> ?nn 0) then (send ?vinst put-nens TRUE))
+;     (send ?vinst put-dies ?nd)
+;     (send ?vinst put-hores ?hd)
+;     (send ?vinst put-coneixement ?nc)
+; )
 
 ; --------------------------------------------------
 ; 				MODUL Inferencia 
