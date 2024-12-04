@@ -389,7 +389,8 @@
     (slot num_nens (type INTEGER) (default 0))
     (slot num_dies (type INTEGER) (default 1))
     (slot hores_visita (type INTEGER) (default 4))
-    (multislot preferencies (type INSTANCE))
+    (multislot preferencies-estil (type STRING))
+    (multislot preferencies-tematica (type STRING))
     (slot nivell_cultural (type FLOAT) (default 5.0))
 )
 
@@ -431,6 +432,7 @@
      )
      ?resposta
 )
+
 ;funcio per a preguntes amb moltes opcions i associar-les a un index
 (deffunction MAIN::pregunta-opcions (?pregunta $?respostes-posibles)
     (bind ?linia (format nil "%s" ?pregunta))
@@ -444,6 +446,7 @@
     (bind ?resposta (pregunta-numero "Escull una opcio:" 1 (length$ ?respostes-posibles)))
 	?resposta
 )
+
 ;funcio per a preguntes tancades (si/no)
 (deffunction MAIN::pregunta-tancada (?pregunta)
    (bind ?response (pregunta-opcions ?pregunta si no))
@@ -451,6 +454,7 @@
        then TRUE
        else FALSE)
 )
+
 ;funcio per a preguntes amb opcions textuals limitades
 (deffunction MAIN::pregunta-limitada (?pregunta $?opcions)
    (format t "%s "?pregunta)
@@ -473,7 +477,6 @@
   ?resposta
 )
 
-
 ;funcio per fer preguntes multiresposta amb index
 (deffunction MAIN::pregunta-multiresposta (?pregunta $?opcions)
   
@@ -494,7 +497,6 @@
    ?numeros
 )
 
-
 ;funcio per a trobar els elements  amb millor puntuacio
 (deffunction trobar-maxim ($?llista)
 	(bind ?maxim -1)
@@ -509,8 +511,6 @@
    )
    ?element
 )
-
-
 
 ;funcion para ordenar sales
 (deffunction MAIN::ordenar-sales ($?llista)
@@ -528,7 +528,31 @@
 
    ?element)
 
+(deffunction MAIN::mapa-num-estil (?num)
+    (bind ?estil nil)
+    (switch ?num
+        (case 1 then (bind ?estil "Barroc"))
+        (case 2 then (bind ?estil "Barroc tardà"))
+        (case 3 then (bind ?estil "Classicisme"))
+        (case 4 then (bind ?estil "Neoclassicisme"))
+        (case 5 then (bind ?estil "Romanticisme"))
+        (case 6 then (bind ?estil "Realisme"))
+        (case 7 then (bind ?estil "Impressionisme"))
+        (case 8 then (bind ?estil "Postimpressionisme"))
+    )
+    ?estil
+)
 
+(deffunction MAIN::mapa-num-tematica (?num)
+    (bind ?estil nil)
+    (switch ?num
+        (case 1 then (bind ?estil "Vida Quotidiana"))
+        (case 2 then (bind ?estil "Paisatges i emocions"))
+        (case 3 then (bind ?estil "Cultura grecorromana"))
+        (case 4 then (bind ?estil "Esdeveniment Històric"))
+    )
+    ?estil
+)
 
 
 ; --------------------------------------------------
@@ -614,13 +638,28 @@
     (modify ?v (nivell_cultural (/ ?puntuacio 10.0)))
 )
 
-
-(defrule passar-a-preferencies
-    ?v <- (visita (num_persones ?np) (nivell_cultural ?nc) (num_dies ?d) (hores_visita ?h))
-    (test (and (> ?np 0) (> ?nc 0) (> ?d 0) (> ?h 0)))
+(defrule consultar-preferencies-estil
+    ?v <- (visita (preferencies-estil ?p))
     =>
-    (printout t "Passant al mòdul de preferències..." crlf)
-    (focus preferencies)
+    (bind ?estils (create$ "Barroc" "Barroc tardà" "Classicisme" "Neoclassicisme" "Romanticisme" "Realisme" "Impressionisme" "Postimpressionisme"))
+    (bind $?pref-indexs (pregunta-multiresposta "Seleccioneu els vostres estils artístics preferits:" ?estils))
+    (bind ?i 0)
+    (foreach ?pref-i $?pref-indexs
+        (modify ?v (preferencies-estil (insert$ ?p ?i (mapa-num-estil ?pref-i))))
+        (bind ?i (+ ?i 1))
+    )
+)
+
+(defrule consultar-preferencies-tematica
+    ?v <- (visita (preferencies-tematica ?p))
+    =>
+    (bind ?temes (create$ "Vida Quotidiana" "Paisatges i emocions" "Cultura grecorromana" "Esdeveniment històric"))
+    (bind $?pref-indexs (pregunta-multiresposta "Seleccioneu les vostres temàtiques preferides:" ?temes))
+    (bind ?i 0)
+    (foreach ?pref-i $?pref-indexs
+        (modify ?v (preferencies-tematica (insert$ ?p ?i (mapa-num-tematica ?pref-i))))
+        (bind ?i (+ ?i 1))
+    )
 )
 
 
