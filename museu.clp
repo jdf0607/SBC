@@ -663,6 +663,15 @@
     (send [instVisitant] put-coneixement ?nc)
 )
 
+(defrule abstraccio-dades::valorar-coneixement
+    (visita (nivell_cultural ?nc))
+    =>
+    (if (< ?nc 20.0) then (send [instVisitant] put-coneixement 0)) ; Nivell cultural novell
+    (if (and (>= ?nc 20.0) (< ?nc 50.0)) then (send [instVisitant] put-coneixement 1)) ; Nivell cultural aficionat
+    (if (and (>= ?nc 50.0) (< ?nc 80.0)) then (send [instVisitant] put-coneixement 2)) ; Nivell cultural entès
+    (if (>= ?nc 80.0) then (send [instVisitant] put-coneixement 3)) ; Nivell cultural expert
+)
+
 ;
 
 ; --------------------------------------------------
