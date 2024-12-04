@@ -2,7 +2,7 @@
 ;;; ontologia.clp
 ;;; Translated by owl2clips
 ;;; Translated to CLIPS from ontology ontologia.ttl
-;;; :Date 02/12/2024 20:30:18
+;;; :Date 04/12/2024 11:32:21
 
 (defclass Visitant
     (is-a USER)
@@ -71,6 +71,9 @@
     (multislot estil
         (type STRING)
         (create-accessor read-write))
+    (multislot rellevància
+        (type STRING)
+        (create-accessor read-write))
     (multislot temàtica
         (type STRING)
         (create-accessor read-write))
@@ -122,9 +125,15 @@
 )
 
 (definstances instances
+    ([Diego_Velazquez] of Pintor
+         (crea  [Les_Menines])
+         (nacionalitat  "Espanyola")
+    )
+
     ([El_dinar_campestre] of Obra_de_Arte
          (any_de_creació  1863)
          (estil  "Impressionisme")
+         (rellevància  "Referent")
          (temàtica  "Vida quotidiana")
          (època  "XIX")
     )
@@ -132,6 +141,7 @@
     ([El_gronxador] of Obra_de_Arte
          (any_de_creació  1767)
          (estil  "Barroc tardà")
+         (rellevància  "Destacat")
          (temàtica  "Vida quotidiana")
          (època  "XVIII")
     )
@@ -139,6 +149,7 @@
     ([El_jurament_dels_Horacis] of Obra_de_Arte
          (any_de_creació  1784)
          (estil  "Neoclassicisme")
+         (rellevància  "Universal")
          (temàtica  "Cultura grecoromana")
          (època  "XVIII")
     )
@@ -146,6 +157,7 @@
     ([El_rapte_de_Prosèrpina] of Obra_de_Arte
          (any_de_creació  1636)
          (estil  "Barroc")
+         (rellevància  "Referent")
          (temàtica  "Cultura grecoromana")
          (època  "XVII")
     )
@@ -153,6 +165,7 @@
     ([El_tres_de_maig_de_1808] of Obra_de_Arte
          (any_de_creació  1814)
          (estil  "Romanticisme")
+         (rellevància  "Universal")
          (temàtica  "Esdeveniments històrics")
          (època  "XIX")
     )
@@ -180,6 +193,7 @@
     ([La_Llibertat_guiant_al_poble] of Obra_de_Arte
          (any_de_creació  1830)
          (estil  "Romanticisme")
+         (rellevància  "Magistral")
          (temàtica  "Esdeveniments històrics")
          (època  "XIX")
     )
@@ -187,18 +201,31 @@
     ([La_Ronda_de_Nit] of Obra_de_Arte
          (any_de_creació  1642)
          (estil  "Barroc")
+         (rellevància  "Magistral")
+         (temàtica  "Paisatges i Emocions")
          (època  "XVII")
     )
 
     ([La_mort_de_Sòcrates] of Obra_de_Arte
          (any_de_creació  1787)
          (estil  "Neoclassicisme")
+         (rellevància  "Magistral")
+         (temàtica  "Cultura grecoromana")
          (època  "XVIII")
+    )
+
+    ([La_nit_estrellada] of Obra_de_Arte
+         (any_de_creació  1889)
+         (estil  "Postimpressionisme")
+         (rellevància  "Universal")
+         (temàtica  "Paisatges i Emocions")
+         (època  "XIX")
     )
 
     ([Les_Menines] of Obra_de_Arte
          (any_de_creació  1656)
          (estil  "Barroc")
+         (rellevància  "Universal")
          (temàtica  "Vida quotidiana")
          (època  "XVII")
     )
@@ -213,21 +240,27 @@
          (nacionalitat  "Holandesa")
     )
 
+    ([Sala1] of Sala
+         (conté  [La_Ronda_de_Nit] [La_nit_estrellada])
+         (porta_a  [Sala2] [Sala3] [Sala4])
+         (temàtica  "Paisatges i emocions")
+    )
+
     ([Sala2] of Sala
          (conté  [El_dinar_campestre] [El_gronxador] [Les_Menines])
-         (porta_a  [Sala3] [Sala4] [Sala1])
-         (temàtica  "Vida quptidiana")
+         (porta_a  [Sala1] [Sala3] [Sala4])
+         (temàtica  "Vida quotidiana")
     )
 
     ([Sala3] of Sala
          (conté  [El_jurament_dels_Horacis] [El_rapte_de_Prosèrpina] [La_mort_de_Sòcrates])
-         (porta_a  [Sala2] [Sala4] [Sala1])
+         (porta_a  [Sala1] [Sala2] [Sala4])
          (temàtica  "Cultura grecoromana")
     )
 
     ([Sala4] of Sala
          (conté  [El_tres_de_maig_de_1808])
-         (porta_a  [Sala2] [Sala3] [Sala1])
+         (porta_a  [Sala1] [Sala2] [Sala3])
          (temàtica  "Esdeveniments històrics")
     )
 
@@ -241,24 +274,8 @@
          (nacionalitat  "Francesa")
     )
 
-    ([Diego_Velazquez] of Pintor
-         (crea  [Les_Menines])
-         (nacionalitat  "Espanyola")
-    )
-
-    ([La_nit_estrellada] of Obra_de_Arte
-         (any_de_creació  1889)
-         (estil  "Postimpressionisme")
-         (època  "XIX")
-    )
-
-    ([Sala1] of Sala
-         (conté  [La_Ronda_de_Nit] [La_nit_estrellada])
-         (porta_a  [Sala2] [Sala3] [Sala4])
-         (temàtica  "Paisatges i emocions")
-    )
-
 )
+
 
 ; -----------------------------------------
 ; -----------------------------------------
@@ -266,42 +283,6 @@
 ; -----------------------------------------
 ; -----------------------------------------
 
-;;
-;; Clases personalitzades
-;;
-;; PER ABSTRACCIO
-(defclass VisitantAbstracte
-    (is-a USER)
-    (role concrete)
-    (pattern-match reactive)
-    (slot aficio
-        (type STRING)
-        (create-accessor read-write))
-    (slot gust
-        (type STRING)
-        (create-accessor read-write))
-)
-;;PER INFERÈNCIA
-(defclass SolucioAbstracte
-    (is-a USER)
-    (role concrete)
-    (pattern-match reactive)
-    (multislot obresRecomenades
-        (type INSTANCE)
-        (create-accessor read-write))
-)
-;;PER REFINAMENT
-(defclass SolucioConcreta
-    (is-a USER)
-    (role concrete)
-    (pattern-match reactive)
-    (multislot obresRecomenades
-        (type INSTANCE)
-        (create-accessor read-write))
-    (slot tempsTotal
-        (type INTEGER)
-        (create-accessor read-write))
-)
 ; ------------------------------------
 ; 				  MAIN 
 ; ------------------------------------
@@ -560,7 +541,7 @@
 ; --------------------------------------------------
 
 
-(defrule determinar-familia
+(defrule recopilacio-informacio-visitant::determinar-familia
     ?v <- (visita (familia ?f))
     (test (or (eq ?f FALSE) (eq ?f TRUE)))
     =>
@@ -568,7 +549,7 @@
     (if (= ?familia 1) then (modify ?v (familia TRUE)) else (modify ?v (familia FALSE)))
 )
 
-(defrule establir-num-nens
+(defrule recopilacio-informacio-visitant::establir-num-nens
     ?v <- (visita (num_nens ?))
     ;(test (> (visita (num_persones ?np)) 0))
     =>
@@ -581,7 +562,7 @@
     )
 )
 
-(defrule establir-duracio-visita
+(defrule recopilacio-informacio-visitant::establir-duracio-visita
     ?v <- (visita (num_dies ?d) (hores_visita ?h))
     (test (or (< ?d 1) (< ?h 1)))
     =>
@@ -590,7 +571,7 @@
     (modify ?v (num_dies ?dies) (hores_visita ?hores))
 )
 
-(defrule calcular-nivell-cultural
+(defrule recopilacio-informacio-visitant::calcular-nivell-cultural
     ?v <- (visita (nivell_cultural ?n))
     (test (< ?n 0))
     =>
@@ -638,7 +619,7 @@
     (modify ?v (nivell_cultural (/ ?puntuacio 10.0)))
 )
 
-(defrule consultar-preferencies-estil
+(defrule recopilacio-informacio-visitant::consultar-preferencies-estil
     ?v <- (visita (preferencies-estil ?p))
     =>
     (bind ?estils (create$ "Barroc" "Barroc tardà" "Classicisme" "Neoclassicisme" "Romanticisme" "Realisme" "Impressionisme" "Postimpressionisme"))
@@ -650,7 +631,7 @@
     )
 )
 
-(defrule consultar-preferencies-tematica
+(defrule recopilacio-informacio-visitant::consultar-preferencies-tematica
     ?v <- (visita (preferencies-tematica ?p))
     =>
     (bind ?temes (create$ "Vida Quotidiana" "Paisatges i emocions" "Cultura grecorromana" "Esdeveniment històric"))
@@ -668,7 +649,7 @@
 ; 				MODUL ABSTRACCIO - Ramóm
 ; --------------------------------------------------
 
-(defrule crear-visitant
+(defrule abstraccio-dades::crear-visitant
     (visita (num_persones ?np) (num_nens ?nn) (familia ?fam) (num_dies ?nd) (hores_visita ?hd) (nivell_cultural ?nc))
     (not (object(name [instVisitant])))
     =>
@@ -682,10 +663,62 @@
     (send [instVisitant] put-coneixement ?nc)
 )
 
+;
+
 ; --------------------------------------------------
 ; 				MODUL Inferencia - José
 ; --------------------------------------------------
 
+; (defrule inferir-dades::crear-solucio
+;     ?inst <- (object (is-a instVisitant) 
+;                      (dies ?nd) 
+;                      (hores ?hores)
+;                      (coneixement ?nc)
+;                      (nens ?nens))
+;     =>
+;     (bind ?temps_total (* ?nd ?hores))
+;     (if (eq ?tg "Familia") then 
+;         (bind ?temps_per_obra 5)
+;     else    
+;         (if (eq ?tg "Individu") then
+;             (bind ?temps_per_obra 10)
+;         else 
+;             (if (eq ?tg "Grup_Gran") then
+;                 (bind ?temps_per_obra 20)
+;             else 
+;                 (bind ?temps_per_obra 15))))
+    
+;     (bind ?max_obres (div ?temps_total ?temps_per_obra))
+    
+;     (if (eq ?nc "expert") then
+;         (bind ?categories (create$ "Universal" "Magistral" "Referent" "Destacat"))
+;     else 
+;         (if (eq ?nc "entès") then
+;             (bind ?categories (create$ "Universal" "Magistral" "Referent"))
+;         else 
+;             (if (eq ?nc "aficionat") then
+;                 (bind ?categories (create$ "Universal" "Magistral"))
+;             else 
+;                 (if (eq ?nc "novell") then
+;                     (bind ?categories (create$ "Universal"))))))
+    
+;     (bind ?obres-a-visitar (filter-obres ?categories ?max_obres))
+
+;     (send ?inst put-solucio ?obres-a-visitar)
+; )
+
+; ; Funció per filtrar obres segons categories i màxim a visitar
+; (deffunction filter-obres (?categories ?max)
+;     (bind ?result (create$))
+;     (foreach ?obra (get-totes-les-obres)
+;         (if (and (member$ (get-categoria ?obra) ?categories)
+;                  (< (length$ ?result) ?max)) then
+;             (bind ?result (add$ ?result ?obra))))
+;     ?result
+; )
+
+    
+       
 
 ; --------------------------------------------------
 ; 			MODUL SINTESIS - Aleix
