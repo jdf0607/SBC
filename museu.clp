@@ -284,6 +284,36 @@
 ; -----------------------------------------
 
 ; ------------------------------------
+; 				  Classes
+; ------------------------------------
+
+(defclass quadres-recomanats
+	(is-a USER)
+	(role concrete)
+    (slot nom-obra
+		(type INSTANCE)
+		(create-accessor read-write))
+    (slot valoracio
+        (type INTEGER)
+        (create-accessor read-write))
+)
+
+
+(defclass ruta-per-Dia
+	(is-a USER)
+	(role concrete)
+	(multislot quadres-recomanats
+		(type INSTANCE)
+		(create-accessor read-write))
+    (multislot sales
+        (type INSTANCE)
+        (create-accessor read-write))
+	(slot temps
+		(type INTEGER)
+		(create-accessor read-write))
+)
+
+; ------------------------------------
 ; 				  MAIN 
 ; ------------------------------------
 
@@ -320,6 +350,7 @@
 ;Modul d'abstracció d'inferència
 (defmodule inferir-dades
 	(import MAIN ?ALL)
+    (import recopilacio-informacio-visitant ?ALL)
 	(export ?ALL)
 )
 
@@ -342,7 +373,7 @@
 )
 
 ;Modul per imprimir la ruta (solución)
-(defmodule imprimir-rutina
+(defmodule imprimir-ruta
 	(import MAIN ?ALL)
 	(import recopilacio-informacio-visitant ?ALL)
 	(import abstraccio-dades ?ALL)
@@ -382,6 +413,13 @@
 
 (deftemplate recorregut_museu
     (multislot sales (type INSTANCE))
+)
+
+(deftemplate obres-recomenades
+        (multislot quadres-recomanats (type INSTANCE))
+    )
+(deftemplate obres-recomenades-ordenades
+    (multislot quadres-recomanats (type INSTANCE))
 )
 
 ; --------------------------------------------------
@@ -536,6 +574,7 @@
 )
 
 
+
 ; --------------------------------------------------
 ; 				 MODUL RECOPILACIO 
 ; --------------------------------------------------
@@ -643,6 +682,16 @@
     )
 )
 
+(defrule recopilacio-informacio-visitant::get-totes-les-obres
+   (declare (salience 15))
+   =>
+   (bind $?llista (find-all-instances ((?inst Obra_de_Arte)) TRUE))
+   (progn$ (?actual ?llista)
+            (make-instance(gensym) of quadres-recomanats(nom-obra ?actual)
+                        (valoracio 0))
+                        )
+    (printout t "..." crlf)
+)
 
 
 ; --------------------------------------------------
@@ -678,53 +727,32 @@
 ; 				MODUL Inferencia - José
 ; --------------------------------------------------
 
-; (defrule inferir-dades::crear-solucio
-;     ?inst <- (object (is-a instVisitant) 
-;                      (dies ?nd) 
-;                      (hores ?hores)
-;                      (coneixement ?nc)
-;                      (nens ?nens))
-;     =>
-;     (bind ?temps_total (* ?nd ?hores))
-;     (if (eq ?tg "Familia") then 
-;         (bind ?temps_per_obra 5)
-;     else    
-;         (if (eq ?tg "Individu") then
-;             (bind ?temps_per_obra 10)
-;         else 
-;             (if (eq ?tg "Grup_Gran") then
-;                 (bind ?temps_per_obra 20)
-;             else 
-;                 (bind ?temps_per_obra 15))))
-    
-;     (bind ?max_obres (div ?temps_total ?temps_per_obra))
-    
-;     (if (eq ?nc "expert") then
-;         (bind ?categories (create$ "Universal" "Magistral" "Referent" "Destacat"))
-;     else 
-;         (if (eq ?nc "entès") then
-;             (bind ?categories (create$ "Universal" "Magistral" "Referent"))
-;         else 
-;             (if (eq ?nc "aficionat") then
-;                 (bind ?categories (create$ "Universal" "Magistral"))
-;             else 
-;                 (if (eq ?nc "novell") then
-;                     (bind ?categories (create$ "Universal"))))))
-    
-;     (bind ?obres-a-visitar (filter-obres ?categories ?max_obres))
+(defrule inferir-dades::crear-solucio
+    (not (obres-recomenades))
+    =>
+    (assert(obres-recomenades))
+)
 
-;     (send ?inst put-solucio ?obres-a-visitar)
-; )
+(defrule inferir-dades::ordenar-solucio
+    (not (obres-recomenades-ordenades))
+    (obres-recomenades (quadres-recomanats $?llista))
+    =>
+    (bind ?recorregut (create$)) ; 
+    (while (> (length$ $?llista) 0) ;
+        (progn
+            (bind ?actual (trobar-maxim $?llista))
+            (bind $?llista (delete-member$ $?llista ?actual)) 
+             (bind $?recorregut (insert$ $?recorregut 
+                (+(length$ $?recorregut) 1) ?actual))
+        )
+        )
+    (assert (obres-recomenades-ordenades (quadres-recomanats $?recorregut))) ; Afegeix el fet ordenat
+    (printout t "Calculant recorregut..." crlf)
+)
 
-; ; Funció per filtrar obres segons categories i màxim a visitar
-; (deffunction filter-obres (?categories ?max)
-;     (bind ?result (create$))
-;     (foreach ?obra (get-totes-les-obres)
-;         (if (and (member$ (get-categoria ?obra) ?categories)
-;                  (< (length$ ?result) ?max)) then
-;             (bind ?result (add$ ?result ?obra))))
-;     ?result
-; )
+
+;ordenem els quadres per puntuació, falta tenir en compte les sales i els dies
+    
 
     
        
