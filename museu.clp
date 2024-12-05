@@ -785,13 +785,19 @@
     (assert (obres-recomenades-ordenades (quadres-recomanats $?recorregut))) ; Afegeix el fet ordenat
     (printout t "Calculant recorregut..." crlf)
 )
+       
+
+; --------------------------------------------------
+; 			MODUL SINTESIS - Aleix
+; --------------------------------------------------
+
 ;a la primera no tindrem en compte les sales on estiguin els quadres
 ;ahora queremos añadir contenido a los dias
 
 
 ;FALTA REVISAR i ADAPTAR-LA
 
-; (defrule inferir-dades::asigna-contenido-a-dias
+; (defrule sintesis::asigna-contenido-a-dias
 ;    "Se asigna los contenidos recomendados a días, considerando el tipo de grupo"
 ;    ?visita <- (visita (num_dies ?nd) (hores_visita ?hd))
 ;    (obres-recomanades-ordenades (quadres-recomanats $?quadres))
@@ -850,16 +856,6 @@
 ;    (assert (lista-dias (dias $?lista)))
 ;    (printout t "Computando una ruta óptima de visitas..." crlf)
 ; )
-
-
-
-
-    
-       
-
-; --------------------------------------------------
-; 			MODUL SINTESIS - Aleix
-; --------------------------------------------------
 
 
 ; --------------------------------------------------
