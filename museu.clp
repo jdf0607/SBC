@@ -685,11 +685,11 @@
     =>
     (bind ?estils (create$ "Barroc" "Barroc tardà" "Classicisme" "Neoclassicisme" "Romanticisme" "Realisme" "Impressionisme" "Postimpressionisme"))
     (bind $?pref-indexs (pregunta-multiresposta "Seleccioneu els vostres estils artístics preferits:" ?estils))
-    (bind ?i 0)
+    (bind ?prefs (create$))
     (foreach ?pref-i $?pref-indexs
-        ;(modify ?v (preferencies-estil (insert$ ?p ?i (mapa-num-estil ?pref-i))))
-        (bind ?i (+ ?i 1))
+        (bind ?prefs (create$ ?prefs (mapa-num-estil ?pref-i)))
     )
+    (modify ?v (preferencies-estil ?prefs))
     (retract ?f)
 )
 
@@ -699,11 +699,11 @@
     =>
     (bind ?temes (create$ "Vida Quotidiana" "Paisatges i emocions" "Cultura grecorromana" "Esdeveniment històric"))
     (bind $?pref-indexs (pregunta-multiresposta "Seleccioneu les vostres temàtiques preferides:" ?temes))
-    (bind ?i 0)
+    (bind ?prefs (create$))
     (foreach ?pref-i $?pref-indexs
-        ;(modify ?v (preferencies-tematica (insert$ ?p ?i (mapa-num-tematica ?pref-i))))
-        (bind ?i (+ ?i 1))
+        (bind ?prefs (create$ ?prefs (mapa-num-tematica ?pref-i)))
     )
+    (modify ?v (preferencies-tematica ?prefs))
     (retract ?f)
 )
 
