@@ -322,15 +322,16 @@
     (export ?ALL)
 )
 
-(defrule MAIN::inici 
-	(declare (salience 20)) 
-	=> 
-	(focus recopilacio-informacio-visitant)
-)
 ;Modul recopilació d'informació visitant
 (defmodule recopilacio-informacio-visitant
 	(import MAIN ?ALL)
 	(export ?ALL)
+)
+
+(defrule recopilacio-informacio-visitant::canvi-abstraccio-dades
+    (declare (salience -1))
+    =>
+    (focus abstraccio-dades)
 )
 
 ;Modul d'Abstracció de dades
@@ -351,6 +352,7 @@
 (defmodule inferir-dades
 	(import MAIN ?ALL)
     (import recopilacio-informacio-visitant ?ALL)
+    (import abstraccio-dades ?ALL)
 	(export ?ALL)
 )
 
@@ -363,13 +365,16 @@
 ;Modul d'abstracció de sintesis
 (defmodule refinament
 	(import MAIN ?ALL)
+    (import recopilacio-informacio-visitant ?ALL)
+    (import abstraccio-dades ?ALL)
+    (import inferir-dades ?ALL)
 	(export ?ALL)
 )
 
 (defrule refinament::canvi-imprimir-rutina
     (declare (salience -1))
     =>
-    (focus imprimir-rutina)
+    (focus imprimir-ruta)
 )
 
 ;Modul per imprimir la ruta (solución)
@@ -388,7 +393,7 @@
 	(printout t crlf)
 	(printout t "--------------- Sistema de Recomanació de Rutes pel Museu ---------------" crlf)
 	(printout t crlf)
-	(focus recopilacion-informacion-usuario)
+	(focus recopilacio-informacio-visitant)
 )
 
 ; -----------------------------------------
@@ -399,11 +404,11 @@
     (slot num_persones (type INTEGER) (default 1))
     (slot familia (type SYMBOL) (allowed-values TRUE FALSE) (default FALSE))
     (slot num_nens (type INTEGER) (default 0))
-    (slot num_dies (type INTEGER) (default 1))
-    (slot hores_visita (type INTEGER) (default 4))
+    (slot num_dies (type INTEGER) (default 0))
+    (slot hores_visita (type INTEGER) (default 0))
     (multislot preferencies-estil (type STRING))
     (multislot preferencies-tematica (type STRING))
-    (slot nivell_cultural (type FLOAT) (default 5.0))
+    (slot nivell_cultural (type FLOAT) (default 0.0))
 )
 
 ; Potser es necessitaria una classe per definir el recorregut d'una visita.
@@ -443,10 +448,10 @@
 
 ;funcio par a preguntar dades amb rang de valors per exemple: valoracio de quadre o edat
 (deffunction MAIN::pregunta-numero(?pregunta ?limitInferior ?limitSuperior)
-    (format t "%s (De %d hasta %d) " ?pregunta ?limitInferior ?limitSuperior)
+    (format t "%s (De %d fins a %d) " ?pregunta ?limitInferior ?limitSuperior)
     (bind ?resposta (read))
     (while (not(and(>= ?resposta ?limitInferior)(<= ?resposta ?limitSuperior))) do
-        (format t "%s (De %d hasta %d) " ?pregunta ?limitInferior ?limitSuperior)
+        (format t "%s (De %d fins a %d) " ?pregunta ?limitInferior ?limitSuperior)
         (bind ?resposta (read))
      )
      ?resposta
@@ -462,7 +467,7 @@
             (printout t ?linia crlf)
             (bind ?index (+ ?index 1))
     )
-    (bind ?resposta (pregunta-numero "Escull una opcio:" 1 (length$ ?respostes-posibles)))
+    (bind ?resposta (pregunta-numero "Trieu una opcio:" 1 (length$ ?respostes-posibles)))
 	?resposta
 )
 
@@ -579,31 +584,35 @@
 ; 				 MODUL RECOPILACIO 
 ; --------------------------------------------------
 
-
-(defrule recopilacio-informacio-visitant::determinar-familia
-    ?v <- (visita (familia ?f))
-    (test (or (eq ?f FALSE) (eq ?f TRUE)))
+(defrule recopilacio-informacio-visitant::determinar-num-persones
+    (not (visita))
     =>
-    (bind ?familia (pregunta-opcions "El grup és una família? (1: Sí, 2: No)" (create$ "Sí" "No")))
-    (if (= ?familia 1) then (modify ?v (familia TRUE)) else (modify ?v (familia FALSE)))
+    (bind ?num (pregunta-numero "Quantes persones sou al vostre grup?" 1 50))
+    (assert (visita (num_persones ?num)))
 )
 
 (defrule recopilacio-informacio-visitant::establir-num-nens
-    ?v <- (visita (num_nens ?))
-    ;(test (> (visita (num_persones ?np)) 0))
+    ?v <- (visita (num_persones ?np))
+    (not (preguntat-nens))
     =>
-    (bind ?np (fact-slot-value ?v num_persones))
-    (if (> ?np 0) then
-        (bind ?nens (pregunta-numero "Quants nens hi ha al grup? " 0 ?np))
-        (modify ?v (num_nens ?nens))
-    else
-        (printout t "Error: El número de persones ha de ser més gran que 0." crlf)
-    )
+    (bind ?nens (pregunta-numero "Quants nens hi ha al grup? " 0 (- ?np 1)))
+    (modify ?v (num_nens ?nens))
+    (assert (preguntat-nens))
+)
+
+(defrule recopilacio-informacio-visitant::determinar-familia
+    ?v <- (visita (num_nens ?nn))
+    (test (> ?nn 0))
+    (not (preguntat-familia))
+    =>
+    (bind ?familia (pregunta-opcions "El grup és una família? (1: Sí, 2: No)" (create$ "Sí" "No")))
+    (if (= ?familia 1) then (modify ?v (familia TRUE)) else (modify ?v (familia FALSE)))
+    (assert (preguntat-familia))
 )
 
 (defrule recopilacio-informacio-visitant::establir-duracio-visita
     ?v <- (visita (num_dies ?d) (hores_visita ?h))
-    (test (or (< ?d 1) (< ?h 1)))
+    (test (and (eq ?d 0) (eq ?h 0)))
     =>
     (bind ?dies (pregunta-numero "Quants dies durarà la visita? " 1 15))
     (bind ?hores (pregunta-numero "Quantes hores per dia dedicarà a la visita? " 1 8))
@@ -611,8 +620,8 @@
 )
 
 (defrule recopilacio-informacio-visitant::calcular-nivell-cultural
-    ?v <- (visita (nivell_cultural ?n))
-    (test (< ?n 0))
+    ?v <- (visita (nivell_cultural ?nc))
+    (test (eq ?nc 0.0))
     =>
     (bind ?puntuacio 0.0)
     (bind ?format (create$ "Sí" "No"))
@@ -654,32 +663,37 @@
 
     ;; Afegegir més preguntes si fa falta
 
-
     (modify ?v (nivell_cultural (/ ?puntuacio 10.0)))
+    (assert (estils preguntar))
+    (assert (tematiques preguntar))
 )
 
 (defrule recopilacio-informacio-visitant::consultar-preferencies-estil
-    ?v <- (visita (preferencies-estil ?p))
+    ?v <- (visita)
+    ?f <- (estils preguntar)
     =>
     (bind ?estils (create$ "Barroc" "Barroc tardà" "Classicisme" "Neoclassicisme" "Romanticisme" "Realisme" "Impressionisme" "Postimpressionisme"))
     (bind $?pref-indexs (pregunta-multiresposta "Seleccioneu els vostres estils artístics preferits:" ?estils))
     (bind ?i 0)
     (foreach ?pref-i $?pref-indexs
-        (modify ?v (preferencies-estil (insert$ ?p ?i (mapa-num-estil ?pref-i))))
+        ;(modify ?v (preferencies-estil (insert$ ?p ?i (mapa-num-estil ?pref-i))))
         (bind ?i (+ ?i 1))
     )
+    (retract ?f)
 )
 
 (defrule recopilacio-informacio-visitant::consultar-preferencies-tematica
-    ?v <- (visita (preferencies-tematica ?p))
+    ?v <- (visita)
+    ?f <- (tematiques preguntar)
     =>
     (bind ?temes (create$ "Vida Quotidiana" "Paisatges i emocions" "Cultura grecorromana" "Esdeveniment històric"))
     (bind $?pref-indexs (pregunta-multiresposta "Seleccioneu les vostres temàtiques preferides:" ?temes))
     (bind ?i 0)
     (foreach ?pref-i $?pref-indexs
-        (modify ?v (preferencies-tematica (insert$ ?p ?i (mapa-num-tematica ?pref-i))))
+        ;(modify ?v (preferencies-tematica (insert$ ?p ?i (mapa-num-tematica ?pref-i))))
         (bind ?i (+ ?i 1))
     )
+    (retract ?f)
 )
 
 (defrule recopilacio-informacio-visitant::get-totes-les-obres
