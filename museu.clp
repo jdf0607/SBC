@@ -356,14 +356,14 @@
 	(export ?ALL)
 )
 
-(defrule inferir-dades::canvi_refinament
+(defrule inferir-dades::canvi_sintesis
     (declare (salience -1))
     =>
-    (focus refinament)
+    (focus sintesis)
 )
 
 ;Modul d'abstracció de sintesis
-(defmodule refinament
+(defmodule sintesis
 	(import MAIN ?ALL)
     (import recopilacio-informacio-visitant ?ALL)
     (import abstraccio-dades ?ALL)
@@ -371,7 +371,7 @@
 	(export ?ALL)
 )
 
-(defrule refinament::canvi-imprimir-rutina
+(defrule sintesis::canvi-imprimir-rutina
     (declare (salience -1))
     =>
     (focus imprimir-ruta)
@@ -383,7 +383,7 @@
 	(import recopilacio-informacio-visitant ?ALL)
 	(import abstraccio-dades ?ALL)
 	(import inferir-dades ?ALL)
-	(import refinament ?ALL)
+	(import sintesis ?ALL)
 	(export ?ALL)
 )
 
@@ -422,7 +422,7 @@
 
 (deftemplate obres-recomenades
         (multislot quadres-recomanats (type INSTANCE))
-    )
+)
 (deftemplate obres-recomenades-ordenades
     (multislot quadres-recomanats (type INSTANCE))
 )
@@ -810,16 +810,16 @@
 
 (defrule sintesis::crear-llista-recomanacions 
     "Es crea una lista de recomenacions per ordenarles"
-    (not (llista-rec-desordenada))
+    (not (obres-recomenades))
     =>
-    (assert (llista-rec-desordenada))
+    (assert (obres-recomenades))
 )
 
 (defrule sintesis::afegir-recomanacio 
     "Afegeix una recomenacio a la lista de recomenacions"
     (declare (salience 10))
     ?rec <- (object (is-a quadres-recomanats))
-    ?hecho <- (llista-rec-desordenada (quadres-recomanats $?llista))
+    ?hecho <- (obres-recomenades (quadres-recomanats $?llista))
     (test (not (member$ ?rec $?llista)))
     =>
     (bind $?llista (insert$ $?llista (+ (length$ $?llista) 1) ?rec))
@@ -828,8 +828,8 @@
 
 (defrule sintesis::crear-llista-ordenada 
     "Es crea una lista de recomenacions ordenada"
-    (not (llista-rec-ordenada))
-    (llista-rec-desordenada (quadres-recomanats $?llista))
+    (not (obres-recomenades-ordenades))
+    (obres-recomenades (quadres-recomanats $?llista))
     =>
     (bind $?resultat (create$ ))
     (while (not (eq (length$ $?llista) 0))  do
@@ -837,7 +837,7 @@
         (bind $?llista (delete-member$ $?llista ?curr-rec))
         (bind $?resultat (insert$ $?resultat (+ (length$ $?resultat) 1) ?curr-rec))
     )
-    (assert (llista-rec-ordenada (quadres-recomanats $?resultat)))
+    (assert (obres-recomenades-ordenades (quadres-recomanats $?resultat)))
     (printout t "Ordenant obres d'art..." crlf)
 )
 
