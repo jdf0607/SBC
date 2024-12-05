@@ -412,17 +412,28 @@
 )
 
 ; Potser es necessitaria una classe per definir el recorregut d'una visita.
-(deftemplate recorregut_sala
-    (multislot quadres (type INSTANCE))
+; (deftemplate recorregut_sala
+;     (multislot quadres (type INSTANCE))
+; )
+
+; (deftemplate recorregut_museu
+;     (multislot sales (type INSTANCE))
+; )
+
+(deftemplate dia
+    (multislot obres (type INSTANCE))
 )
 
-(deftemplate recorregut_museu
-    (multislot sales (type INSTANCE))
+(deftemplate ruta
+    (multislot dies (type INSTANCE))
 )
+
 
 (deftemplate obres-recomenades
-        (multislot quadres-recomanats (type INSTANCE))
+    (multislot quadres-recomanats (type INSTANCE))
 )
+
+
 (deftemplate obres-recomenades-ordenades
     (multislot quadres-recomanats (type INSTANCE))
 )
@@ -806,17 +817,15 @@
 ; --------------------------------------------------
 
 
-
-
 (defrule sintesis::crear-llista-recomanacions 
-    "Es crea una lista de recomenacions per ordenarles"
+    "Es crea una llista de recomenacions per ordenarles"
     (not (obres-recomenades))
     =>
     (assert (obres-recomenades))
 )
 
 (defrule sintesis::afegir-recomanacio 
-    "Afegeix una recomenacio a la lista de recomenacions"
+    "Afegeix una recomenacio a la llista de recomenacions"
     (declare (salience 10))
     ?rec <- (object (is-a quadres-recomanats))
     ?hecho <- (obres-recomenades (quadres-recomanats $?llista))
@@ -827,7 +836,7 @@
 )
 
 (defrule sintesis::crear-llista-ordenada 
-    "Es crea una lista de recomenacions ordenada"
+    "Es crea una llista de recomenacions ordenada"
     (not (obres-recomenades-ordenades))
     (obres-recomenades (quadres-recomanats $?llista))
     =>
@@ -841,94 +850,103 @@
     (printout t "Ordenant obres d'art..." crlf)
 )
 
-(defrule sintesis::asigna-contingut-a-dies
-   "S'asignen els continguts recomanats a dies, considerant el tipus de grup"
-   ?visita <- (visita (num_dies ?nd) (hores_visita ?hd))
-   (obres-recomanades-ordenades (quadres-recomanats $?quadres))
-   =>
-   (bind ?horas (* ?hd 60)) ; Convertir hores a minuts
-   (bind $?llista (create$)) ; Lista de dies
-
-   ; Creem una instancia de dess amb el temps maxim
-   (while (not(= (length$ $?llista) ?nd)) do
-      (bind $?llista (insert$ $?llista (+ (length$ $?llista) 1) 
-                      (make-instance (gensym) of Dia (tiempo-maximo ?horas))))
-   )
-
-   ; Determinar el tiempo por visita basado en el tipo de grupo
-   (bind ?tiempo-base
-      (if (eq ?visita.familia TRUE) then 10
-      else (if (eq ?visita.num_persones 1) then 10
-      else (if (> ?visita.num_persones 9) then 20
-      else 14))))
-
-   ; Ajustar tiempo si hay niños
-   (if (> ?visita.num_nens 0) then 
-      (bind ?tiempo-base (/ ?tiempo-base 2)))
-
-   ; Asignar las obras a los días
-   (bind ?i 1)
-   (bind ?recs $?quadres)
-   (while (and (> (length$ ?recs) 0) (<= ?i ?nd)) do
-      (bind ?dia (nth$ ?i $?llista))
-      (bind $?recs-dia (create$))
-      (bind ?t-max (send ?dia get-temps-maxim))
-      (bind ?t-ocu 0)
-      (bind ?j 1)
-      
-      (while (and (< ?t-ocu ?t-max) (> (length$ ?recs) 0) (<= ?j (length$ ?recs))) do
-         (bind ?rec (nth$ ?j $?recs))
-         (bind ?cont (send ?rec get-nom-obra))
-         (bind ?t ?tiempo-base) ; Usar el tiempo base calculado
-
+(defrule sintesis::asigna-contingut-a-dies 
+    "S'asigna els continguts recomenats a cada dia"
+    ?v <- (visita (num_dies ?dies) (hores_visita ?hores) (num_persones ?np) (num_nens ?nn) (familia ?fam))
+    (obres-recomenades-ordenades (quadres-recomanats $?recs))
+    (not (ruta))
+    (ruta (dies $?llista))
+    =>
+    (bind ?hores (* ?hores 60))
+    (bind $?llista (create$ ))
+    (while (not(= (length$ $?llista) ?dies)) do
+        (bind $?llista (insert$ $?llista (+ (length$ $?llista) 1) (make-instance (gensym) of ruta-per-Dia (temps ?hores))))
+    )
+    (bind ?i 1)
+    (while (and (> (length$ $?recs) 0) (<= ?i ?dies)) 
+        (bind ?dia (nth$ ?i $?llista))
+        (bind $?recs-dia (create$ ))
+        (bind ?t-max (send ?dia get-temps))
+        (bind ?t-ocu 0)
+        (bind ?try 1)
+        (bind ?asignados 0)
+        (bind ?j 1)
+        (while (and(and(< ?t-ocu ?t-max) (< ?try 4)) (> (length$ $?recs) 0) (<= ?j (length$ $?recs))) do
+            (bind ?rec (nth$ ?j $?recs))
+            (bind ?cont (send ?rec get-nom-obra))
+            (bind ?a (send ?cont get-any_de_creació))
+            (if (or (eq ?fam TRUE) (eq ?np 1)) then
+                (if (> ?a 120000) then (bind ?t 13)) 
+                (if (and (> ?a 13000) (< ?a 120000)) then (bind ?t 10))
+                (if (and (> ?a 2000) (< ?a 13000)) then (bind ?t 6))
+                (if (and (> ?a 0) (< ?a 2000)) then (bind ?t 4))
+            )
+            (if (and (> ?np 1) (<= ?np 12)) then
+                (if (> ?a 120000) then (bind ?t 16))
+                (if (and (> ?a 13000) (< ?a 120000)) then (bind ?t 12))
+                (if (and (> ?a 2000) (< ?a 13000)) then (bind ?t 8))
+                (if (and (> ?a 0) (< ?a 2000)) then (bind ?t 5))
+            )
+            (if (and (> ?np 12) (<= ?np 25)) then
+                (if (> ?a 120000) then (bind ?t 18))
+                (if (and (> ?a 13000) (< ?a 120000)) then (bind ?t 14))
+                (if (and (> ?a 2000) (< ?a 13000)) then (bind ?t 10))
+                (if (and (> ?a 0) (< ?a 2000)) then (bind ?t 7))
+            )
+            (if (> ?np 25) then
+                (if (> ?a 120000) then (bind ?t 20)) 
+                (if (and (> ?a 13000) (< ?a 120000)) then (bind ?t 15))
+                (if (and (> ?a 2000) (< ?a 13000)) then (bind ?t 12))
+                (if (and (> ?a 0) (< ?a 2000)) then (bind ?t 8))
+            )
             (if (< (+ ?t-ocu ?t) ?t-max) 
                 then
-                (bind ?t-ocu (+ ?t-ocu ?t))
-                (bind $?recs-dia (insert$ $?recs-dia (+ (length$ $?recs-dia) 1) ?rec))
+                    (bind ?t-ocu (+ ?t-ocu ?t))
+                    (bind ?try 1)
+                    (bind ?asignados (+ ?asignados 1))
+                    (bind ?recs-dia (insert$ $?recs-dia (+ (length$ $?recs-dia) 1) ?rec))
+                    (bind $?recs (delete-member$ $?recs ?rec))
+                else
+                    (bind ?try (+ ?try 1))
             )
-            (bind ?recs (delete-member$ $?recs ?rec))
             (bind ?j (+ ?j 1))
         )
-
-         
-          ; Guardar las recomendaciones del día
-        (send ?dia put-recomendaciones $?recs-dia)
+        (send ?dia put-quadres-recomanats $?recs-dia)        
         (bind ?i (+ ?i 1))
-      )
-
-   ; Crear lista de días
-   (assert (llista-dies (dias $?llista)))
-   (printout t "Computant una ruta optima..." crlf)
-)
-
-
-(defrule sintesis::ordenar-per-sales 
-    "Ordena cada dia per sales."
-    (llista-dies (dias $?llista))
-    =>
-    (progn$ (?curr-dia $?llista)
-        (bind $?resultat (create$ ))
-
-        (bind $?recs (send ?curr-dia get-recomenacions))
-        (while (not (eq (length$ $?recs) 0))  do
-            (bind ?curr-rec (ordenar-sales $?recs))
-            (bind $?recs (delete-member$ $?recs ?curr-rec))
-            (bind $?resultat (insert$ $?resultat (+ (length$ $?resultat) 1) ?curr-rec))
-        )
-        (send ?curr-dia put-recomendacions $?resultat)
-       
     )
-    (assert (dies-ordenats-per-sala (dias $?llista))) 
+    (assert (ruta (dies $?llista)))
+    (printout t "Computant una ruta optima de visites..." crlf)
 )
+
+
+; (defrule sintesis::ordenar-per-sales 
+;     "Ordena cada dia per sales."
+;     (ruta (dies $?llista))
+;     =>
+;     (progn$ (?curr-dia $?llista)
+;         (bind $?resultat (create$ ))
+
+;         (bind $?recs (send ?curr-dia get-recomanacions))
+;         (while (not (eq (length$ $?recs) 0))  do
+;             (bind ?curr-rec (ordenar-sales $?recs))
+;             (bind $?recs (delete-member$ $?recs ?curr-rec))
+;             (bind $?resultat (insert$ $?resultat (+ (length$ $?resultat) 1) ?curr-rec))
+;         )
+;         (send ?curr-dia put-recomanacions $?resultat)
+       
+;     )
+;     (assert (dies-ordenats-per-sala (dies $?llista))) 
+; )
 
 (defrule sintesis::passar-a-resultats 
     "Es passa al mòdul de presentació"
-    (dies-ordenats-per-sala)
+    ;(dies-ordenats-per-sala)
+    (ruta)
     =>
     (focus imprimir-ruta)
 )
-)
 
+;(load "./SBC/museu.clp")
 
 ; --------------------------------------------------
 ; 			  MODUL IMPRIMIR RUTA - Ramón
