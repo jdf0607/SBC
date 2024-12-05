@@ -722,21 +722,7 @@
     (if (>= ?nc 80.0) then (send [instVisitant] put-coneixement 3)) ; Nivell cultural expert
 )
 
-; (defrule abstraccio-dades::convertir-rellevancia
-;     (obres-recomenades (quadres-recomanats ?rec))
-;     ?obra <- (object (is-a Obra_de_Arte) (rellevància ?rel))
-;      (test (eq (instance-name ?rec) (instance-name ?obra)))
-;     =>
-;      (if (eq ?rel "Universal") then ;obres universalment connegudes
-;         (send ?rec put-valoracio 0)) 
-;     (if (eq ?rel "Magistral") then
-;         (send ?rec put-valoracio 1))  
-;     (if (eq ?rel "Referent") then
-;         (send ?rec put-valoracio 2 )) 
-;     (if (eq ?rel "Destacat") then
-;         (send ?rec put-valoracio 3))   ; obres per a experts
-; )
-
+;en la primera versió farem la visita només segons el expertise del visitant
 (defrule abstraccio-dades::valorar-nivell
     (visita (nivell_cultural ?nc))
     (test (>= ?nc 3))
@@ -782,7 +768,7 @@
     =>
     (assert(obres-recomenades))
 )
-
+;ara tindrem primer els quadres que volem visitar
 (defrule inferir-dades::ordenar-solucio
     (not (obres-recomenades-ordenades))
     (obres-recomenades (quadres-recomanats $?llista))
@@ -799,8 +785,74 @@
     (assert (obres-recomenades-ordenades (quadres-recomanats $?recorregut))) ; Afegeix el fet ordenat
     (printout t "Calculant recorregut..." crlf)
 )
-;aquí queremos añadir obras recomendads segun
+;a la primera no tindrem en compte les sales on estiguin els quadres
 ;ahora queremos añadir contenido a los dias
+
+
+;FALTA REVISAR i ADAPTAR-LA
+
+; (defrule inferir-dades::asigna-contenido-a-dias
+;    "Se asigna los contenidos recomendados a días, considerando el tipo de grupo"
+;    ?visita <- (visita (num_dies ?nd) (hores_visita ?hd))
+;    (obres-recomanades-ordenades (quadres-recomanats $?quadres))
+;    =>
+;    (bind ?horas (* ?hd 60)) ; Convertir horas a minutos
+;    (bind $?lista (create$)) ; Lista de días
+
+;    ; Crear instancias de días con el tiempo máximo
+;    (while (not(= (length$ $?lista) ?nd)) do
+;       (bind $?lista (insert$ $?lista (+ (length$ $?lista) 1) 
+;                       (make-instance (gensym) of Dia (tiempo-maximo ?horas))))
+;    )
+
+;    ; Determinar el tiempo por visita basado en el tipo de grupo
+;    (bind ?tiempo-base
+;       (if (eq ?visita.descripcion "Familia") then 10
+;       else (if (eq ?visita.descripcion "Individual") then 10
+;       else (if (eq ?visita.descripcion "Grupo pequeno (3-12)") then 14
+;       else 20))))
+
+;    ; Ajustar tiempo si hay niños
+;    (if (> ?visita.num_nens 0) then 
+;       (bind ?tiempo-base (/ ?tiempo-base 2)))
+
+;    ; Asignar las obras a los días
+;    (bind ?i 1)
+;    (bind ?recs $?quadres)
+;    (while (and (> (length$ ?recs) 0) (<= ?i ?nd)) do
+;       (bind ?dia (nth$ ?i $?lista))
+;       (bind $?recs-dia (create$))
+;       (bind ?t-max (send ?dia get-tiempo-maximo))
+;       (bind ?t-ocu 0)
+;       (bind ?j 1)
+      
+;       (while (and (< ?t-ocu ?t-max) (> (length$ ?recs) 0) (<= ?j (length$ ?recs))) do
+;          (bind ?rec (nth$ ?j ?recs))
+;          (bind ?cont (send ?rec get-nombre_cuadro))
+;          (bind ?t ?tiempo-base) ; Usar el tiempo base calculado
+
+;             (if (< (+ ?t-ocu ?t) ?t-max) 
+;                 then
+;                 (bind ?t-ocu (+ ?t-ocu ?t))
+;                 (bind $?recs-dia (insert$ $?recs-dia (+ (length$ $?recs-dia) 1) ?rec))
+;             )
+;             (bind ?recs (delete-member$ ?recs ?rec))
+;             (bind ?j (+ ?j 1))
+;         )
+
+         
+;           ; Guardar las recomendaciones del día
+;         (send ?dia put-recomendaciones $?recs-dia)
+;         (bind ?i (+ ?i 1))
+;       )
+
+;    ; Crear lista de días
+;    (assert (lista-dias (dias $?lista)))
+;    (printout t "Computando una ruta óptima de visitas..." crlf)
+; )
+
+
+
 
     
        
