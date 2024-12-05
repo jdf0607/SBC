@@ -791,71 +791,128 @@
 ; 			MODUL SINTESIS - Aleix
 ; --------------------------------------------------
 
-;a la primera no tindrem en compte les sales on estiguin els quadres
-;ahora queremos añadir contenido a los dias
 
 
-;FALTA REVISAR i ADAPTAR-LA
 
-; (defrule sintesis::asigna-contenido-a-dias
-;    "Se asigna los contenidos recomendados a días, considerando el tipo de grupo"
-;    ?visita <- (visita (num_dies ?nd) (hores_visita ?hd))
-;    (obres-recomanades-ordenades (quadres-recomanats $?quadres))
-;    =>
-;    (bind ?horas (* ?hd 60)) ; Convertir horas a minutos
-;    (bind $?lista (create$)) ; Lista de días
+(defrule sintesis::crear-llista-recomanacions 
+    "Es crea una lista de recomenacions per ordenarles"
+    (not (llista-rec-desordenada))
+    =>
+    (assert (llista-rec-desordenada))
+)
 
-;    ; Crear instancias de días con el tiempo máximo
-;    (while (not(= (length$ $?lista) ?nd)) do
-;       (bind $?lista (insert$ $?lista (+ (length$ $?lista) 1) 
-;                       (make-instance (gensym) of Dia (tiempo-maximo ?horas))))
-;    )
+(defrule sintesis::afegir-recomanacio 
+    "Afegeix una recomenacio a la lista de recomenacions"
+    (declare (salience 10))
+    ?rec <- (object (is-a quadres-recomanats))
+    ?hecho <- (llista-rec-desordenada (quadres-recomanats $?llista))
+    (test (not (member$ ?rec $?llista)))
+    =>
+    (bind $?llista (insert$ $?llista (+ (length$ $?llista) 1) ?rec))
+    (modify ?hecho (quadres-recomanats $?llista))
+)
 
-;    ; Determinar el tiempo por visita basado en el tipo de grupo
-;    (bind ?tiempo-base
-;       (if (eq ?visita.descripcion "Familia") then 10
-;       else (if (eq ?visita.descripcion "Individual") then 10
-;       else (if (eq ?visita.descripcion "Grupo pequeno (3-12)") then 14
-;       else 20))))
+(defrule sintesis::crear-llista-ordenada 
+    "Es crea una lista de recomenacions ordenada"
+    (not (llista-rec-ordenada))
+    (llista-rec-desordenada (quadres-recomanats $?llista))
+    =>
+    (bind $?resultat (create$ ))
+    (while (not (eq (length$ $?llista) 0))  do
+        (bind ?curr-rec (trobar-maxim $?llista))
+        (bind $?llista (delete-member$ $?llista ?curr-rec))
+        (bind $?resultat (insert$ $?resultat (+ (length$ $?resultat) 1) ?curr-rec))
+    )
+    (assert (llista-rec-ordenada (quadres-recomanats $?resultat)))
+    (printout t "Ordenant obres d'art..." crlf)
+)
 
-;    ; Ajustar tiempo si hay niños
-;    (if (> ?visita.num_nens 0) then 
-;       (bind ?tiempo-base (/ ?tiempo-base 2)))
+(defrule sintesis::asigna-contingut-a-dies
+   "S'asignen els continguts recomanats a dies, considerant el tipus de grup"
+   ?visita <- (visita (num_dies ?nd) (hores_visita ?hd))
+   (obres-recomanades-ordenades (quadres-recomanats $?quadres))
+   =>
+   (bind ?horas (* ?hd 60)) ; Convertir hores a minuts
+   (bind $?llista (create$)) ; Lista de dies
 
-;    ; Asignar las obras a los días
-;    (bind ?i 1)
-;    (bind ?recs $?quadres)
-;    (while (and (> (length$ ?recs) 0) (<= ?i ?nd)) do
-;       (bind ?dia (nth$ ?i $?lista))
-;       (bind $?recs-dia (create$))
-;       (bind ?t-max (send ?dia get-tiempo-maximo))
-;       (bind ?t-ocu 0)
-;       (bind ?j 1)
+   ; Creem una instancia de dess amb el temps maxim
+   (while (not(= (length$ $?llista) ?nd)) do
+      (bind $?llista (insert$ $?llista (+ (length$ $?llista) 1) 
+                      (make-instance (gensym) of Dia (tiempo-maximo ?horas))))
+   )
+
+   ; Determinar el tiempo por visita basado en el tipo de grupo
+   (bind ?tiempo-base
+      (if (eq ?visita.familia TRUE) then 10
+      else (if (eq ?visita.num_persones 1) then 10
+      else (if (> ?visita.num_persones 9) then 20
+      else 14))))
+
+   ; Ajustar tiempo si hay niños
+   (if (> ?visita.num_nens 0) then 
+      (bind ?tiempo-base (/ ?tiempo-base 2)))
+
+   ; Asignar las obras a los días
+   (bind ?i 1)
+   (bind ?recs $?quadres)
+   (while (and (> (length$ ?recs) 0) (<= ?i ?nd)) do
+      (bind ?dia (nth$ ?i $?llista))
+      (bind $?recs-dia (create$))
+      (bind ?t-max (send ?dia get-tiempo-maximo))
+      (bind ?t-ocu 0)
+      (bind ?j 1)
       
-;       (while (and (< ?t-ocu ?t-max) (> (length$ ?recs) 0) (<= ?j (length$ ?recs))) do
-;          (bind ?rec (nth$ ?j ?recs))
-;          (bind ?cont (send ?rec get-nombre_cuadro))
-;          (bind ?t ?tiempo-base) ; Usar el tiempo base calculado
+      (while (and (< ?t-ocu ?t-max) (> (length$ ?recs) 0) (<= ?j (length$ ?recs))) do
+         (bind ?rec (nth$ ?j $?recs))
+         (bind ?cont (send ?rec get-nom-obra))
+         (bind ?t ?tiempo-base) ; Usar el tiempo base calculado
 
-;             (if (< (+ ?t-ocu ?t) ?t-max) 
-;                 then
-;                 (bind ?t-ocu (+ ?t-ocu ?t))
-;                 (bind $?recs-dia (insert$ $?recs-dia (+ (length$ $?recs-dia) 1) ?rec))
-;             )
-;             (bind ?recs (delete-member$ ?recs ?rec))
-;             (bind ?j (+ ?j 1))
-;         )
+            (if (< (+ ?t-ocu ?t) ?t-max) 
+                then
+                (bind ?t-ocu (+ ?t-ocu ?t))
+                (bind $?recs-dia (insert$ $?recs-dia (+ (length$ $?recs-dia) 1) ?rec))
+            )
+            (bind ?recs (delete-member$ $?recs ?rec))
+            (bind ?j (+ ?j 1))
+        )
 
          
-;           ; Guardar las recomendaciones del día
-;         (send ?dia put-recomendaciones $?recs-dia)
-;         (bind ?i (+ ?i 1))
-;       )
+          ; Guardar las recomendaciones del día
+        (send ?dia put-recomendaciones $?recs-dia)
+        (bind ?i (+ ?i 1))
+      )
 
-;    ; Crear lista de días
-;    (assert (lista-dias (dias $?lista)))
-;    (printout t "Computando una ruta óptima de visitas..." crlf)
-; )
+   ; Crear lista de días
+   (assert (llista-dies (dias $?llista)))
+   (printout t "Computant una ruta optima..." crlf)
+)
+
+
+(defrule sintesis::ordenar-per-sales 
+    "Ordena cada dia per sales."
+    (llista-dies (dias $?llista))
+    =>
+    (progn$ (?curr-dia $?llista)
+        (bind $?resultat (create$ ))
+
+        (bind $?recs (send ?curr-dia get-recomendacions))
+        (while (not (eq (length$ $?recs) 0))  do
+            (bind ?curr-rec (ordenar-sales $?recs))
+            (bind $?recs (delete-member$ $?recs ?curr-rec))
+            (bind $?resultat (insert$ $?resultat (+ (length$ $?resultat) 1) ?curr-rec))
+        )
+        (send ?curr-dia put-recomendacions $?resultat)
+       
+    )
+    (assert (dies-ordenats-per-sala (dias $?llista))) 
+)
+
+(defrule sintesis::passar-a-resultats 
+    "Es passa al mòdul de presentació"
+    (dies-ordenats-per-sala)
+    =>
+    (focus imprimir-ruta)
+)
 
 
 ; --------------------------------------------------
