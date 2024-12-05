@@ -872,7 +872,7 @@
    (while (and (> (length$ ?recs) 0) (<= ?i ?nd)) do
       (bind ?dia (nth$ ?i $?llista))
       (bind $?recs-dia (create$))
-      (bind ?t-max (send ?dia get-tiempo-maximo))
+      (bind ?t-max (send ?dia get-temps-maxim))
       (bind ?t-ocu 0)
       (bind ?j 1)
       
@@ -909,7 +909,7 @@
     (progn$ (?curr-dia $?llista)
         (bind $?resultat (create$ ))
 
-        (bind $?recs (send ?curr-dia get-recomendacions))
+        (bind $?recs (send ?curr-dia get-recomenacions))
         (while (not (eq (length$ $?recs) 0))  do
             (bind ?curr-rec (ordenar-sales $?recs))
             (bind $?recs (delete-member$ $?recs ?curr-rec))
@@ -926,6 +926,7 @@
     (dies-ordenats-per-sala)
     =>
     (focus imprimir-ruta)
+)
 )
 
 
