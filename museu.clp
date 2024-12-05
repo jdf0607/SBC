@@ -712,21 +712,71 @@
     (send [instVisitant] put-coneixement ?nc)
 )
 
+
 (defrule abstraccio-dades::valorar-coneixement
     (visita (nivell_cultural ?nc))
     =>
     (if (< ?nc 20.0) then (send [instVisitant] put-coneixement 0)) ; Nivell cultural novell
-    (if (and (>= ?nc 20.0) (< ?nc 50.0)) then (send [instVisitant] put-coneixement 1)) ; Nivell cultural aficionat
+  (if (and (>= ?nc 20.0) (< ?nc 50.0)) then (send [instVisitant] put-coneixement 1)) ; Nivell cultural aficionat
     (if (and (>= ?nc 50.0) (< ?nc 80.0)) then (send [instVisitant] put-coneixement 2)) ; Nivell cultural entès
     (if (>= ?nc 80.0) then (send [instVisitant] put-coneixement 3)) ; Nivell cultural expert
 )
 
-;
+; (defrule abstraccio-dades::convertir-rellevancia
+;     (obres-recomenades (quadres-recomanats ?rec))
+;     ?obra <- (object (is-a Obra_de_Arte) (rellevància ?rel))
+;      (test (eq (instance-name ?rec) (instance-name ?obra)))
+;     =>
+;      (if (eq ?rel "Universal") then ;obres universalment connegudes
+;         (send ?rec put-valoracio 0)) 
+;     (if (eq ?rel "Magistral") then
+;         (send ?rec put-valoracio 1))  
+;     (if (eq ?rel "Referent") then
+;         (send ?rec put-valoracio 2 )) 
+;     (if (eq ?rel "Destacat") then
+;         (send ?rec put-valoracio 3))   ; obres per a experts
+; )
+
+(defrule abstraccio-dades::valorar-nivell
+    (visita (nivell_cultural ?nc))
+    (test (>= ?nc 3))
+    ?rec <- (object (is-a quadres-recomanats) (nom-obra ?obra) (valoracio ?val))
+    ?cont <- (object (is-a Obra_de_Arte) (rellevància ?rel))
+    (test (eq (instance-name ?cont) (instance-name ?obra)))
+    (not (valorat ?cont ?nc))  ; Verifica que no se haya valorado previamente
+    =>
+    ; Establecer la prioridad según el nivell_cultural del visitante
+     (bind ?rel-num 
+      (if (eq ?rel "Universal") then 0
+      else (if (eq ?rel "Magistral") then 1
+      else (if (eq ?rel "Referent") then 2
+      else (if (eq ?rel "Destacat") then 3
+      else -1)))))
+    
+    (bind ?prioritat
+        (if (eq ?nc 0) then 0  ; Novell: solo puede ver obras de relevancia 0
+        else (if (eq ?nc 1) then 1  ; Aficionat: obras de relevancia 0 y 1
+        else (if (eq ?nc 2) then 2  ; Entès: obras de relevancia 0, 1 y 2
+        else 3)))  ; Experto: todas las obras
+
+    ; Comprobar si la obra tiene relevancia dentro del rango permitido para el nivel cultural
+    (if (<= ?rel-num ?prioritat) then
+        (if (< ?rel-num 4) then
+            (bind ?val (+ ?val 40))  ; Si la obra es relevante, sumar 40 a la valoración
+            (bind $?just (insert$ $?just (+ (length$ $?just) 1) "rellevancia adient"))
+        )
+    )
+
+    ; Actualizar la valoración de la obra recomendada
+    (send ?rec put-valoracio ?val)
+    (assert (valorat ?cont ?nc))  ; Marcar la obra como valorada para este nivel
+    (printout t "S'ha valorat el nivell cultural del visitant"))
+)
 
 ; --------------------------------------------------
 ; 				MODUL Inferencia - José
 ; --------------------------------------------------
-
+;a los cuadros se les da una puntuación por visitante y los añadimos al recorrido según esta
 (defrule inferir-dades::crear-solucio
     (not (obres-recomenades))
     =>
@@ -749,10 +799,8 @@
     (assert (obres-recomenades-ordenades (quadres-recomanats $?recorregut))) ; Afegeix el fet ordenat
     (printout t "Calculant recorregut..." crlf)
 )
-
-
-;ordenem els quadres per puntuació, falta tenir en compte les sales i els dies
-    
+;aquí queremos añadir obras recomendads segun
+;ahora queremos añadir contenido a los dias
 
     
        
