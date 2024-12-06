@@ -17,10 +17,10 @@
     (multislot coneixement
         (type INTEGER)
         (create-accessor read-write))
-    (multislot dies
+    (slot dies
         (type INTEGER)
         (create-accessor read-write))
-    (multislot hores
+    (slot hores
         (type INTEGER)
         (create-accessor read-write))
 )
@@ -69,7 +69,7 @@
     (is-a USER)
     (role concrete)
     (pattern-match reactive)
-    (multislot any_de_creació
+    (slot any_de_creació
         (type INTEGER)
         (create-accessor read-write))
     (multislot estil
@@ -317,39 +317,40 @@
 		(create-accessor read-write))
 )
 
-(defmessage-handler MAIN::Obra_de_Arte imprimir ()
-	(format t "Any: %d" ?self:any_de_creació get-any_de_creació)
+(defmessage-handler MAIN::Obra_de_Arte imprimir primary ()
+	(format t "Any: %d" ?self:any_de_creació)
 	(printout t crlf)
-    (format t "Època: %s" (send ?self:època get-èooca))
+    (format t "Època: %s" ?self:època)
 	(printout t crlf)
-    (format t "Temàtica: %s" (send ?self:temàtica get-temàtica))
+    (format t "Temàtica: %s" ?self:temàtica)
 	(printout t crlf)
-    (format t "Rellevància: %s" (send ?self:rellevància get-rellevància))
+    (format t "Rellevància: %s" ?self:rellevància)
 	(printout t crlf)
-    (format t "Estil: %s" (send ?self:estil get-estil))
+    (format t "Estil: %s" ?self:estil get-estil)
 	(printout t crlf)
-    )
-
-(defmessage-handler MAIN::quadres-recomanats imprimir ()
-    (printout t (send ?self:nom-obra imprimir))
-	(printout t crlf)
-	(format t "Valoracio: %d %n" ?self:valoracio)
-	(printout t "Justificacion de la eleccion: " crlf)
-	(printout t crlf))
-
-(defmessage-handler MAIN::ruta-per-Dia imprimir ()
-    (printout t "Quadres recomanats: " crlf)
-     (foreach ?quadre ?self:quadres-recomanats
-        (printout t (send ?quadre imprimir))  
-        (printout t crlf)
-     )
 )
 
-(defmessage-handler Visitant is-a (?class)
-   (if (subclassp ?class (send ?self get-class)) then
-       TRUE
-   else
-       FALSE))
+(defmessage-handler MAIN::quadres-recomanats imprimir primary ()
+    (printout t ?self:nom-obra)
+	(printout t crlf)
+	(format t "Valoracio: %d" ?self:valoracio)
+	(printout t crlf "Justificació de la tria: " crlf)
+	(printout t crlf)
+)
+
+(defmessage-handler MAIN::ruta-per-Dia imprimir primary ()
+    (printout t "Quadres recomanats: " crlf)
+    (foreach ?quadre ?self:quadres-recomanats
+        (printout t (send ?quadre imprimir))  
+        (printout t crlf)
+    )
+)
+
+;(defmessage-handler Visitant is-a (?class)
+;   (if (subclassp ?class (send ?self get-class)) then
+;       TRUE
+;   else
+;       FALSE))
 
 ; ------------------------------------
 ; 				  MAIN 
@@ -445,7 +446,7 @@
     (slot num_dies (type INTEGER) (default 0))
     (slot hores_visita (type INTEGER) (default 0))
     (multislot preferencies-estil (type STRING))
-    (multislot preferencies-tematica (type STRING))
+    (multislot preferencies-temàtica (type STRING))
     (slot nivell_cultural (type FLOAT) (default 0.0))
 )
 
@@ -617,7 +618,7 @@
     ?estil
 )
 
-(deffunction MAIN::mapa-num-tematica (?num)
+(deffunction MAIN::mapa-num-temàtica (?num)
     (bind ?estil nil)
     (switch ?num
         (case 1 then (bind ?estil "Vida quotidiana"))
@@ -732,7 +733,7 @@
     (retract ?f)
 )
 
-(defrule recopilacio-informacio-visitant::consultar-preferencies-tematica
+(defrule recopilacio-informacio-visitant::consultar-preferencies-temàtica
     ?v <- (visita)
     ?f <- (tematiques preguntar)
     =>
@@ -740,9 +741,9 @@
     (bind $?pref-indexs (pregunta-multiresposta "Seleccioneu les vostres temàtiques preferides:" ?temes))
     (bind ?prefs (create$))
     (foreach ?pref-i $?pref-indexs
-        (bind ?prefs (create$ ?prefs (mapa-num-tematica ?pref-i)))
+        (bind ?prefs (create$ ?prefs (mapa-num-temàtica ?pref-i)))
     )
-    (modify ?v (preferencies-tematica ?prefs))
+    (modify ?v (preferencies-temàtica ?prefs))
     (retract ?f)
 )
 
@@ -901,18 +902,19 @@
 ; )
 (defrule sintesis::asigna-contingut-a-dies  
     "S'assigna els continguts recomanats a cada dia, basant-se en instVisitant"
-    (object (is-a Visitant) (name [instVisitant])
-            (dies ?dies) (hores ?hores))
+    ?iv <- (object (name [instVisitant]))
     (obres-valorades-ordenades (quadres-recomanats $?recs)) ; Lista de obras ordenadas
     (not (ruta)) ; Asegurarse de que no exista una ruta previamente definida
     =>
-    (bind ?hores (* ?hores 60)) ; Convertir horas a minutos
+    (bind ?dies (send ?iv get-dies))
+    (bind ?hores (send ?iv get-hores))
+    (bind ?mins (* ?hores 60)) ; Convertir horas a minutos
     (bind $?dies-llista (create$)) ; Crear una lista vacía para los días
     ; Crear instancias de ruta-per-Dia y asignarles tiempo
     (while (not (= (length$ $?dies-llista) ?dies)) do
         (bind $?dies-llista 
             (insert$ $?dies-llista (+ (length$ $?dies-llista) 1)
-                     (make-instance (gensym) of ruta-per-Dia (temps ?hores)))))
+                     (make-instance (gensym) of ruta-per-Dia (temps ?mins)))))
     ; Asignación de obras a días
     (bind ?i 1)
     (while (and (> (length$ $?recs) 0) (<= ?i ?dies)) 
@@ -924,28 +926,28 @@
         (while (and (< ?t-ocu ?t-max) (> (length$ $?recs) 0) (<= ?j (length$ $?recs))) do
             (bind ?rec (nth$ ?j $?recs)) ; Obtener la obra actual
             (bind ?obra (send ?rec get-nom-obra)) ; Obtener la instancia de la obra
-            (bind ?a (send ?obra get-any_de_creació)) ; Año de creación de la obra
+            (bind ?ac (send ?obra get-any_de_creació)) ; Año de creación de la obra
             ; Determinar el tiempo requerido para la obra según el tipo de visitante
             (bind ?t
-                (if (send [instVisitant] is-a Familia) then
-                    (if (> ?a 120000) then 13
-                    else (if (and (> ?a 13000) (<= ?a 120000)) then 10
-                    else (if (and (> ?a 2000) (<= ?a 13000)) then 6
+                (if (eq (class ?iv) Familia) then
+                    (if (> ?ac 120000) then 13
+                    else (if (and (> ?ac 13000) (<= ?ac 120000)) then 10
+                    else (if (and (> ?ac 2000) (<= ?ac 13000)) then 6
                     else 4)))
-                else (if (send [instVisitant] is-a Individu) then
-                    (if (> ?a 120000) then 16
-                    else (if (and (> ?a 13000) (<= ?a 120000)) then 12
-                    else (if (and (> ?a 2000) (<= ?a 13000)) then 8
+                else (if (eq (class ?iv) Individu) then
+                    (if (> ?ac 120000) then 16
+                    else (if (and (> ?ac 13000) (<= ?ac 120000)) then 12
+                    else (if (and (> ?ac 2000) (<= ?ac 13000)) then 8
                     else 5)))
-                else (if (send [instVisitant] is-a Grup_Petit) then
-                    (if (> ?a 120000) then 18
-                    else (if (and (> ?a 13000) (<= ?a 120000)) then 14
-                    else (if (and (> ?a 2000) (<= ?a 13000)) then 10
+                else (if (eq (class ?iv) Grup_Petit) then
+                    (if (> ?ac 120000) then 18
+                    else (if (and (> ?ac 13000) (<= ?ac 120000)) then 14
+                    else (if (and (> ?ac 2000) (<= ?ac 13000)) then 10
                     else 7)))
-                else (if (send [instVisitant] is-a Grup_Gran) then
-                    (if (> ?a 120000) then 20
-                    else (if (and (> ?a 13000) (<= ?a 120000)) then 15
-                    else (if (and (> ?a 2000) (<= ?a 13000)) then 12
+                else (if (eq (class ?iv) Grup_Gran) then
+                    (if (> ?ac 120000) then 20
+                    else (if (and (> ?ac 13000) (<= ?ac 120000)) then 15
+                    else (if (and (> ?ac 2000) (<= ?ac 13000)) then 12
                     else 8))))))))
             ; Verificar si hay tiempo suficiente en el día para la obra
             (if (< (+ ?t-ocu ?t) ?t-max) then
@@ -990,20 +992,19 @@
 ; 			  MODUL IMPRIMIR RUTA - Ramón
 ; --------------------------------------------------
 
-(defrule imprimir-ruta::imprimir "Imprime las rutas recomendadas"
+(defrule imprimir-ruta::sortida "Imprimeix les rutes recomanades"
     (ruta (dies $?llista))  ; Asegura que hay una ruta con días asignados
     (not (final))  ; Asegura que no se haya alcanzado el estado final
     =>
     (printout t crlf)
-    (format t "Recomanació" crlf)
-    (printout t crlf)
-    (printout t "============================================" crlf)
+    (printout t "Aquesta és la planificació de les visites que us recomanem:" crlf)
+    (printout t "===========================================================" crlf)
     
     ;; Iterar sobre cada día en la lista de rutas
     (bind ?i 1)  ; Inicializa el contador de días
     (while (<= ?i (length$ $?llista)) do
         (bind ?dia (nth$ ?i $?llista))  ; Obtiene el día correspondiente
-        (printout t "Día %d:" ?i)  ; Imprime el número del día
+        (format t "Dia %d:" ?i)  ; Imprime el número del día
         (printout t crlf)
         
         ;; Obtiene los cuadros recomendados para ese día
@@ -1015,7 +1016,8 @@
                 (printout t "  No hi ha obres recomanades per a aquest dia." crlf)
             else
                 (foreach ?rec ?recs-dia
-                    (printout t "  - " (send ?rec imprimir))  ; Imprime los detalles de la obra
+                    (printout t (class ?rec) crlf)
+                    (printout t "\t- " (send ?rec imprimir))  ; Imprime los detalles de la obra
                     (printout t crlf)
                 )
         )
