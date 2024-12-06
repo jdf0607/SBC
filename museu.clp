@@ -895,12 +895,12 @@
     ?v <- (visita (num_dies ?dies) (hores_visita ?hores) (num_persones ?np) (num_nens ?nn) (familia ?fam))
     (obres-valorades-ordenades (quadres-recomanats $?recs))
     (not (ruta))
-    (ruta (dies $?llista))
+    ;(ruta (dies $?llista))
     =>
     (bind ?hores (* ?hores 60))
     (bind $?llista (create$ ))
     (while (not(= (length$ $?llista) ?dies)) do
-        (bind $?llista (insert$ $?llista (+ (length$ $?llista) 1) (make-instance (gensym) of ruta-per-Dia (temps ?hores))))
+        (bind $?llista (insert$ $?llista (make-instance (gensym) of ruta-per-Dia (temps ?hores))))
     )
     (bind ?i 1)
     (while (and (> (length$ $?recs) 0) (<= ?i ?dies)) 
@@ -944,7 +944,7 @@
                     (bind ?t-ocu (+ ?t-ocu ?t))
                     (bind ?try 1)
                     (bind ?asignados (+ ?asignados 1))
-                    (bind ?recs-dia (insert$ $?recs-dia (+ (length$ $?recs-dia) 1) ?rec))
+                    (bind ?recs-dia (insert$ $?recs-dia ?rec))
                     (bind $?recs (delete-member$ $?recs ?rec))
                 else
                     (bind ?try (+ ?try 1))
