@@ -561,15 +561,15 @@
    ?numeros
 )
 
-;funcio per a trobar els elements  amb millor puntuacio
+;funcio per a trobar els elements  amb millor valoracio
 (deffunction trobar-maxim ($?llista)
 	(bind ?maxim -1)
 	(bind ?element nil)
 	(foreach ?actual $?llista
-      (bind ?puntuacio (send ?actual get-puntuacio))
-      (if (> ?puntuacio ?maxim)
+      (bind ?valoracio (send ?actual get-valoracio))
+      (if (> ?valoracio ?maxim)
          then
-            (bind ?maxim ?puntuacio)
+            (bind ?maxim ?valoracio)
             (bind ?element ?actual)
       )
    )
@@ -663,47 +663,47 @@
     ?v <- (visita (nivell_cultural ?nc))
     (test (eq ?nc 0.0))
     =>
-    (bind ?puntuacio 0.0)
+    (bind ?valoracio 0.0)
     (bind ?format (create$ "Sí" "No"))
 
     (bind ?resp (pregunta-opcions "Coneixes 'El Grito' de Munch?" ?format))
-    (if (= ?resp 1) then (bind ?puntuacio (+ 10.0 ?puntuacio)))
+    (if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
 
     (bind ?resp (pregunta-opcions "Coneixes 'Las Meninas' de Velázquez?" ?format))
-    (if (= ?resp 1) then (bind ?puntuacio (+ 10.0 ?puntuacio)))
+    (if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
 
     (bind ?resp (pregunta-opcions "Coneixes 'El Greco' de Goya?" ?format))
-    (if (= ?resp 1) then (bind ?puntuacio (+ 10.0 ?puntuacio)))
+    (if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
 
     (bind ?resp (pregunta-opcions "Coneixes 'La Gioconda' de Da Vinci?" ?format))
-    (if (= ?resp 1) then (bind ?puntuacio (+ 10.0 ?puntuacio)))
+    (if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
 
     (bind ?resp (pregunta-opcions "Coneixes 'La Nit Estrellada' de Van Gogh?" ?format))
-    (if (= ?resp 1) then (bind ?puntuacio (+ 10.0 ?puntuacio)))
+    (if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
 
     (bind ?tria (create$ "Klimt" "Tiziano" "Yanyez" "El Greco"))
 	(bind ?resp (pregunta-opcions "Qui va pintar el quadre 'El Beso'?" ?tria))
-	(if (= ?resp 1) then (bind ?puntuacio (+ 10.0 ?puntuacio)))
+	(if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
 
     (bind ?tria (create$ "El Greco." "Francisco de Goya." "Diego Velazquez."))
 	(bind ?resp (pregunta-opcions "¿Qui va pintar el quadre 'Las Hilanderas'?" ?tria))
-	(if (= ?resp 3) then (bind ?puntuacio (+ 10.0 ?puntuacio)))
+	(if (= ?resp 3) then (bind ?valoracio (+ 10.0 ?valoracio)))
 
     (bind ?tria (create$ "La Pietà" "David" "El Moisès" "Venus de Milo"))
     (bind ?resp (pregunta-opcions "Quina obra és de Miquel Àngel?" ?tria))
-    (if (= ?resp 2) then (bind ?puntuacio (+ 10.0 ?puntuacio)))
+    (if (= ?resp 2) then (bind ?valoracio (+ 10.0 ?valoracio)))
 
     (bind ?tria (create$ "Pablo Picasso" "Salvador Dalí" "Marc Chagall" "Henri Matisse"))
     (bind ?resp (pregunta-opcions "Qui va pintar 'Gernika'?" ?tria))
-    (if (= ?resp 1) then (bind ?puntuacio (+ 10.0 ?puntuacio)))
+    (if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
 
     (bind ?tria (create$ "Salvador Dalí" "Vincent van Gogh" "Claude Monet" "Frida Kahlo"))
     (bind ?resp (pregunta-opcions "Quin pintor va ser conegut pel seu estil surrealista?" ?tria))
-    (if (= ?resp 1) then (bind ?puntuacio (+ 10.0 ?puntuacio)))
+    (if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
 
     ;; Afegegir més preguntes si fa falta
 
-    (modify ?v (nivell_cultural (/ ?puntuacio 10.0)))
+    (modify ?v (nivell_cultural (/ ?valoracio 10.0)))
     (assert (estils preguntar))
     (assert (tematiques preguntar))
 )
@@ -814,7 +814,7 @@
     (send ?rec put-valoracio ?val)
     (assert (valorat ?cont ?nc))  ; Marcar la obra como valorada para este nivel
     (assert (obres-valorades (quadres-recomanats ?rec)))
-    (printout t "S'ha valorat el nivell cultural del visitant")
+    (printout t "S'ha valorat el nivell cultural del visitant" crlf)
 )
 
 
@@ -979,7 +979,7 @@
     (not (final))  ; Asegura que no se haya alcanzado el estado final
     =>
     (printout t crlf)
-    (format t "Esta es nuestra recomendación de ruta para el grupo. Esperamos que la disfrutéis." crlf)
+    (format t "Recomanació" crlf)
     (printout t crlf)
     (printout t "============================================" crlf)
     
