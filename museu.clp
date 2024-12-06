@@ -346,12 +346,6 @@
     )
 )
 
-;(defmessage-handler Visitant is-a (?class)
-;   (if (subclassp ?class (send ?self get-class)) then
-;       TRUE
-;   else
-;       FALSE))
-
 ; ------------------------------------
 ; 				  MAIN 
 ; ------------------------------------
@@ -449,16 +443,6 @@
     (multislot preferencies-temàtica (type STRING))
     (slot nivell_cultural (type FLOAT) (default 0.0))
 )
-
-; Potser es necessitaria una classe per definir el recorregut d'una visita.
-; (deftemplate recorregut_sala
-;     (multislot quadres (type INSTANCE))
-; )
-
-;després farem el recorergut amb més llogica de sales
-; (deftemplate dia
-;     (multislot sales (type INSTANCE))
-; )
 
 (deftemplate dia
     (multislot quadres-recomanats (type INSTANCE))
@@ -809,12 +793,7 @@
       else (if (eq ?rel "Referent") then 2
       else (if (eq ?rel "Destacat") then 3
       else -1)))))
-    
-    ; (bind ?prioritat
-    ;     (if (eq ?nc 0) then 0  ; Novell: solo puede ver obras de relevancia 0
-    ;     else (if (eq ?nc 1) then 1  ; Aficionat: obras de relevancia 0 y 1
-    ;     else (if (eq ?nc 2) then 2  ; Entès: obras de relevancia 0, 1 y 2
-    ;     else 3))))  ; Experto: todas las obras
+
     (bind ?prioritat ?coneixement) 
 
 
@@ -830,9 +809,6 @@
 
     ;(retract (obres-valorades (quadres-recomanats $?llista)))
     (assert (obres-valorades (quadres-recomanats $?llista ?rec)))
-    
-
-    (printout t "S'ha valorat l'adecuació de l'obra pel visitant" crlf)
 )
 
 
@@ -868,39 +844,6 @@
 ; 			MODUL SINTESIS - Aleix
 ; --------------------------------------------------
 
-
-; (defrule sintesis::crear-llista-recomanacions 
-;     "Es crea una llista de recomenacions per ordenarles"
-;     (not (obres-valorades))
-;     =>
-;     (assert (obres-valorades))
-; )
-
-; (defrule sintesis::afegir-recomanacio 
-;     "Afegeix una recomenacio a la llista de recomenacions"
-;     (declare (salience 10))
-;     ?rec <- (object (is-a quadres-recomanats))
-;     ?hecho <- (obres-valorades (quadres-recomanats $?llista))
-;     (test (not (member$ ?rec $?llista)))
-;     =>
-;     (bind $?llista (insert$ $?llista (+ (length$ $?llista) 1) ?rec))
-;     (modify ?hecho (quadres-recomanats $?llista))
-; )
-
-; (defrule sintesis::crear-llista-ordenada 
-;     "Es crea una llista de recomenacions ordenada"
-;     (not (obres-valorades-ordenades))
-;     (obres-valorades (quadres-recomanats $?llista))
-;     =>
-;     (bind $?resultat (create$ ))
-;     (while (not (eq (length$ $?llista) 0))  do
-;         (bind ?curr-rec (trobar-maxim $?llista))
-;         (bind $?llista (delete-member$ $?llista ?curr-rec))
-;         (bind $?resultat (insert$ $?resultat (+ (length$ $?resultat) 1) ?curr-rec))
-;     )
-;     (assert (obres-valorades-ordenades (quadres-recomanats $?resultat)))
-;     (printout t "Ordenant obres d'art..." crlf)
-; )
 (defrule sintesis::asigna-contingut-a-dies  
     "S'assigna els continguts recomanats a cada dia, basant-se en instVisitant"
     ?iv <- (object (name [instVisitant]))
@@ -908,9 +851,7 @@
     (not (ruta)) ; Asegurarse de que no exista una ruta previamente definida
     =>
     (bind ?dies (send ?iv get-dies))
-    (printout t "Nombre de dies al museu: " ?dies crlf)
     (bind ?hores (send ?iv get-hores))
-    (printout t "Nombre de d'hores al museu: " ?hores crlf)
     (bind ?mins (* ?hores 60)) ; Convertir horas a minutos
     (bind $?dies-llista (create$)) ; Crear una lista vacía para los días
     ; Crear instancias de ruta-per-Dia y asignarles tiempo
@@ -970,28 +911,6 @@
     (assert (ruta (dies $?dies-llista)))
     (printout t "Computant una ruta òptima basada en instVisitant..." crlf)
 )
-
-
-;encara no la utilitzem
-; (defrule sintesis::ordenar-per-sales 
-;     "Ordena cada dia per sales."
-;     (ruta (dies $?llista))
-;     =>
-;     (progn$ (?curr-dia $?llista)
-;         (bind $?resultat (create$ ))
-
-;         (bind $?recs (send ?curr-dia get-recomanacions))
-;         (while (not (eq (length$ $?recs) 0))  do
-;             (bind ?curr-rec (ordenar-sales $?recs))
-;             (bind $?recs (delete-member$ $?recs ?curr-rec))
-;             (bind $?resultat (insert$ $?resultat (+ (length$ $?resultat) 1) ?curr-rec))
-;         )
-;         (send ?curr-dia put-recomanacions $?resultat)
-       
-;     )
-;     (assert (dies-ordenats-per-sala (dies $?llista))) 
-; )
-
 
 ; --------------------------------------------------
 ; 			  MODUL IMPRIMIR RUTA - Ramón
