@@ -783,6 +783,7 @@
 ;en la primera versió farem la visita només segons el expertise del visitant
 (defrule inferir-dades::valorar-nivell
     (visita (nivell_cultural ?nc))
+    (object (is-a Visitant) (name [instVisitant]) (coneixement ?coneixement)) 
     (test (>= ?nc 3))
     ?rec <- (object (is-a quadres-recomanats) (nom-obra ?obra) (valoracio ?val))
     ?cont <- (object (is-a Obra_de_Arte) (rellevància ?rel))
@@ -797,11 +798,12 @@
       else (if (eq ?rel "Destacat") then 3
       else -1)))))
     
-    (bind ?prioritat
-        (if (eq ?nc 0) then 0  ; Novell: solo puede ver obras de relevancia 0
-        else (if (eq ?nc 1) then 1  ; Aficionat: obras de relevancia 0 y 1
-        else (if (eq ?nc 2) then 2  ; Entès: obras de relevancia 0, 1 y 2
-        else 3))))  ; Experto: todas las obras
+    ; (bind ?prioritat
+    ;     (if (eq ?nc 0) then 0  ; Novell: solo puede ver obras de relevancia 0
+    ;     else (if (eq ?nc 1) then 1  ; Aficionat: obras de relevancia 0 y 1
+    ;     else (if (eq ?nc 2) then 2  ; Entès: obras de relevancia 0, 1 y 2
+    ;     else 3))))  ; Experto: todas las obras
+    (bind ?prioritat ?coneixement) 
 
 
     (if (<= ?rel-num ?prioritat) then
@@ -814,7 +816,7 @@
     (send ?rec put-valoracio ?val)
     (assert (valorat ?cont ?nc))  ; Marcar la obra como valorada para este nivel
     (assert (obres-valorades (quadres-recomanats ?rec)))
-    (printout t "S'ha valorat el nivell cultural del visitant" crlf)
+    (printout t "S'ha valorat l'adecuació de l'obra pel visitant" crlf)
 )
 
 
