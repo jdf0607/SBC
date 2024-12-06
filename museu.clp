@@ -32,6 +32,7 @@
     (multislot nens
         (type SYMBOL)
         (create-accessor read-write))
+    (slot type (create-accessor read-write) (default Familia))
 )
 
 (defclass Grup
@@ -47,18 +48,21 @@
     (is-a Grup)
     (role concrete)
     (pattern-match reactive)
+    (slot type (create-accessor read-write) (default Grup_Gran))
 )
 
 (defclass Grup_Petit
     (is-a Grup)
     (role concrete)
     (pattern-match reactive)
+    (slot type (create-accessor read-write) (default Grup_Petit))
 )
 
 (defclass Individu
     (is-a Visitant)
     (role concrete)
     (pattern-match reactive)
+    (slot type (create-accessor read-write) (default Individu))
 )
 
 (defclass Obra_de_Arte
@@ -341,6 +345,11 @@
      )
 )
 
+(defmessage-handler Visitant is-a (?class)
+   (if (subclassp ?class (send ?self get-class)) then
+       TRUE
+   else
+       FALSE))
 
 ; ------------------------------------
 ; 				  MAIN 
@@ -445,12 +454,13 @@
 ;     (multislot quadres (type INSTANCE))
 ; )
 
-; (deftemplate recorregut_museu
+;després farem el recorergut amb més llogica de sales
+; (deftemplate dia
 ;     (multislot sales (type INSTANCE))
 ; )
 
 (deftemplate dia
-    (multislot obres (type INSTANCE))
+    (multislot quadres-recomanats (type INSTANCE))
 )
 
 (deftemplate ruta
@@ -889,74 +899,71 @@
 ;     (assert (obres-valorades-ordenades (quadres-recomanats $?resultat)))
 ;     (printout t "Ordenant obres d'art..." crlf)
 ; )
-
-(defrule sintesis::asigna-contingut-a-dies 
-    "S'asigna els continguts recomenats a cada dia"
-    ?v <- (visita (num_dies ?dies) (hores_visita ?hores) (num_persones ?np) (num_nens ?nn) (familia ?fam))
-    (obres-valorades-ordenades (quadres-recomanats $?recs))
-    (not (ruta))
-    ;(ruta (dies $?llista))
+(defrule sintesis::asigna-contingut-a-dies  
+    "S'assigna els continguts recomanats a cada dia, basant-se en instVisitant"
+    (object (is-a Visitant) (name [instVisitant])
+            (dies ?dies) (hores ?hores))
+    (obres-valorades-ordenades (quadres-recomanats $?recs)) ; Lista de obras ordenadas
+    (not (ruta)) ; Asegurarse de que no exista una ruta previamente definida
     =>
-    (bind ?hores (* ?hores 60))
-    (bind $?llista (create$ ))
-    (while (not(= (length$ $?llista) ?dies)) do
-        (bind $?llista (insert$ $?llista (make-instance (gensym) of ruta-per-Dia (temps ?hores))))
-    )
+    (bind ?hores (* ?hores 60)) ; Convertir horas a minutos
+    (bind $?dies-llista (create$)) ; Crear una lista vacía para los días
+    ; Crear instancias de ruta-per-Dia y asignarles tiempo
+    (while (not (= (length$ $?dies-llista) ?dies)) do
+        (bind $?dies-llista 
+            (insert$ $?dies-llista (+ (length$ $?dies-llista) 1)
+                     (make-instance (gensym) of ruta-per-Dia (temps ?hores)))))
+    ; Asignación de obras a días
     (bind ?i 1)
     (while (and (> (length$ $?recs) 0) (<= ?i ?dies)) 
-        (bind ?dia (nth$ ?i $?llista))
-        (bind $?recs-dia (create$ ))
-        (bind ?t-max (send ?dia get-temps))
-        (bind ?t-ocu 0)
-        (bind ?try 1)
-        (bind ?asignados 0)
+        (bind ?dia (nth$ ?i $?dies-llista)) ; Obtener el día actual
+        (bind $?recs-dia (create$)) ; Crear una lista para las obras del día
+        (bind ?t-max (send ?dia get-temps)) ; Tiempo máximo por día
+        (bind ?t-ocu 0) ; Tiempo inicial ocupado
         (bind ?j 1)
-        (while (and(and(< ?t-ocu ?t-max) (< ?try 4)) (> (length$ $?recs) 0) (<= ?j (length$ $?recs))) do
-            (bind ?rec (nth$ ?j $?recs))
-            (bind ?cont (send ?rec get-nom-obra))
-            (bind ?a (send ?cont get-any_de_creació))
-            (if (or (eq ?fam TRUE) (eq ?np 1)) then
-                (if (> ?a 120000) then (bind ?t 13)) 
-                (if (and (> ?a 13000) (< ?a 120000)) then (bind ?t 10))
-                (if (and (> ?a 2000) (< ?a 13000)) then (bind ?t 6))
-                (if (and (> ?a 0) (< ?a 2000)) then (bind ?t 4))
+        (while (and (< ?t-ocu ?t-max) (> (length$ $?recs) 0) (<= ?j (length$ $?recs))) do
+            (bind ?rec (nth$ ?j $?recs)) ; Obtener la obra actual
+            (bind ?obra (send ?rec get-nom-obra)) ; Obtener la instancia de la obra
+            (bind ?a (send ?obra get-any_de_creació)) ; Año de creación de la obra
+            ; Determinar el tiempo requerido para la obra según el tipo de visitante
+            (bind ?t
+                (if (send [instVisitant] is-a Familia) then
+                    (if (> ?a 120000) then 13
+                    else (if (and (> ?a 13000) (<= ?a 120000)) then 10
+                    else (if (and (> ?a 2000) (<= ?a 13000)) then 6
+                    else 4)))
+                else (if (send [instVisitant] is-a Individu) then
+                    (if (> ?a 120000) then 16
+                    else (if (and (> ?a 13000) (<= ?a 120000)) then 12
+                    else (if (and (> ?a 2000) (<= ?a 13000)) then 8
+                    else 5)))
+                else (if (send [instVisitant] is-a Grup_Petit) then
+                    (if (> ?a 120000) then 18
+                    else (if (and (> ?a 13000) (<= ?a 120000)) then 14
+                    else (if (and (> ?a 2000) (<= ?a 13000)) then 10
+                    else 7)))
+                else (if (send [instVisitant] is-a Grup_Gran) then
+                    (if (> ?a 120000) then 20
+                    else (if (and (> ?a 13000) (<= ?a 120000)) then 15
+                    else (if (and (> ?a 2000) (<= ?a 13000)) then 12
+                    else 8))))))))
+            ; Verificar si hay tiempo suficiente en el día para la obra
+            (if (< (+ ?t-ocu ?t) ?t-max) then
+                (progn
+                    (bind ?t-ocu (+ ?t-ocu ?t)) ; Incrementar tiempo ocupado
+                    (bind $?recs-dia 
+                        (insert$ $?recs-dia (+ (length$ $?recs-dia) 1) ?rec))) ; Añadir obra al día
+                    (bind $?recs (delete-member$ $?recs ?rec))) ; Eliminar obra de la lista general
             )
-            (if (and (> ?np 1) (<= ?np 12)) then
-                (if (> ?a 120000) then (bind ?t 16))
-                (if (and (> ?a 13000) (< ?a 120000)) then (bind ?t 12))
-                (if (and (> ?a 2000) (< ?a 13000)) then (bind ?t 8))
-                (if (and (> ?a 0) (< ?a 2000)) then (bind ?t 5))
-            )
-            (if (and (> ?np 12) (<= ?np 25)) then
-                (if (> ?a 120000) then (bind ?t 18))
-                (if (and (> ?a 13000) (< ?a 120000)) then (bind ?t 14))
-                (if (and (> ?a 2000) (< ?a 13000)) then (bind ?t 10))
-                (if (and (> ?a 0) (< ?a 2000)) then (bind ?t 7))
-            )
-            (if (> ?np 25) then
-                (if (> ?a 120000) then (bind ?t 20)) 
-                (if (and (> ?a 13000) (< ?a 120000)) then (bind ?t 15))
-                (if (and (> ?a 2000) (< ?a 13000)) then (bind ?t 12))
-                (if (and (> ?a 0) (< ?a 2000)) then (bind ?t 8))
-            )
-            (if (< (+ ?t-ocu ?t) ?t-max) 
-                then
-                    (bind ?t-ocu (+ ?t-ocu ?t))
-                    (bind ?try 1)
-                    (bind ?asignados (+ ?asignados 1))
-                    (bind ?recs-dia (insert$ $?recs-dia ?rec))
-                    (bind $?recs (delete-member$ $?recs ?rec))
-                else
-                    (bind ?try (+ ?try 1))
-            )
-            (bind ?j (+ ?j 1))
-        )
-        (send ?dia put-quadres-recomanats $?recs-dia)        
-        (bind ?i (+ ?i 1))
-    )
-    (assert (ruta (dies $?llista)))
-    (printout t "Computant una ruta optima de visites..." crlf)
+            (bind ?j (+ ?j 1))) ; Pasar a la siguiente obra
+        ; Asignar las obras del día actual al slot `quadres-recomanats`
+        (send ?dia put-quadres-recomanats $?recs-dia) 
+        (bind ?i (+ ?i 1)) ; Pasar al siguiente día
+    ; Crear y asertar la ruta final
+    (assert (ruta (dies $?dies-llista)))
+    (printout t "Computant una ruta òptima basada en instVisitant..." crlf)
 )
+
 
 ;encara no la utilitzem
 ; (defrule sintesis::ordenar-per-sales 
@@ -1016,4 +1023,3 @@
     )
     (assert (final))  ; Marca que la ruta ha sido finalizada
 )
-
