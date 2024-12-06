@@ -313,6 +313,35 @@
 		(create-accessor read-write))
 )
 
+(defmessage-handler MAIN::Obra_de_Arte imprimir ()
+	(format t "Any: %d" ?self:any_de_creació get-any_de_creació)
+	(printout t crlf)
+    (format t "Època: %s" (send ?self:època get-èooca))
+	(printout t crlf)
+    (format t "Temàtica: %s" (send ?self:temàtica get-temàtica))
+	(printout t crlf)
+    (format t "Rellevància: %s" (send ?self:rellevància get-rellevància))
+	(printout t crlf)
+    (format t "Estil: %s" (send ?self:estil get-estil))
+	(printout t crlf)
+    )
+
+(defmessage-handler MAIN::quadres-recomanats imprimir ()
+    (printout t (send ?self:nom-obra imprimir))
+	(printout t crlf)
+	(format t "Valoracio: %d %n" ?self:valoracio)
+	(printout t "Justificacion de la eleccion: " crlf)
+	(printout t crlf))
+
+(defmessage-handler MAIN::ruta-per-Dia imprimir ()
+    (printout t "Quadres recomanats: " crlf)
+     (foreach ?quadre ?self:quadres-recomanats
+        (printout t (send ?quadre imprimir))  
+        (printout t crlf)
+     )
+)
+
+
 ; ------------------------------------
 ; 				  MAIN 
 ; ------------------------------------
@@ -371,7 +400,7 @@
 	(export ?ALL)
 )
 
-(defrule sintesis::canvi-imprimir-rutina
+(defrule sintesis::canvi-imprimir-ruta
     (declare (salience -1))
     =>
     (focus imprimir-ruta)
@@ -429,12 +458,12 @@
 )
 
 
-(deftemplate obres-recomenades
+(deftemplate obres-valorades
     (multislot quadres-recomanats (type INSTANCE))
 )
 
 
-(deftemplate obres-recomenades-ordenades
+(deftemplate obres-valorades-ordenades
     (multislot quadres-recomanats (type INSTANCE))
 )
 
@@ -747,8 +776,12 @@
     (if (>= ?nc 80.0) then (send [instVisitant] put-coneixement 3)) ; Nivell cultural expert
 )
 
+
+; --------------------------------------------------
+; 				MODUL Inferencia - José
+; --------------------------------------------------
 ;en la primera versió farem la visita només segons el expertise del visitant
-(defrule abstraccio-dades::valorar-nivell
+(defrule inferir-dades::valorar-nivell
     (visita (nivell_cultural ?nc))
     (test (>= ?nc 3))
     ?rec <- (object (is-a quadres-recomanats) (nom-obra ?obra) (valoracio ?val))
@@ -768,9 +801,9 @@
         (if (eq ?nc 0) then 0  ; Novell: solo puede ver obras de relevancia 0
         else (if (eq ?nc 1) then 1  ; Aficionat: obras de relevancia 0 y 1
         else (if (eq ?nc 2) then 2  ; Entès: obras de relevancia 0, 1 y 2
-        else 3)))  ; Experto: todas las obras
+        else 3))))  ; Experto: todas las obras
 
-    ; Comprobar si la obra tiene relevancia dentro del rango permitido para el nivel cultural
+
     (if (<= ?rel-num ?prioritat) then
         (if (< ?rel-num 4) then
             (bind ?val (+ ?val 40))  ; Si la obra es relevante, sumar 40 a la valoración
@@ -781,22 +814,21 @@
     ; Actualizar la valoración de la obra recomendada
     (send ?rec put-valoracio ?val)
     (assert (valorat ?cont ?nc))  ; Marcar la obra como valorada para este nivel
-    (printout t "S'ha valorat el nivell cultural del visitant"))
+    (assert (obres-valorades (quadres-recomanats ?rec)))
+    (printout t "S'ha valorat el nivell cultural del visitant")
 )
 
-; --------------------------------------------------
-; 				MODUL Inferencia - José
-; --------------------------------------------------
+
 ;a los cuadros se les da una puntuación por visitante y los añadimos al recorrido según esta
 (defrule inferir-dades::crear-solucio
-    (not (obres-recomenades))
+    (not (obres-valorades))
     =>
-    (assert(obres-recomenades))
+    (assert(obres-valorades))
 )
 ;ara tindrem primer els quadres que volem visitar
 (defrule inferir-dades::ordenar-solucio
-    (not (obres-recomenades-ordenades))
-    (obres-recomenades (quadres-recomanats $?llista))
+    (not (obres-valorades-ordenades))
+    (obres-valorades (quadres-recomanats $?llista))
     =>
     (bind ?recorregut (create$)) ; 
     (while (> (length$ $?llista) 0) ;
@@ -807,7 +839,7 @@
                 (+(length$ $?recorregut) 1) ?actual))
         )
         )
-    (assert (obres-recomenades-ordenades (quadres-recomanats $?recorregut))) ; Afegeix el fet ordenat
+    (assert (obres-valorades-ordenades (quadres-recomanats $?recorregut))) ; Afegeix el fet ordenat
     (printout t "Calculant recorregut..." crlf)
 )
        
@@ -817,43 +849,43 @@
 ; --------------------------------------------------
 
 
-(defrule sintesis::crear-llista-recomanacions 
-    "Es crea una llista de recomenacions per ordenarles"
-    (not (obres-recomenades))
-    =>
-    (assert (obres-recomenades))
-)
+; (defrule sintesis::crear-llista-recomanacions 
+;     "Es crea una llista de recomenacions per ordenarles"
+;     (not (obres-valorades))
+;     =>
+;     (assert (obres-valorades))
+; )
 
-(defrule sintesis::afegir-recomanacio 
-    "Afegeix una recomenacio a la llista de recomenacions"
-    (declare (salience 10))
-    ?rec <- (object (is-a quadres-recomanats))
-    ?hecho <- (obres-recomenades (quadres-recomanats $?llista))
-    (test (not (member$ ?rec $?llista)))
-    =>
-    (bind $?llista (insert$ $?llista (+ (length$ $?llista) 1) ?rec))
-    (modify ?hecho (quadres-recomanats $?llista))
-)
+; (defrule sintesis::afegir-recomanacio 
+;     "Afegeix una recomenacio a la llista de recomenacions"
+;     (declare (salience 10))
+;     ?rec <- (object (is-a quadres-recomanats))
+;     ?hecho <- (obres-valorades (quadres-recomanats $?llista))
+;     (test (not (member$ ?rec $?llista)))
+;     =>
+;     (bind $?llista (insert$ $?llista (+ (length$ $?llista) 1) ?rec))
+;     (modify ?hecho (quadres-recomanats $?llista))
+; )
 
-(defrule sintesis::crear-llista-ordenada 
-    "Es crea una llista de recomenacions ordenada"
-    (not (obres-recomenades-ordenades))
-    (obres-recomenades (quadres-recomanats $?llista))
-    =>
-    (bind $?resultat (create$ ))
-    (while (not (eq (length$ $?llista) 0))  do
-        (bind ?curr-rec (trobar-maxim $?llista))
-        (bind $?llista (delete-member$ $?llista ?curr-rec))
-        (bind $?resultat (insert$ $?resultat (+ (length$ $?resultat) 1) ?curr-rec))
-    )
-    (assert (obres-recomenades-ordenades (quadres-recomanats $?resultat)))
-    (printout t "Ordenant obres d'art..." crlf)
-)
+; (defrule sintesis::crear-llista-ordenada 
+;     "Es crea una llista de recomenacions ordenada"
+;     (not (obres-valorades-ordenades))
+;     (obres-valorades (quadres-recomanats $?llista))
+;     =>
+;     (bind $?resultat (create$ ))
+;     (while (not (eq (length$ $?llista) 0))  do
+;         (bind ?curr-rec (trobar-maxim $?llista))
+;         (bind $?llista (delete-member$ $?llista ?curr-rec))
+;         (bind $?resultat (insert$ $?resultat (+ (length$ $?resultat) 1) ?curr-rec))
+;     )
+;     (assert (obres-valorades-ordenades (quadres-recomanats $?resultat)))
+;     (printout t "Ordenant obres d'art..." crlf)
+; )
 
 (defrule sintesis::asigna-contingut-a-dies 
     "S'asigna els continguts recomenats a cada dia"
     ?v <- (visita (num_dies ?dies) (hores_visita ?hores) (num_persones ?np) (num_nens ?nn) (familia ?fam))
-    (obres-recomenades-ordenades (quadres-recomanats $?recs))
+    (obres-valorades-ordenades (quadres-recomanats $?recs))
     (not (ruta))
     (ruta (dies $?llista))
     =>
@@ -918,7 +950,7 @@
     (printout t "Computant una ruta optima de visites..." crlf)
 )
 
-
+;encara no la utilitzem
 ; (defrule sintesis::ordenar-per-sales 
 ;     "Ordena cada dia per sales."
 ;     (ruta (dies $?llista))
@@ -938,17 +970,22 @@
 ;     (assert (dies-ordenats-per-sala (dies $?llista))) 
 ; )
 
-(defrule sintesis::passar-a-resultats 
-    "Es passa al mòdul de presentació"
-    ;(dies-ordenats-per-sala)
-    (ruta)
-    =>
-    (focus imprimir-ruta)
-)
-
-;(load "./SBC/museu.clp")
 
 ; --------------------------------------------------
 ; 			  MODUL IMPRIMIR RUTA - Ramón
 ; --------------------------------------------------
 
+(defrule imprimir-ruta::imprimir-resultats
+    (ruta (dies $?dies))
+    (not (final))         
+    =>
+    (printout t "La seva ruta recomanada és:" crlf crlf)
+    (bind ?i 0)           
+    (foreach ?dia $?dies
+        (bind ?i (+ ?i 1)) 
+        (printout t "Dia " ?i ": " crlf)
+        (send ?dia imprimir) 
+        (printout t crlf)  
+    )
+    (assert (final))       
+)
