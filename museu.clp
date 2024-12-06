@@ -305,7 +305,7 @@
 	(multislot quadres-recomanats
 		(type INSTANCE)
 		(create-accessor read-write))
-    (multislot sales
+    (multislot sales 
         (type INSTANCE)
         (create-accessor read-write))
 	(slot temps
@@ -782,11 +782,13 @@
 ; --------------------------------------------------
 ;en la primera versió farem la visita només segons el expertise del visitant
 (defrule inferir-dades::valorar-nivell
+    (declare (salience 2))
     (object (is-a Visitant) (name [instVisitant]) (coneixement ?coneixement)) 
     ?rec <- (object (is-a quadres-recomanats) (nom-obra ?obra) (valoracio ?val))
     ?cont <- (object (is-a Obra_de_Arte) (rellevància ?rel))
     (test (eq (instance-name ?cont) (instance-name ?obra)))
     (not (valorat ?cont ?coneixement))  ; Verifica que no se haya valorado previamente
+    (obres-valorades (quadres-recomanats $?llista))
     =>
     ; Establecer la prioridad según el nivell_cultural del visitante
      (bind ?rel-num 
@@ -812,20 +814,26 @@
 
     ; Actualizar la valoración de la obra recomendada
     (send ?rec put-valoracio ?val)
-    (assert (valorat ?cont ?coneixement))  ; Marcar la obra como valorada para este nivel
-    (assert (obres-valorades (quadres-recomanats ?rec)))
+   (assert (valorat ?cont ?coneixement))
+
+    ;(retract (obres-valorades (quadres-recomanats $?llista)))
+    (assert (obres-valorades (quadres-recomanats $?llista ?rec)))
+    
+
     (printout t "S'ha valorat l'adecuació de l'obra pel visitant" crlf)
 )
 
 
 ;a los cuadros se les da una puntuación por visitante y los añadimos al recorrido según esta
 (defrule inferir-dades::crear-solucio
+    ; (declare (salience 10))
     (not (obres-valorades))
     =>
     (assert(obres-valorades))
 )
 ;ara tindrem primer els quadres que volem visitar
 (defrule inferir-dades::ordenar-solucio
+
     (not (obres-valorades-ordenades))
     (obres-valorades (quadres-recomanats $?llista))
     =>
@@ -837,8 +845,9 @@
              (bind $?recorregut (insert$ $?recorregut 
                 (+(length$ $?recorregut) 1) ?actual))
         )
-        )
-    (assert (obres-valorades-ordenades (quadres-recomanats $?recorregut))) ; Afegeix el fet ordenat
+    )
+    (assert (obres-valorades-ordenades (quadres-recomanats $?recorregut)))
+    ; Afegeix el fet ordenat
     (printout t "Calculant recorregut..." crlf)
 )
        
