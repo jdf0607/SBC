@@ -554,7 +554,7 @@
       (bind ?index (+ ?index 1)) 
    )
 
-   (format t "%s" "Respon amb els nombres associats a les teves respostes separats per un espai: ")
+   (format t "%s" "Respon amb els nombres (numeros) associats a les teves respostes separats per un espai: ")
    (bind ?resp (readline)) 
 
    (bind ?numeros (explode$ ?resp))  
@@ -807,7 +807,6 @@
     (if (<= ?rel-num ?prioritat) then
         (if (< ?rel-num 4) then
             (bind ?val (+ ?val 40))  ; Si la obra es relevante, sumar 40 a la valoración
-            (bind $?just (insert$ $?just (+ (length$ $?just) 1) "rellevancia adient"))
         )
     )
 
@@ -975,17 +974,37 @@
 ; 			  MODUL IMPRIMIR RUTA - Ramón
 ; --------------------------------------------------
 
-(defrule imprimir-ruta::imprimir-resultats
-    (ruta (dies $?dies))
-    (not (final))         
+(defrule imprimir-ruta::imprimir "Imprime las rutas recomendadas"
+    (ruta (dies $?llista))  ; Asegura que hay una ruta con días asignados
+    (not (final))  ; Asegura que no se haya alcanzado el estado final
     =>
-    (printout t "La seva ruta recomanada és:" crlf crlf)
-    (bind ?i 0)           
-    (foreach ?dia $?dies
-        (bind ?i (+ ?i 1)) 
-        (printout t "Dia " ?i ": " crlf)
-        (send ?dia imprimir) 
-        (printout t crlf)  
+    (printout t crlf)
+    (format t "Esta es nuestra recomendación de ruta para el grupo. Esperamos que la disfrutéis." crlf)
+    (printout t crlf)
+    (printout t "============================================" crlf)
+    
+    ;; Iterar sobre cada día en la lista de rutas
+    (bind ?i 1)  ; Inicializa el contador de días
+    (while (<= ?i (length$ $?llista)) do
+        (bind ?dia (nth$ ?i $?llista))  ; Obtiene el día correspondiente
+        (printout t "Día %d:" ?i)  ; Imprime el número del día
+        (printout t crlf)
+        
+        ;; Obtiene los cuadros recomendados para ese día
+        (bind ?recs-dia (send ?dia get-quadres-recomanats))  ; Obtiene las obras recomendadas para ese día
+        
+        ;; Imprime cada obra recomendada
+        (if (eq (length$ ?recs-dia) 0)
+            then
+                (printout t "  No hi ha obres recomanades per a aquest dia." crlf)
+            else
+                (foreach ?rec ?recs-dia
+                    (printout t "  - " (send ?rec imprimir))  ; Imprime los detalles de la obra
+                    (printout t crlf)
+                )
+        )
+        (bind ?i (+ ?i 1))  ; Pasa al siguiente día
     )
-    (assert (final))       
+    (assert (final))  ; Marca que la ruta ha sido finalizada
 )
+
