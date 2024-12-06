@@ -644,6 +644,7 @@
 
 (defrule recopilacio-informacio-visitant::establir-num-nens
     ?v <- (visita (num_persones ?np))
+    (test (> ?np 1))
     (not (preguntat-nens))
     =>
     (bind ?nens (pregunta-numero "Quants nens hi ha al grup? " 0 (- ?np 1)))
@@ -825,7 +826,7 @@
 
     ; Actualizar la valoración de la obra recomendada
     (send ?rec put-valoracio ?val)
-   (assert (valorat ?cont ?coneixement))
+    (assert (valorat ?cont ?coneixement))
 
     ;(retract (obres-valorades (quadres-recomanats $?llista)))
     (assert (obres-valorades (quadres-recomanats $?llista ?rec)))
@@ -907,7 +908,9 @@
     (not (ruta)) ; Asegurarse de que no exista una ruta previamente definida
     =>
     (bind ?dies (send ?iv get-dies))
+    (printout t "Nombre de dies al museu: " ?dies crlf)
     (bind ?hores (send ?iv get-hores))
+    (printout t "Nombre de d'hores al museu: " ?hores crlf)
     (bind ?mins (* ?hores 60)) ; Convertir horas a minutos
     (bind $?dies-llista (create$)) ; Crear una lista vacía para los días
     ; Crear instancias de ruta-per-Dia y asignarles tiempo
@@ -956,11 +959,13 @@
                     (bind $?recs-dia 
                         (insert$ $?recs-dia (+ (length$ $?recs-dia) 1) ?rec))) ; Añadir obra al día
                     (bind $?recs (delete-member$ $?recs ?rec))) ; Eliminar obra de la lista general
-            )
-            (bind ?j (+ ?j 1))) ; Pasar a la siguiente obra
+            
+            (bind ?j (+ ?j 1)) ; Pasar a la siguiente obra
+        )
         ; Asignar las obras del día actual al slot `quadres-recomanats`
         (send ?dia put-quadres-recomanats $?recs-dia) 
         (bind ?i (+ ?i 1)) ; Pasar al siguiente día
+    )
     ; Crear y asertar la ruta final
     (assert (ruta (dies $?dies-llista)))
     (printout t "Computant una ruta òptima basada en instVisitant..." crlf)
