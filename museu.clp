@@ -771,7 +771,7 @@
     (visita (nivell_cultural ?nc))
     =>
     (if (< ?nc 2.0) then (send [instVisitant] put-coneixement 0)) ; Nivell cultural novell
-  (if (and (>= ?nc 2.0) (< ?nc 5.0)) then (send [instVisitant] put-coneixement 1)) ; Nivell cultural aficionat
+    (if (and (>= ?nc 2.0) (< ?nc 5.0)) then (send [instVisitant] put-coneixement 1)) ; Nivell cultural aficionat
     (if (and (>= ?nc 5.0) (< ?nc 8.0)) then (send [instVisitant] put-coneixement 2)) ; Nivell cultural entès
     (if (>= ?nc 8.0) then (send [instVisitant] put-coneixement 3)) ; Nivell cultural expert
 )
@@ -782,13 +782,11 @@
 ; --------------------------------------------------
 ;en la primera versió farem la visita només segons el expertise del visitant
 (defrule inferir-dades::valorar-nivell
-    (visita (nivell_cultural ?nc))
     (object (is-a Visitant) (name [instVisitant]) (coneixement ?coneixement)) 
-    (test (>= ?nc 3))
     ?rec <- (object (is-a quadres-recomanats) (nom-obra ?obra) (valoracio ?val))
     ?cont <- (object (is-a Obra_de_Arte) (rellevància ?rel))
     (test (eq (instance-name ?cont) (instance-name ?obra)))
-    (not (valorat ?cont ?nc))  ; Verifica que no se haya valorado previamente
+    (not (valorat ?cont ?coneixement))  ; Verifica que no se haya valorado previamente
     =>
     ; Establecer la prioridad según el nivell_cultural del visitante
      (bind ?rel-num 
@@ -814,7 +812,7 @@
 
     ; Actualizar la valoración de la obra recomendada
     (send ?rec put-valoracio ?val)
-    (assert (valorat ?cont ?nc))  ; Marcar la obra como valorada para este nivel
+    (assert (valorat ?cont ?coneixement))  ; Marcar la obra como valorada para este nivel
     (assert (obres-valorades (quadres-recomanats ?rec)))
     (printout t "S'ha valorat l'adecuació de l'obra pel visitant" crlf)
 )
