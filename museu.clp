@@ -150,7 +150,7 @@
          (any_de_creació  1784)
          (estil  "Neoclassicisme")
          (rellevància  "Universal")
-         (temàtica  "Cultura grecoromana")
+         (temàtica  "Cultura grecorromana")
          (època  "XVIII")
     )
 
@@ -158,7 +158,7 @@
          (any_de_creació  1636)
          (estil  "Barroc")
          (rellevància  "Referent")
-         (temàtica  "Cultura grecoromana")
+         (temàtica  "Cultura grecorromana")
          (època  "XVII")
     )
 
@@ -210,7 +210,7 @@
          (any_de_creació  1787)
          (estil  "Neoclassicisme")
          (rellevància  "Magistral")
-         (temàtica  "Cultura grecoromana")
+         (temàtica  "Cultura grecorromana")
          (època  "XVIII")
     )
 
@@ -255,7 +255,7 @@
     ([Sala3] of Sala
          (conté  [El_jurament_dels_Horacis] [El_rapte_de_Prosèrpina] [La_mort_de_Sòcrates])
          (porta_a  [Sala1] [Sala2] [Sala4])
-         (temàtica  "Cultura grecoromana")
+         (temàtica  "Cultura grecorromana")
     )
 
     ([Sala4] of Sala
@@ -610,10 +610,10 @@
 (deffunction MAIN::mapa-num-tematica (?num)
     (bind ?estil nil)
     (switch ?num
-        (case 1 then (bind ?estil "Vida Quotidiana"))
+        (case 1 then (bind ?estil "Vida quotidiana"))
         (case 2 then (bind ?estil "Paisatges i emocions"))
         (case 3 then (bind ?estil "Cultura grecorromana"))
-        (case 4 then (bind ?estil "Esdeveniment Històric"))
+        (case 4 then (bind ?estil "Esdeveniments històrics"))
     )
     ?estil
 )
@@ -726,7 +726,7 @@
     ?v <- (visita)
     ?f <- (tematiques preguntar)
     =>
-    (bind ?temes (create$ "Vida Quotidiana" "Paisatges i emocions" "Cultura grecorromana" "Esdeveniment històric"))
+    (bind ?temes (create$ "Vida quotidiana" "Paisatges i emocions" "Cultura grecorromana" "Esdeveniments històrics"))
     (bind $?pref-indexs (pregunta-multiresposta "Seleccioneu les vostres temàtiques preferides:" ?temes))
     (bind ?prefs (create$))
     (foreach ?pref-i $?pref-indexs
@@ -770,10 +770,10 @@
 (defrule abstraccio-dades::valorar-coneixement
     (visita (nivell_cultural ?nc))
     =>
-    (if (< ?nc 20.0) then (send [instVisitant] put-coneixement 0)) ; Nivell cultural novell
-  (if (and (>= ?nc 20.0) (< ?nc 50.0)) then (send [instVisitant] put-coneixement 1)) ; Nivell cultural aficionat
-    (if (and (>= ?nc 50.0) (< ?nc 80.0)) then (send [instVisitant] put-coneixement 2)) ; Nivell cultural entès
-    (if (>= ?nc 80.0) then (send [instVisitant] put-coneixement 3)) ; Nivell cultural expert
+    (if (< ?nc 2.0) then (send [instVisitant] put-coneixement 0)) ; Nivell cultural novell
+  (if (and (>= ?nc 2.0) (< ?nc 5.0)) then (send [instVisitant] put-coneixement 1)) ; Nivell cultural aficionat
+    (if (and (>= ?nc 5.0) (< ?nc 8.0)) then (send [instVisitant] put-coneixement 2)) ; Nivell cultural entès
+    (if (>= ?nc 8.0) then (send [instVisitant] put-coneixement 3)) ; Nivell cultural expert
 )
 
 
