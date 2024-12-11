@@ -129,17 +129,16 @@
 )
 
 (definstances instances
-    ([Diego_Velazquez] of Pintor
-         (crea  [Les_Menines])
-         (nacionalitat  "Espanyola")
-    )
 
+    ;; Obras de arte con slots de pintor y sala añadidos
     ([El_dinar_campestre] of Obra_de_Arte
          (any_de_creació  1863)
          (estil  "Impressionisme")
          (rellevància  "Referent")
          (temàtica  "Vida quotidiana")
          (època  "XIX")
+         (pintor  Édouard_Manet)
+         (sala  Sala2)
     )
 
     ([El_gronxador] of Obra_de_Arte
@@ -148,6 +147,8 @@
          (rellevància  "Destacat")
          (temàtica  "Vida quotidiana")
          (època  "XVIII")
+         (pintor  Jean-Honoré_Fragonard)
+         (sala  Sala2)
     )
 
     ([El_jurament_dels_Horacis] of Obra_de_Arte
@@ -156,6 +157,8 @@
          (rellevància  "Universal")
          (temàtica  "Cultura grecorromana")
          (època  "XVIII")
+         (pintor  Jacques-Louis_David)
+         (sala  Sala3)
     )
 
     ([El_rapte_de_Prosèrpina] of Obra_de_Arte
@@ -164,6 +167,8 @@
          (rellevància  "Referent")
          (temàtica  "Cultura grecorromana")
          (època  "XVII")
+         (pintor  Peter_Paul_Rubens)
+         (sala  Sala3)
     )
 
     ([El_tres_de_maig_de_1808] of Obra_de_Arte
@@ -172,26 +177,8 @@
          (rellevància  "Universal")
          (temàtica  "Esdeveniments històrics")
          (època  "XIX")
-    )
-
-    ([Eugène_Delacroix] of Pintor
-         (crea  [La_Llibertat_guiant_al_poble])
-         (nacionalitat  "Francesa")
-    )
-
-    ([Francisco_de_Goya] of Pintor
-         (crea  [El_tres_de_maig_de_1808])
-         (nacionalitat  "Espanyola")
-    )
-
-    ([Jacques-Louis_David] of Pintor
-         (crea  [El_jurament_dels_Horacis] [La_mort_de_Sòcrates])
-         (nacionalitat  "Francesa")
-    )
-
-    ([Jean-Honoré_Fragonard] of Pintor
-         (crea  [El_gronxador])
-         (nacionalitat  "Francesa")
+         (pintor  Francisco_de_Goya)
+         (sala  Sala4)
     )
 
     ([La_Llibertat_guiant_al_poble] of Obra_de_Arte
@@ -200,6 +187,8 @@
          (rellevància  "Magistral")
          (temàtica  "Esdeveniments històrics")
          (època  "XIX")
+         (pintor  Eugène_Delacroix)
+         (sala  Sala4)
     )
 
     ([La_Ronda_de_Nit] of Obra_de_Arte
@@ -208,6 +197,8 @@
          (rellevància  "Magistral")
          (temàtica  "Paisatges i Emocions")
          (època  "XVII")
+         (pintor  Rembrandt_van_Rijn)
+         (sala  Sala1)
     )
 
     ([La_mort_de_Sòcrates] of Obra_de_Arte
@@ -216,6 +207,8 @@
          (rellevància  "Magistral")
          (temàtica  "Cultura grecorromana")
          (època  "XVIII")
+         (pintor  Jacques-Louis_David)
+         (sala  Sala3)
     )
 
     ([La_nit_estrellada] of Obra_de_Arte
@@ -224,6 +217,8 @@
          (rellevància  "Universal")
          (temàtica  "Paisatges i Emocions")
          (època  "XIX")
+         (pintor  Vincent_Van_Gogh)
+         (sala  Sala1)
     )
 
     ([Les_Menines] of Obra_de_Arte
@@ -232,6 +227,314 @@
          (rellevància  "Universal")
          (temàtica  "Vida quotidiana")
          (època  "XVII")
+         (pintor  Diego_Velazquez)
+         (sala  Sala2)
+    )
+
+    ([El_Mercat] of Obra_de_Arte
+         (any_de_creació  1670)
+         (estil  "Barroc")
+         (rellevància  "Referent")
+         (temàtica  "Vida quotidiana")
+         (època  "XVII")
+         (pintor  Pieter_de_Hooch)
+         (sala  Sala2)
+    )
+
+    ([La_Tempesta] of Obra_de_Arte
+         (any_de_creació  1849)
+         (estil  "Romanticisme")
+         (rellevància  "Destacat")
+         (temàtica  "Paisatges i Emocions")
+         (època  "XIX")
+         (pintor  Caspar_David_Friedrich)
+         (sala  Sala1)
+    )
+
+    ([La_Gran_Bouffée] of Obra_de_Arte
+         (any_de_creació  1855)
+         (estil  "Realisme")
+         (rellevància  "Magistral")
+         (temàtica  "Vida quotidiana")
+         (època  "XIX")
+         (pintor  Gustave_Courbet)
+         (sala  Sala2)
+    )
+
+    ([A_Dos_passes_de_La_Guerra] of Obra_de_Arte
+         (any_de_creació  1805)
+         (estil  "Romanticisme")
+         (rellevància  "Universal")
+         (temàtica  "Esdeveniments històrics")
+         (època  "XIX")
+         (pintor  Théodore_Géricault)
+         (sala  Sala4)
+    )
+
+    ([El_Fill_de_La_Cultura] of Obra_de_Arte
+         (any_de_creació  1782)
+         (estil  "Classicisme")
+         (rellevància  "Destacat")
+         (temàtica  "Cultura grecorromana")
+         (època  "XVIII")
+         (pintor  Angelica_Kauffmann)
+         (sala  Sala3)
+    )
+
+    ([El_Brindis_dels_Patriotes] of Obra_de_Arte
+         (any_de_creació  1811)
+         (estil  "Realisme")
+         (rellevància  "Destacat")
+         (temàtica  "Esdeveniments històrics")
+         (època  "XIX")
+         (pintor  Francisco_de_Goya)
+         (sala  Sala4)
+    )
+
+    ([El_Somni_dels_Déus] of Obra_de_Arte
+         (any_de_creació  1775)
+         (estil  "Neoclassicisme")
+         (rellevància  "Referent")
+         (temàtica  "Cultura grecorromana")
+         (època  "XVIII")
+         (pintor  Antonio_Canova)
+         (sala  Sala3)
+    )
+
+    ([Les_Carretas_d'Alba] of Obra_de_Arte
+         (any_de_creació  1689)
+         (estil  "Barroc tardà")
+         (rellevància  "Destacat")
+         (temàtica  "Vida quotidiana")
+         (època  "XVII")
+         (pintor  Luca_Giordano)
+         (sala  Sala2)
+    )
+
+    ([L'Horitzó_d'Argent] of Obra_de_Arte
+         (any_de_creació  1867)
+         (estil  "Postimpressionisme")
+         (rellevància  "Magistral")
+         (temàtica  "Paisatges i Emocions")
+         (època  "XIX")
+         (pintor  Claude_Monet)
+         (sala  Sala1)
+    )
+
+    ([El_Triomf_d'Aquiles] of Obra_de_Arte
+         (any_de_creació  1791)
+         (estil  "Neoclassicisme")
+         (rellevància  "Universal")
+         (temàtica  "Cultura grecorromana")
+         (època  "XVIII")
+         (pintor  Jacques-Louis_David)
+         (sala  Sala3)
+    )
+
+        ([El_Cant_dels_Angels] of Obra_de_Arte
+         (any_de_creació  1687)
+         (estil  "Barroc")
+         (rellevància  "Referent")
+         (temàtica  "Espiritualitat")
+         (pintor  Bartolomé_Esteban_Murillo)
+         (sala  Sala5)
+    )
+
+    ([L'Escena_del_Bosc] of Obra_de_Arte
+         (any_de_creació  1752)
+         (estil  "Barroc tardà")
+         (rellevància  "Destacat")
+         (temàtica  "Vida quotidiana")
+         (pintor  Jean-Baptiste_Pater)
+         (sala  Sala2)
+    )
+
+    ([La_Batalla_de_Waterloo] of Obra_de_Arte
+         (any_de_creació  1815)
+         (estil  "Realisme")
+         (rellevància  "Universal")
+         (temàtica  "Esdeveniments històrics")
+         (pintor  William_Sadler)
+         (sala  Sala4)
+    )
+
+    ([El_Tempteig_de_Sant_Antoni] of Obra_de_Arte
+         (any_de_creació  1645)
+         (estil  "Barroc")
+         (rellevància  "Magistral")
+         (temàtica  "Espiritualitat")
+         (pintor  Matthias_Stom)
+         (sala  Sala5)
+    )
+
+    ([El_Port_d'Alba] of Obra_de_Arte
+         (any_de_creació  1845)
+         (estil  "Romanticisme")
+         (rellevància  "Magistral")
+         (temàtica  "Paisatges i Emocions")
+         (pintor  Ivan_Aivazovsky)
+         (sala  Sala1)
+    )
+
+    ([L'Alé_dels_Camps] of Obra_de_Arte
+         (any_de_creació  1838)
+         (estil  "Impressionisme")
+         (rellevància  "Referent")
+         (temàtica  "Vida quotidiana")
+         (pintor  Camille_Corot)
+         (sala  Sala2)
+    )
+
+    ([El_Triomf_de_la_Virtut] of Obra_de_Arte
+         (any_de_creació  1786)
+         (estil  "Neoclassicisme")
+         (rellevància  "Universal")
+         (temàtica  "Cultura grecorromana")
+         (pintor Andrea_Mantegna)
+         (sala  Sala3)
+    )
+
+    ([El_Déu_del_Mar] of Obra_de_Arte
+         (any_de_creació  1693)
+         (estil  "Barroc tardà")
+         (rellevància  "Destacat")
+         (temàtica  "Espiritualitat")
+         (pintor  Sebastiano_Ricci)
+         (sala  Sala5)
+    )
+
+    ([El_Riu_en_Flames] of Obra_de_Arte
+         (any_de_creació  1856)
+         (estil  "Realisme")
+         (rellevància  "Referent")
+         (temàtica  "Esdeveniments històrics")
+         (pintor  Gustave_Courbet)
+         (sala  Sala4)
+    )
+
+    ([La_Posta_de_Sol] of Obra_de_Arte
+         (any_de_creació  1887)
+         (estil  "Postimpressionisme")
+         (rellevància  "Universal")
+         (temàtica  "Paisatges i Emocions")
+         (pintor  Paul_Cézanne)
+         (sala  Sala1)
+    )
+    ([El_Somni_dels_Justos] of Obra_de_Arte
+         (any_de_creació  1701)
+         (estil  "Barroc")
+         (rellevància  "Referent")
+         (temàtica  "Espiritualitat")
+         (pintor  Bartolomé_Esteban_Murillo)
+         (sala  Sala5)
+    )
+
+    ([La_Dansa_dels_Serfs] of Obra_de_Arte
+         (any_de_creació  1764)
+         (estil  "Barroc tardà")
+         (rellevància  "Destacat")
+         (temàtica  "Vida quotidiana")
+         (pintor  Jean-Baptiste_Pater)
+         (sala  Sala2)
+    )
+
+    ([El_Llamp_del_Destí] of Obra_de_Arte
+         (any_de_creació  1819)
+         (estil  "Romanticisme")
+         (rellevància  "Universal")
+         (temàtica  "Esdeveniments històrics")
+         (pintor  William_Sadler)
+         (sala  Sala4)
+    )
+
+    ([La_Contemplació_Divina] of Obra_de_Arte
+         (any_de_creació  1649)
+         (estil  "Barroc")
+         (rellevància  "Magistral")
+         (temàtica  "Espiritualitat")
+         (pintor  Matthias_Stom)
+         (sala  Sala5)
+    )
+
+    ([L'Aurora_de_l'Oceà] of Obra_de_Arte
+         (any_de_creació  1851)
+         (estil  "Romanticisme")
+         (rellevància  "Magistral")
+         (temàtica  "Paisatges i Emocions")
+         (pintor  Ivan_Aivazovsky)
+         (sala  Sala1)
+    )
+
+    ([Els_Camps_de_Primavera] of Obra_de_Arte
+         (any_de_creació  1832)
+         (estil  "Impressionisme")
+         (rellevància  "Referent")
+         (temàtica  "Vida quotidiana")
+         (pintor  Camille_Corot)
+         (sala  Sala2)
+    )
+
+    ([L'Educació_d'Aquil·les] of Obra_de_Arte
+         (any_de_creació  1783)
+         (estil  "Neoclassicisme")
+         (rellevància  "Universal")
+         (temàtica  "Cultura grecorromana")
+         (pintor  Eugène_Delacroix)
+         (sala  Sala3)
+    )
+
+    ([La_Visió_del_Sant] of Obra_de_Arte
+         (any_de_creació  1695)
+         (estil  "Barroc tardà")
+         (rellevància  "Destacat")
+         (temàtica  "Espiritualitat")
+         (pintor  Sebastiano_Ricci)
+         (sala  Sala5)
+    )
+
+    ([La_Promesa_de_Llibertat] of Obra_de_Arte
+         (any_de_creació  1860)
+         (estil  "Realisme")
+         (rellevància  "Referent")
+         (temàtica  "Esdeveniments històrics")
+         (pintor  Gustave_Courbet)
+         (sala  Sala4)
+    )
+
+    ([El_Jardí_Seren] of Obra_de_Arte
+         (any_de_creació  1890)
+         (estil  "Postimpressionisme")
+         (rellevància  "Universal")
+         (temàtica  "Paisatges i Emocions")
+         (pintor  Paul_Cézanne)
+         (sala  Sala1)
+    )
+
+
+    ;; Pintores
+    ([Diego_Velazquez] of Pintor
+         (crea  [Les_Menines])
+         (nacionalitat  "Espanyola")
+    )
+
+    ([Eugène_Delacroix] of Pintor
+         (crea  [La_Llibertat_guiant_al_poble][L'Educació_d'Aquil·les])
+         (nacionalitat  "Francesa")
+    )
+
+    ([Francisco_de_Goya] of Pintor
+         (crea  [El_tres_de_maig_de_1808][El_Brindis_dels_Patriotes])
+         (nacionalitat  "Espanyola")
+    )
+
+    ([Jacques-Louis_David] of Pintor
+         (crea  [El_jurament_dels_Horacis] [La_mort_de_Sòcrates][El_Triomf_d'Aquiles])
+         (nacionalitat  "Francesa")
+    )
+
+    ([Jean-Honoré_Fragonard] of Pintor
+         (crea  [El_gronxador])
+         (nacionalitat  "Francesa")
     )
 
     ([Peter_Paul_Rubens] of Pintor
@@ -244,30 +547,6 @@
          (nacionalitat  "Holandesa")
     )
 
-    ([Sala1] of Sala
-         (conté  [La_Ronda_de_Nit] [La_nit_estrellada])
-         (porta_a  [Sala2] [Sala3] [Sala4])
-         (temàtica  "Paisatges i emocions")
-    )
-
-    ([Sala2] of Sala
-         (conté  [El_dinar_campestre] [El_gronxador] [Les_Menines])
-         (porta_a  [Sala1] [Sala3] [Sala4])
-         (temàtica  "Vida quotidiana")
-    )
-
-    ([Sala3] of Sala
-         (conté  [El_jurament_dels_Horacis] [El_rapte_de_Prosèrpina] [La_mort_de_Sòcrates])
-         (porta_a  [Sala1] [Sala2] [Sala4])
-         (temàtica  "Cultura grecorromana")
-    )
-
-    ([Sala4] of Sala
-         (conté  [El_tres_de_maig_de_1808])
-         (porta_a  [Sala1] [Sala2] [Sala3])
-         (temàtica  "Esdeveniments històrics")
-    )
-
     ([Vincent_Van_Gogh] of Pintor
          (crea  [La_nit_estrellada])
          (nacionalitat  "Holandesa")
@@ -278,7 +557,122 @@
          (nacionalitat  "Francesa")
     )
 
+    ([Pieter_de_Hooch] of Pintor
+         (crea  [El_Mercat])
+         (nacionalitat  "Holandesa")
+    )
+
+    ([Caspar_David_Friedrich] of Pintor
+         (crea  [La_Tempesta])
+         (nacionalitat  "Alemanya")
+    )
+
+    ([Gustave_Courbet] of Pintor
+         (crea  [La_Gran_Bouffée][El_Riu_en_Flames][La_Promesa_de_Llibertat])
+         (nacionalitat  "Francesa")
+    )
+
+    ([Théodore_Géricault] of Pintor
+         (crea  [A_Dos_passes_de_La_Guerra])
+         (nacionalitat  "Francesa")
+    )
+
+    ([Angelica_Kauffmann] of Pintor
+         (crea  [El_Fill_de_La_Cultura])
+         (nacionalitat  "Suïssa")
+    )
+
+    ([Andrea_Mantegna] of Pintor
+         (crea  [El_Triomf_de_la_Virtut])
+         (nacionalitat  "Suïssa")
+    )
+
+    ([Antonio_Canova] of Pintor
+         (crea  [El_Somni_dels_Déus])
+         (nacionalitat  "Italiana")
+    )
+
+    ([Luca_Giordano] of Pintor
+         (crea  [Les_Carretas_d'Alba])
+         (nacionalitat  "Italiana")
+    )
+
+    ([Claude_Monet] of Pintor
+         (crea  [L'Horitzó_d'Argent])
+         (nacionalitat  "Francesa")
+    )
+     ([Bartolomé_Esteban_Murillo] of Pintor
+         (crea  [El_Cant_dels_Angels][El_Somni_dels_Justos])
+         (nacionalitat  "Espanyola")
+    )
+
+    ([Jean-Baptiste_Pater] of Pintor
+         (crea  [L'Escena_del_Bosc][La_Dansa_dels_Serfs])
+         (nacionalitat  "Francesa")
+    )
+
+    ([William_Sadler] of Pintor
+         (crea  [La_Batalla_de_Waterloo][El_Llamp_del_Destí])
+         (nacionalitat  "Irlandesa")
+    )
+
+    ([Matthias_Stom] of Pintor
+         (crea  [El_Tempteig_de_Sant_Antoni][La_Contemplació_Divina])
+         (nacionalitat  "Holandesa")
+    )
+
+    ([Ivan_Aivazovsky] of Pintor
+         (crea  [El_Port_d'Alba][L'Aurora_de_l'Oceà])
+         (nacionalitat  "Russa")
+    )
+
+    ([Camille_Corot] of Pintor
+         (crea  [L'Alé_dels_Camps][Els_Camps_de_Primavera])
+         (nacionalitat  "Francesa")
+    )
+
+    ([Sebastiano_Ricci] of Pintor
+         (crea  [El_Déu_del_Mar][La_Visió_del_Sant])
+         (nacionalitat  "Italiana")
+    )
+
+    ([Paul_Cézanne] of Pintor
+         (crea  [La_Posta_de_Sol][El_Jardí_Seren])
+         (nacionalitat  "Francesa")
+    )
+
+
+    ;; Salas
+    ([Sala1] of Sala
+         (conté  [La_Ronda_de_Nit] [La_nit_estrellada] [La_Tempesta] [L'Horitzó_d'Argent][El_Port_d'Alba] [L'Aurora_de_l'Oceà] [La_Posta_de_Sol] [El_Jardí_Seren])
+         (porta_a   [Sala2] [Sala3] [Sala4] [Sala5] [Sala6])
+         (temàtica  "Paisatges i emocions")
+    )
+
+    ([Sala2] of Sala
+         (conté  [El_dinar_campestre] [El_gronxador] [Les_Menines] [El_Mercat] [La_Gran_Bouffée] [Les_Carretas_d'Alba][L'Escena_del_Bosc] [La_Dansa_dels_Serfs] [L'Alé_dels_Camps] [Els_Camps_de_Primavera])
+         (porta_a  [Sala1] [Sala3] [Sala4][Sala5][Sala6])
+         (temàtica  "Vida quotidiana")
+    )
+
+    ([Sala3] of Sala
+         (conté  [El_jurament_dels_Horacis] [El_rapte_de_Prosèrpina] [La_mort_de_Sòcrates] [El_Fill_de_La_Cultura] [El_Somni_dels_Déus] [El_Triomf_d'Aquiles][El_Triomf_de_la_Virtut][L'Educació_d'Aquil·les])
+         (porta_a  [Sala1] [Sala2] [Sala4][Sala5][Sala6])
+         (temàtica  "Cultura grecorromana")
+    )
+
+    ([Sala4] of Sala
+         (conté  [El_tres_de_maig_de_1808] [La_Llibertat_guiant_al_poble] [A_Dos_passes_de_La_Guerra] [El_Brindis_dels_Patriotes] [El_Llamp_del_Destí] [El_Riu_en_Flames] [La_Promesa_de_Llibertat][La_Batalla_de_Waterloo])
+         (porta_a  [Sala1] [Sala2] [Sala3][Sala5][Sala6])
+         (temàtica  "Esdeveniments històrics")
+    )
+    ([Sala5] of Sala
+         (conté  [El_Cant_dels_Angels] [El_Tempteig_de_Sant_Antoni] [El_Déu_del_Mar] [La_Contemplació_Divina] [La_Visió_del_Sant][El_Somni_dels_Justos])
+         (porta_a  [Sala1] [Sala2] [Sala3] [Sala4][Sala6])
+         (temàtica  "Espiritualitat")
+    )
 )
+
 
 
 ; -----------------------------------------
