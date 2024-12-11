@@ -1324,16 +1324,14 @@
     (> (length$ $?recs) 0)
     (while (> (length$ $?recs) 0) do
         ; Obtener el siguiente elemento ordenado (obra y tiempo)
-        (bind ?actual (ordenar-sales $?recs))
+        (bind ?actual (ordenar-sales $?recs $?temps))
         (bind ?obra (nth$ 1 ?actual)) ; Extraer la obra de ?actual
         (bind ?t (nth$ 2 ?actual))    ; Extraer el tiempo de ?actual
 
         ; Encontrar el índice de la obra en la lista original
         (bind ?idx (member ?obra $?recs))
         (if ?idx then
-            ; Eliminar la obra y su tiempo de las listas originales
             
-
             ; Añadir la obra y su tiempo a las listas ordenadas
             (bind $?recs-ordenades (insert$ $?recs-ordenades (+ (length$ $?recs-ordenades) 1) ?obra))
             (bind $?temps-ordenats (insert$ $?temps-ordenats (+ (length$ $?temps-ordenats) 1) ?t))
