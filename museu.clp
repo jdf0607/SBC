@@ -1690,7 +1690,7 @@
     (bind $?temps-final (create$)) ; Crear una lista vacía para el tiempo de cada obra
     ; Asignación de obras a la lista final
     (foreach ?rec $?recorregut
-        (bind ?obra (send ?rec get-nom-obra)) ; Obtener la instancia de la obra
+        (bind ?obra (fact-slot-value ?rec quadre)) ; Obtener la instancia de la obra
         (bind ?ac (send ?obra get-època)) ; Año de creación de la obra
         ; Determinar el tiempo requerido para la obra según el tipo de visitante
         (bind ?tobra
