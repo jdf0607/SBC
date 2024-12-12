@@ -14,7 +14,7 @@
     (multislot topObjectProperty
         (type INSTANCE)
         (create-accessor read-write))
-    (multislot coneixement
+    (slot coneixement
         (type INTEGER)
         (create-accessor read-write))
     (multislot preferencies_estil 
@@ -1253,6 +1253,10 @@
     (multislot dia (type INSTANCE))
 )
 
+(deftemplate valoracio-quadre
+    (slot quadre (type INSTANCE))
+    (slot valoracio (type INTEGER))
+)
 
 (deftemplate obres-valorades
     (multislot quadres-recomanats (type INSTANCE))
@@ -1260,7 +1264,7 @@
 
 
 (deftemplate obres-valorades-ordenades
-    (multislot quadres-recomanats (type INSTANCE))
+    (multislot quadres-recomanats (type FACT-ADDRESS))
 )
 
 (deftemplate ruta-desordenada
@@ -1368,6 +1372,17 @@
    ?numeros
 )
 
+(deffunction inferir-dades::trobar-quadre-valorat (?llista ?val)
+    (bind ?i 1)
+    (foreach ?qv ?llista
+        (if (<= (fact-slot-value ?qv valoracio) ?val) then
+            (return ?i)
+        )
+        (bind ?i (+ ?i 1))
+    )
+    ?i
+)
+
 ;funcio per a trobar els elements  amb millor valoracio
 (deffunction trobar-maxim ($?llista)
 	(bind ?maxim -1)
@@ -1435,7 +1450,16 @@
     ?estil
 )
 
-
+(deffunction MAIN::mapa-rellevància-num (?r)
+    (bind ?rell-num -1)
+    (switch ?r
+        (case "Universal" then (bind ?rell-num 0))
+        (case "Magistral" then (bind ?rell-num 1))
+        (case "Referent" then (bind ?rell-num 2))
+        (case "Destacat" then (bind ?rell-num 3))
+    )
+    ?rell-num
+)
 
 ; --------------------------------------------------
 ; 				 MODUL RECOPILACIO 
@@ -1600,76 +1624,51 @@
 ; 				MODUL Inferencia - José
 ; --------------------------------------------------
 
+
 ;a los cuadros se les da una puntuación por visitante y los añadimos al recorrido según esta
-(defrule inferir-dades::crear-solucio
-    ; (declare (salience 10))
-    (not (obres-valorades))
-    =>
-    (assert (obres-valorades (quadres-recomanats)))
-)
-
-
 (defrule inferir-dades::valorar-nivell
-    ;(declare (salience 2))
-    (object (is-a Visitant) (name [instVisitant]) (coneixement ?coneixement) (preferencies_estil ?prestil) (preferencies_temàtica ?prtematica)) 
-    ?rec <- (object (is-a quadres-recomanats) (nom-obra ?obra) (valoracio ?val))
+    (object (name [instVisitant]) (coneixement ?coneixement) (preferencies_estil $?prestils) (preferencies_temàtica $?prtematiques)) 
     ?cont <- (object (is-a Obra_de_Arte) (rellevància ?rel) (temàtica ?tem) (estil ?estil))
-    (test (eq (instance-name ?cont) (instance-name ?obra)))
-    (not (valorat ?cont ?coneixement))  ; Verifica que no se haya valorado previamente
-    ?ov <- (obres-valorades (quadres-recomanats $?llista))
+    (not (valoracio-quadre (quadre ?cont)))  ; Verifica que no se haya valorado previamente
     =>
     ; Establecer la prioridad según el nivell_cultural del visitante
-     (bind ?rel-num 
-      (if (eq ?rel "Universal") then 0
-      else (if (eq ?rel "Magistral") then 1
-      else (if (eq ?rel "Referent") then 2
-      else (if (eq ?rel "Destacat") then 3
-      else -1)))))
+    (bind ?val 0)
+    (bind ?c ?coneixement) 
+    (bind ?prioritat 40)
 
-    (bind ?prioritat ?coneixement) 
-
-
-    (if (<= ?rel-num ?prioritat) then
-        (if (< ?rel-num 4) then
-            (bind ?val (+ ?val 40))  ; Si la obra es relevante, sumar 40 a la valoración
+    (while (>= ?c 0) do
+        (if (= ?c (mapa-rellevància-num ?rel)) then
+            (bind ?val (+ ?val ?prioritat))
         )
+        (/ ?prioritat 2)
+        (bind ?c (- ?c 1))
     )
 
-    (if (eq ?tem  ?prtematica) then
-        (bind ?val (+ ?val 100))  ; Sumar 100 si la temática coincide
-    )
-    (if (eq ?estil ?prestil) then
-        (bind ?val (+ ?val 50))  ; Sumar 50 si el estilo coincide
-    )
+    (if (member$ ?estil $?prestils) then (bind ?val (+ ?val 50)))
+    (if (member$ ?tem $?prtematiques) then (bind ?val (+ ?val 50)))
+
     ; Actualizar la valoración de la obra recomendada
-    (send ?rec put-valoracio ?val)
-    (assert (valorat ?cont ?coneixement))
+    (assert (valoracio-quadre (quadre ?cont) (valoracio ?val)))
+)
 
-    (retract ?ov)
-    (assert (obres-valorades (quadres-recomanats $?llista ?rec)))
-) 
-
-
+(defrule inferir-dades::crear-solucio-ordenada
+    (not (obres-valorades-ordenades))
+    ?vq <- (valoracio-quadre (quadre ?q) (valoracio ?val))
+    =>
+    (assert (obres-valorades-ordenades (quadres-recomanats (create$ ?vq))))
+)
 
 ;ara tindrem primer els quadres que volem visitar
 (defrule inferir-dades::ordenar-solucio
-
-    (not (obres-valorades-ordenades))
-    (obres-valorades (quadres-recomanats $?llista))
+    ?ovo <- (obres-valorades-ordenades (quadres-recomanats $?llista))
+    ?vq <- (valoracio-quadre (quadre ?q) (valoracio ?val))
+    (test (not (member$ ?vq $?llista)))
     =>
-    (bind ?recorregut (create$)) ; 
-    (while (> (length$ $?llista) 0) ;
-        (progn
-            (bind ?actual (trobar-maxim $?llista))
-            (bind $?llista (delete-member$ $?llista ?actual)) 
-             (bind $?recorregut (insert$ $?recorregut 
-                (+(length$ $?recorregut) 1) ?actual))
-        )
-    )
-    (assert (obres-valorades-ordenades (quadres-recomanats $?recorregut)))
-
+    (bind ?pos (trobar-quadre-valorat $?llista ?val))
+    (bind $?pre (subseq$ $?llista 1 (- ?pos 1)))
+    (bind $?post (subseq$ $?llista ?pos (length$ $?llista)))
     ; Afegeix el fet ordenat
-    (printout t "Calculant recorregut..." crlf)
+    (modify ?ovo (quadres-recomanats (create$ (expand$ $?pre) ?vq (expand$ $?post))))
 )
        
 
