@@ -17,6 +17,12 @@
     (multislot coneixement
         (type INTEGER)
         (create-accessor read-write))
+    (multislot preferencies_estil 
+        (type STRING)
+        (create-accessor read-write))
+    (multislot preferencies_temàtica 
+        (type STRING)
+        (create-accessor read-write))
     (slot dies
         (type INTEGER)
         (create-accessor read-write))
@@ -72,17 +78,23 @@
     (slot any_de_creació
         (type INTEGER)
         (create-accessor read-write))
-    (multislot estil
+    (slot estil
         (type STRING)
         (create-accessor read-write))
-    (multislot rellevància
+    (slot rellevància
         (type STRING)
         (create-accessor read-write))
-    (multislot temàtica
+    (slot temàtica
         (type STRING)
         (create-accessor read-write))
-    (multislot època
+    (slot època
         (type SYMBOL)
+        (create-accessor read-write))
+    (slot  pintor
+        (type STRING)
+        (create-accessor read-write))
+    (slot sala 
+        (type STRING)
         (create-accessor read-write))
 )
 
@@ -96,7 +108,7 @@
     (multislot estil
         (type STRING)
         (create-accessor read-write))
-    (multislot nacionalitat
+    (slot nacionalitat
         (type STRING)
         (create-accessor read-write))
     (multislot temàtica
@@ -106,6 +118,7 @@
         (type SYMBOL)
         (create-accessor read-write))
 )
+
 
 (defclass Sala
     (is-a USER)
@@ -1227,8 +1240,8 @@
     (slot num_nens (type INTEGER) (default 0))
     (slot num_dies (type INTEGER) (default 0))
     (slot hores_visita (type INTEGER) (default 0))
-    (multislot preferencies-estil (type STRING))
-    (multislot preferencies-temàtica (type STRING))
+    (multislot preferencies_estil (type STRING))
+    (multislot preferencies_temàtica (type STRING))
     (slot nivell_cultural (type FLOAT) (default 0.0))
 )
 
@@ -1523,7 +1536,7 @@
     (foreach ?pref-i $?pref-indexs
         (bind ?prefs (create$ ?prefs (mapa-num-estil ?pref-i)))
     )
-    (modify ?v (preferencies-estil ?prefs))
+    (modify ?v (preferencies_estil ?prefs))
     (retract ?f)
 )
 
@@ -1537,7 +1550,7 @@
     (foreach ?pref-i $?pref-indexs
         (bind ?prefs (create$ ?prefs (mapa-num-temàtica ?pref-i)))
     )
-    (modify ?v (preferencies-temàtica ?prefs))
+    (modify ?v (preferencies_temàtica ?prefs))
     (retract ?f)
 )
 
@@ -1558,7 +1571,7 @@
 ; --------------------------------------------------
 
 (defrule abstraccio-dades::crear-visitant
-    (visita (num_persones ?np) (num_nens ?nn) (familia ?fam) (num_dies ?nd) (hores_visita ?hd) (nivell_cultural ?nc))
+    (visita (num_persones ?np) (num_nens ?nn) (familia ?fam) (num_dies ?nd) (hores_visita ?hd) (nivell_cultural ?nc) (preferencies_estil ?pe) (preferencies_temàtica ?pt))
     (not (object(name [instVisitant])))
     =>
     (if (eq ?fam TRUE) then (make-instance instVisitant of Familia)
@@ -1569,6 +1582,8 @@
     (send [instVisitant] put-dies ?nd)
     (send [instVisitant] put-hores ?hd)
     (send [instVisitant] put-coneixement ?nc)
+    (send [instVisitant] put-preferencies_estil ?pe)
+    (send [instVisitant] put-preferencies_temàtica ?pt)
 )
 
 
@@ -1595,13 +1610,11 @@
 )
 
 
-
-;en la primera versió farem la visita només segons el expertise del visitant
 (defrule inferir-dades::valorar-nivell
     ;(declare (salience 2))
-    (object (is-a Visitant) (name [instVisitant]) (coneixement ?coneixement)) 
+    (object (is-a Visitant) (name [instVisitant]) (coneixement ?coneixement) (preferencies_estil ?prestil) (preferencies_temàtica ?prtematica)) 
     ?rec <- (object (is-a quadres-recomanats) (nom-obra ?obra) (valoracio ?val))
-    ?cont <- (object (is-a Obra_de_Arte) (rellevància ?rel))
+    ?cont <- (object (is-a Obra_de_Arte) (rellevància ?rel) (temàtica ?tem) (estil ?estil))
     (test (eq (instance-name ?cont) (instance-name ?obra)))
     (not (valorat ?cont ?coneixement))  ; Verifica que no se haya valorado previamente
     ?ov <- (obres-valorades (quadres-recomanats $?llista))
@@ -1623,13 +1636,19 @@
         )
     )
 
+    (if (eq ?tem  ?prtematica) then
+        (bind ?val (+ ?val 100))  ; Sumar 100 si la temática coincide
+    )
+    (if (eq ?estil ?prestil) then
+        (bind ?val (+ ?val 50))  ; Sumar 50 si el estilo coincide
+    )
     ; Actualizar la valoración de la obra recomendada
     (send ?rec put-valoracio ?val)
     (assert (valorat ?cont ?coneixement))
 
     (retract ?ov)
     (assert (obres-valorades (quadres-recomanats $?llista ?rec)))
-)
+) 
 
 
 
