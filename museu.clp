@@ -1092,18 +1092,6 @@
 ; 				  Classes
 ; ------------------------------------
 
-(defclass quadres-recomanats
-	(is-a USER)
-	(role concrete)
-    (slot nom-obra
-		(type INSTANCE)
-		(create-accessor read-write))
-    (slot valoracio
-        (type INTEGER)
-        (create-accessor read-write))
-)
-
-
 (defclass ruta-per-Dia
 	(is-a USER)
 	(role concrete)
@@ -1128,14 +1116,6 @@
     (format t "Rellevància: %s" ?self:rellevància)
 	(printout t crlf)
     (format t "Estil: %s" ?self:estil get-estil)
-	(printout t crlf)
-)
-
-(defmessage-handler MAIN::quadres-recomanats imprimir primary ()
-    (printout t ?self:nom-obra)
-	(printout t crlf)
-	(format t "Valoracio: %d" ?self:valoracio)
-	(printout t crlf "Justificació de la tria: " crlf)
 	(printout t crlf)
 )
 
@@ -1258,10 +1238,6 @@
     (slot valoracio (type INTEGER))
 )
 
-(deftemplate obres-valorades
-    (multislot quadres-recomanats (type INSTANCE))
-)
-
 
 (deftemplate obres-valorades-ordenades
     (multislot quadres-recomanats (type FACT-ADDRESS))
@@ -1372,7 +1348,7 @@
    ?numeros
 )
 
-(deffunction inferir-dades::trobar-quadre-valorat (?llista ?val)
+(deffunction inferir-dades::trobar-quadre-valorat (?llista ?val) "Troba on s'ubica el primer quadre amb una valoració donada o menor."
     (bind ?i 1)
     (foreach ?qv ?llista
         (if (<= (fact-slot-value ?qv valoracio) ?val) then
@@ -1381,21 +1357,6 @@
         (bind ?i (+ ?i 1))
     )
     ?i
-)
-
-;funcio per a trobar els elements  amb millor valoracio
-(deffunction trobar-maxim ($?llista)
-	(bind ?maxim -1)
-	(bind ?element nil)
-	(foreach ?actual $?llista
-      (bind ?valoracio (send ?actual get-valoracio))
-      (if (> ?valoracio ?maxim)
-         then
-            (bind ?maxim ?valoracio)
-            (bind ?element ?actual)
-      )
-   )
-   ?element
 )
 
 ;funcion para ordenar sales
@@ -1576,17 +1537,6 @@
     )
     (modify ?v (preferencies_temàtica ?prefs))
     (retract ?f)
-)
-
-(defrule recopilacio-informacio-visitant::get-totes-les-obres
-   (declare (salience 15))
-   =>
-   (bind $?llista (find-all-instances ((?inst Obra_de_Arte)) TRUE))
-   (progn$ (?actual ?llista)
-            (make-instance(gensym) of quadres-recomanats(nom-obra ?actual)
-                        (valoracio 0))
-                        )
-    (printout t "..." crlf)
 )
 
 
