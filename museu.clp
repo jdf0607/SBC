@@ -1336,7 +1336,7 @@
    (bind ?answer (read))
    (if (lexemep ?resposta)
        then (bind ?resposta (lowcase ?answer)))
-   (while (not (member ?resposta ?opcions)) do
+   (while (not (member$ ?resposta ?opcions)) do
       (format t "%s "?pregunta)
      (progn$ (?actual $?opcions)
        (format t "[%s]" ?actual)
@@ -1571,8 +1571,7 @@
 ; --------------------------------------------------
 
 (defrule abstraccio-dades::crear-visitant
-    (visita (num_persones ?np) (num_nens ?nn) (familia ?fam) (num_dies ?nd) (hores_visita ?hd) (nivell_cultural ?nc) (preferencies_estil ?pe) (preferencies_temàtica ?pt))
-    (not (object(name [instVisitant])))
+    (visita (num_persones ?np) (num_nens ?nn) (familia ?fam) (num_dies ?nd) (hores_visita ?hd) (preferencies_estil $?pe) (preferencies_temàtica $?pt))
     =>
     (if (eq ?fam TRUE) then (make-instance instVisitant of Familia)
     else (if (eq ?np 1) then (make-instance instVisitant of Individu)
@@ -1581,14 +1580,13 @@
     (if (> ?nn 0) then (send [instVisitant] put-nens TRUE))
     (send [instVisitant] put-dies ?nd)
     (send [instVisitant] put-hores ?hd)
-    (send [instVisitant] put-coneixement ?nc)
-    (send [instVisitant] put-preferencies_estil ?pe)
-    (send [instVisitant] put-preferencies_temàtica ?pt)
+    (send [instVisitant] put-preferencies_estil $?pe)
+    (send [instVisitant] put-preferencies_temàtica $?pt)
 )
 
 
 (defrule abstraccio-dades::valorar-coneixement
-    (visita (nivell_cultural ?nc))
+    ?v <- (visita (nivell_cultural ?nc))
     (object(name [instVisitant]))
     =>
     (if (< ?nc 2.0) then (send [instVisitant] put-coneixement 0)) ; Nivell cultural novell
