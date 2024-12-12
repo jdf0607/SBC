@@ -1589,6 +1589,7 @@
 
 (defrule abstraccio-dades::valorar-coneixement
     (visita (nivell_cultural ?nc))
+    (object(name [instVisitant]))
     =>
     (if (< ?nc 2.0) then (send [instVisitant] put-coneixement 0)) ; Nivell cultural novell
     (if (and (>= ?nc 2.0) (< ?nc 5.0)) then (send [instVisitant] put-coneixement 1)) ; Nivell cultural aficionat
