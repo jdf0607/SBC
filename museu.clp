@@ -1728,15 +1728,17 @@
     (ruta (dies $?dies-assignats))
     =>
     (progn$ (?dia $?dies-assignats)
-        (bind $?sales (create$ ))
+        (bind $?sales-dia (create$ ))
 
-        (bind $?quadres (send ?dia get-quadres))
-        (while (not (eq (length$ $?quadres) 0)) do
-            (bind ?sala (ordenar-sala $?quadres))
-            (bind $?quadres (delete-member$ $?quadres ?sala))
-            (bind $?sales (insert$ $?sales (+ (length$ $?sales) 1) ?sala))
+        (bind ?sala-num 1)
+        (while (< ?sala-num 8) do
+            (bind ?quadres-sala (ordenar-sala $?quadres ?sala-num))
+
+            (bind $?quadres (delete-member$ $?quadres $?quadres-sala))
+            (bind ?sales-dia (insert$ ?sales-dia (+ (length$ ?sales-dia) 1) (create$ ?sala-num ?quadres-sala) )) 
+            (bind ?sala-num (+ ?sala-num 1))
         )
-        (send ?dia put-quadres $?sales)
+      
     )
     
     (assert (sales-assignades (dies $?dies-assignats))) ;sales-assignades conté dies amb sales, les sales amb obres
