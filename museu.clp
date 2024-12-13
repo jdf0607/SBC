@@ -1742,7 +1742,7 @@
 ; --------------------------------------------------
 
 (defrule imprimir-ruta::sortida "Imprimeix les rutes recomanades"
-    (ruta (dies $?llista))  ; Asegura que hay una ruta con días asignados
+    (sales-assignades (dies $?llista))  ; Asegura que hay una ruta con días asignados
     (not (final))  ; Asegura que no se haya alcanzado el estado final
     =>
     (printout t crlf)
