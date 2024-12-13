@@ -1634,7 +1634,6 @@
     (bind $?post (subseq$ $?llista ?pos (length$ $?llista)));quadres amn menys prioritat
     ; Afegeix el fet ordenat
     (modify ?ovo (quadres-recomanats (create$ (expand$ $?pre) ?vq (expand$ $?post)))); unio quadres amb més prio + quadre actual + menys prio
-    (printout t "solució ordenada per valoracio.." crlf)
 )
        
 
@@ -1727,7 +1726,6 @@
 (defrule sintesis::assignar-a-sales "Divideix les obres per sales segons el dia"
     (not (sales-assignades))
     (ruta (dies $?dies-assignats))
-    (sales (quadres $?assignacio)) ; Informació d'assignació de quadres a sales
     =>
     (progn$ (?dia $?dies-assignats)
         (bind $?sales (create$ ))
