@@ -1594,7 +1594,7 @@
         (if (= ?c (mapa-rellevància-num ?rel)) then
             (bind ?val (+ ?val ?prioritat))
         )
-        (/ ?prioritat 2)
+        (bind ?prioritat (/ ?prioritat 2))
         (bind ?c (- ?c 1))
     )
 
@@ -1633,10 +1633,8 @@
 (defrule sintesis::assigna-temps "una llista amb les obres que dona temps a visitar"
     (not (obres-amb-temps)) ; Asegurarse de que no exista una obres-amb-temps previamente definida
     (obres-valorades-ordenades (quadres-recomanats $?recorregut)) ; Lista de obras ordenades per valoracio
-    ?visitant <-  (object (name [instVisitant]) (coneixement ?coneixement) (preferencies_estil $?prestils) (preferencies_temàtica $?prtematiques) (nens ?nens)) 
+    ?visitant <-  (object (name [instVisitant]) (dies ?numDies) (hores ?hores) (nens ?nens)) 
     =>
-    (bind ?numDies (send ?visitant get-dies))
-    (bind ?hores (send ?visitant get-hores))
     (bind ?mins (* ?hores 60)) 
     (bind ?t-max (* ?numDies ?mins))
     (bind ?t-ocu 0) ; temps ocupat actual 
@@ -1646,7 +1644,7 @@
     (foreach ?rec $?recorregut
             (bind ?tobra 3)
             (bind ?obra (fact-slot-value ?rec quadre)) ; Obtener la instancia de la obra
-            (bind ?valoracio (send ?obra get-valoracio))
+            (bind ?valoracio (fact-slot-value ?rec valoracio))
 
             (if (> ?valoracio 0) then (bind ?tobra (+ ?tobra 1)))
             (if (> ?valoracio 40) then (bind ?tobra (+ ?tobra 2)))
