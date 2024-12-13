@@ -1376,25 +1376,14 @@
 )
 
 ;funcion para ordenar sales
-(deffunction sintesis::ordenar-sala ($?llista)
-   (bind ?minim 8)      ; Un valor inicial suficientemente alto para comparar
-   (bind ?element nil)       ; Inicializar el elemento mínimo como nil
-   (bind ?time 0)            ; Inicializar el tiempo como 0
-
-   ; Recorrer cada elemento de la lista
-   (foreach ?actual $?llista
-      (bind ?QuadreActual (send ?actual get-nomQuadre)) 
-      (bind ?SalaValor (send ?QuadreActual get-sala))   
-      (bind ?QuadreTime (send ?actual get-temps)) ; Obtener el tiempo de la obra actual
-      
-      (if (<= ?SalaValor ?minim) then
-         (bind ?minim ?SalaValor)    
-         (bind ?element ?actual)
-         (bind ?time ?QuadreTime) ; Actualizar el tiempo
-      )
-   )
-
-   (create$ ?element ?time) ; Devolver una lista con la obra y el tiempo
+(deffunction sintesis::ordenar-sala (?quadres ?sala)
+       (bind ?result (create$))
+    (foreach ?quadre ?quadres do
+        (if (eq (fact-slot-value ?quadre sala) ?sala) then
+            (bind ?result (insert$ ?result (+ (length$ ?result) 1) ?quadre))
+        )
+    )
+    ?result
 )
 
 (deffunction MAIN::mapa-num-estil (?num)
