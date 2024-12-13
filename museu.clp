@@ -94,7 +94,7 @@
         (type STRING)
         (create-accessor read-write))
     (slot sala 
-        (type STRING)
+        (type INTEGER)
         (create-accessor read-write))
 )
 
@@ -151,7 +151,7 @@
          (temàtica  "Vida quotidiana")
          (època  "XIX")
          (pintor  Édouard_Manet)
-         (sala  Sala2)
+         (sala  2)
     )
 
     ([El_gronxador] of Obra_de_Arte
@@ -161,7 +161,7 @@
          (temàtica  "Vida quotidiana")
          (època  "XVIII")
          (pintor  Jean-Honoré_Fragonard)
-         (sala  Sala2)
+         (sala  2)
     )
 
     ([El_jurament_dels_Horacis] of Obra_de_Arte
@@ -171,7 +171,7 @@
          (temàtica  "Cultura grecorromana")
          (època  "XVIII")
          (pintor  Jacques-Louis_David)
-         (sala  Sala3)
+         (sala  3)
     )
 
     ([El_rapte_de_Prosèrpina] of Obra_de_Arte
@@ -181,7 +181,7 @@
          (temàtica  "Cultura grecorromana")
          (època  "XVII")
          (pintor  Peter_Paul_Rubens)
-         (sala  Sala3)
+         (sala  3)
     )
 
     ([El_tres_de_maig_de_1808] of Obra_de_Arte
@@ -191,7 +191,7 @@
          (temàtica  "Història militar")
          (època  "XIX")
          (pintor  Francisco_de_Goya)
-         (sala  Sala4)
+         (sala  6)
     )
 
     ([La_Llibertat_guiant_al_poble] of Obra_de_Arte
@@ -201,7 +201,7 @@
          (temàtica  "Història política")
          (època  "XIX")
          (pintor  Eugène_Delacroix)
-         (sala  Sala4)
+         (sala  4)
     )
 
     ([La_Ronda_de_Nit] of Obra_de_Arte
@@ -211,7 +211,7 @@
          (temàtica  "Paisatges i Emocions")
          (època  "XVII")
          (pintor  Rembrandt_van_Rijn)
-         (sala  Sala1)
+         (sala  1)
     )
 
     ([La_mort_de_Sòcrates] of Obra_de_Arte
@@ -221,7 +221,7 @@
          (temàtica  "Cultura grecorromana")
          (època  "XVIII")
          (pintor  Jacques-Louis_David)
-         (sala  Sala3)
+         (sala  3)
     )
 
     ([La_nit_estrellada] of Obra_de_Arte
@@ -231,7 +231,7 @@
          (temàtica  "Paisatges i Emocions")
          (època  "XIX")
          (pintor  Vincent_Van_Gogh)
-         (sala  Sala1)
+         (sala  1)
     )
 
     ([Les_Menines] of Obra_de_Arte
@@ -241,7 +241,7 @@
          (temàtica  "Vida quotidiana")
          (època  "XVII")
          (pintor  Diego_Velazquez)
-         (sala  Sala2)
+         (sala  2)
     )
 
     ([El_Mercat] of Obra_de_Arte
@@ -251,7 +251,7 @@
          (temàtica  "Vida quotidiana")
          (època  "XVII")
          (pintor  Pieter_de_Hooch)
-         (sala  Sala2)
+         (sala  2)
     )
 
     ([La_Tempesta] of Obra_de_Arte
@@ -261,7 +261,7 @@
          (temàtica  "Paisatges i Emocions")
          (època  "XIX")
          (pintor  Caspar_David_Friedrich)
-         (sala  Sala1)
+         (sala  1)
     )
 
     ([La_Gran_Bouffée] of Obra_de_Arte
@@ -271,7 +271,7 @@
          (temàtica  "Vida quotidiana")
          (època  "XIX")
          (pintor  Gustave_Courbet)
-         (sala  Sala2)
+         (sala  2)
     )
 
     ([A_Dos_passes_de_La_Guerra] of Obra_de_Arte
@@ -281,7 +281,7 @@
          (temàtica  "Història política")
          (època  "XIX")
          (pintor  Théodore_Géricault)
-         (sala  Sala4)
+         (sala  4)
     )
 
     ([El_Fill_de_La_Cultura] of Obra_de_Arte
@@ -291,7 +291,7 @@
          (temàtica  "Cultura grecorromana")
          (època  "XVIII")
          (pintor  Angelica_Kauffmann)
-         (sala  Sala3)
+         (sala  3)
     )
 
     ([El_Brindis_dels_Patriotes] of Obra_de_Arte
@@ -301,7 +301,7 @@
          (temàtica  "Història política")
          (època  "XIX")
          (pintor  Francisco_de_Goya)
-         (sala  Sala4)
+         (sala  4)
     )
 
     ([El_Somni_dels_Déus] of Obra_de_Arte
@@ -311,7 +311,7 @@
          (temàtica  "Cultura grecorromana")
          (època  "XVIII")
          (pintor  Antonio_Canova)
-         (sala  Sala3)
+         (sala  3)
     )
 
     ([Les_Carretas_d'Alba] of Obra_de_Arte
@@ -321,7 +321,7 @@
          (temàtica  "Vida quotidiana")
          (època  "XVII")
          (pintor  Luca_Giordano)
-         (sala  Sala2)
+         (sala  2)
     )
 
     ([L'Horitzó_d'Argent] of Obra_de_Arte
@@ -331,7 +331,7 @@
          (temàtica  "Paisatges i Emocions")
          (època  "XIX")
          (pintor  Claude_Monet)
-         (sala  Sala1)
+         (sala  1)
     )
 
     ([El_Triomf_d'Aquiles] of Obra_de_Arte
@@ -341,7 +341,7 @@
          (temàtica  "Cultura grecorromana")
          (època  "XVIII")
          (pintor  Jacques-Louis_David)
-         (sala  Sala3)
+         (sala  3)
     )
 
         ([El_Cant_dels_Angels] of Obra_de_Arte
@@ -350,7 +350,7 @@
          (rellevància  "Referent")
          (temàtica  "Espiritualitat")
          (pintor  Bartolomé_Esteban_Murillo)
-         (sala  Sala5)
+         (sala  5)
     )
 
     ([L'Escena_del_Bosc] of Obra_de_Arte
@@ -359,7 +359,7 @@
          (rellevància  "Destacat")
          (temàtica  "Vida quotidiana")
          (pintor  Jean-Baptiste_Pater)
-         (sala  Sala2)
+         (sala  2)
     )
 
     ([La_Batalla_de_Waterloo] of Obra_de_Arte
@@ -368,7 +368,7 @@
          (rellevància  "Universal")
          (temàtica  "Història militar")
          (pintor  William_Sadler)
-         (sala  Sala4)
+         (sala  6)
     )
 
     ([El_Tempteig_de_Sant_Antoni] of Obra_de_Arte
@@ -377,7 +377,7 @@
          (rellevància  "Magistral")
          (temàtica  "Espiritualitat")
          (pintor  Matthias_Stom)
-         (sala  Sala5)
+         (sala  5)
     )
 
     ([El_Port_d'Alba] of Obra_de_Arte
@@ -386,7 +386,7 @@
          (rellevància  "Magistral")
          (temàtica  "Paisatges i Emocions")
          (pintor  Ivan_Aivazovsky)
-         (sala  Sala1)
+         (sala  1)
     )
 
     ([L'Alé_dels_Camps] of Obra_de_Arte
@@ -395,7 +395,7 @@
          (rellevància  "Referent")
          (temàtica  "Vida quotidiana")
          (pintor  Camille_Corot)
-         (sala  Sala2)
+         (sala  2)
     )
 
     ([El_Triomf_de_la_Virtut] of Obra_de_Arte
@@ -404,7 +404,7 @@
          (rellevància  "Universal")
          (temàtica  "Cultura grecorromana")
          (pintor Andrea_Mantegna)
-         (sala  Sala3)
+         (sala  3)
     )
 
     ([El_Déu_del_Mar] of Obra_de_Arte
@@ -413,7 +413,7 @@
          (rellevància  "Destacat")
          (temàtica  "Espiritualitat")
          (pintor  Sebastiano_Ricci)
-         (sala  Sala5)
+         (sala  5)
     )
 
     ([El_Riu_en_Flames] of Obra_de_Arte
@@ -422,7 +422,7 @@
          (rellevància  "Referent")
          (temàtica  "Història política")
          (pintor  Gustave_Courbet)
-         (sala  Sala4)
+         (sala  4)
     )
 
     ([La_Posta_de_Sol] of Obra_de_Arte
@@ -431,7 +431,7 @@
          (rellevància  "Universal")
          (temàtica  "Paisatges i Emocions")
          (pintor  Paul_Cézanne)
-         (sala  Sala1)
+         (sala  1)
     )
     ([El_Somni_dels_Justos] of Obra_de_Arte
          (any_de_creació  1701)
@@ -439,7 +439,7 @@
          (rellevància  "Referent")
          (temàtica  "Espiritualitat")
          (pintor  Bartolomé_Esteban_Murillo)
-         (sala  Sala5)
+         (sala  5)
     )
 
     ([La_Dansa_dels_Serfs] of Obra_de_Arte
@@ -448,7 +448,7 @@
          (rellevància  "Destacat")
          (temàtica  "Vida quotidiana")
          (pintor  Jean-Baptiste_Pater)
-         (sala  Sala2)
+         (sala  2)
     )
 
     ([El_Llamp_del_Destí] of Obra_de_Arte
@@ -457,7 +457,7 @@
          (rellevància  "Universal")
          (temàtica  "Història política")
          (pintor  William_Sadler)
-         (sala  Sala4)
+         (sala  4)
     )
 
     ([La_Contemplació_Divina] of Obra_de_Arte
@@ -466,7 +466,7 @@
          (rellevància  "Magistral")
          (temàtica  "Espiritualitat")
          (pintor  Matthias_Stom)
-         (sala  Sala5)
+         (sala  5)
     )
 
     ([L'Aurora_de_l'Oceà] of Obra_de_Arte
@@ -475,7 +475,7 @@
          (rellevància  "Magistral")
          (temàtica  "Paisatges i Emocions")
          (pintor  Ivan_Aivazovsky)
-         (sala  Sala1)
+         (sala  1)
     )
 
     ([Els_Camps_de_Primavera] of Obra_de_Arte
@@ -484,7 +484,7 @@
          (rellevància  "Referent")
          (temàtica  "Vida quotidiana")
          (pintor  Camille_Corot)
-         (sala  Sala2)
+         (sala  2)
     )
 
     ([L'Educació_d'Aquil·les] of Obra_de_Arte
@@ -493,7 +493,7 @@
          (rellevància  "Universal")
          (temàtica  "Cultura grecorromana")
          (pintor  Eugène_Delacroix)
-         (sala  Sala3)
+         (sala  3)
     )
 
     ([La_Visió_del_Sant] of Obra_de_Arte
@@ -502,7 +502,7 @@
          (rellevància  "Destacat")
          (temàtica  "Espiritualitat")
          (pintor  Sebastiano_Ricci)
-         (sala  Sala5)
+         (sala  5)
     )
 
     ([La_Promesa_de_Llibertat] of Obra_de_Arte
@@ -511,7 +511,7 @@
          (rellevància  "Referent")
          (temàtica  "Història política")
          (pintor  Gustave_Courbet)
-         (sala  Sala4)
+         (sala  4)
     )
 
     ([El_Jardí_Seren] of Obra_de_Arte
@@ -520,7 +520,7 @@
          (rellevància  "Universal")
          (temàtica  "Paisatges i Emocions")
          (pintor  Paul_Cézanne)
-         (sala  Sala1)
+         (sala  1)
     )
 
     ([El_Gran_Consell] of Obra_de_Arte
@@ -530,7 +530,7 @@
      (temàtica  "Història política")
      (època  "XVII")
      (pintor  Diego_Velazquez)
-     (sala  Sala4)
+     (sala  4)
     )
 
     ([La_Coronació_de_Carlomagne] of Obra_de_Arte
@@ -540,7 +540,7 @@
         (temàtica  "Història militar")
         (època  "XIX")
         (pintor  Jacques-Louis_David)
-        (sala  Sala4)
+        (sala  6)
     )
 
     ([El_Somni_d'un_Rei] of Obra_de_Arte
@@ -550,7 +550,7 @@
         (temàtica  "Història política")
         (època  "XVII")
         (pintor  Luca_Giordano)
-        (sala  Sala4)
+        (sala  4)
     )
 
     ([La_Tragedia_d'Hamlet] of Obra_de_Arte
@@ -560,7 +560,7 @@
         (temàtica  "Història militar")
         (època  "XIX")
         (pintor  Eugène_Delacroix)
-        (sala  Sala4)
+        (sala  6)
     )
 
     ([La_Declaració_d'Independència] of Obra_de_Arte
@@ -570,7 +570,7 @@
         (temàtica  "Història política")
         (època  "XVIII")
         (pintor  John_Trumbull)
-        (sala  Sala4)
+        (sala  6)
     )
 
     ([L'Últim_Ressò_d'Àtila] of Obra_de_Arte
@@ -580,7 +580,7 @@
         (temàtica  "Història militar")
         (època  "XIX")
         (pintor  Gustave_Courbet)
-        (sala  Sala4)
+        (sala  6)
     )
 
     ([El_Rei_del_Nord] of Obra_de_Arte
@@ -590,7 +590,7 @@
         (temàtica  "Història militar")
         (època  "XVIII")
         (pintor  Sebastiano_Ricci)
-        (sala  Sala4)
+        (sala  6)
     )
 
     ([La_Victòria_de_Zama] of Obra_de_Arte
@@ -600,7 +600,7 @@
         (temàtica  "Història militar")
         (època  "XIX")
         (pintor  Théodore_Géricault)
-        (sala  Sala4)
+        (sala  6)
     )
 
     ([El_Pacte_dels_Herois] of Obra_de_Arte
@@ -610,7 +610,7 @@
         (temàtica "Història política")
         (època  "XVII")
         (pintor  Peter_Paul_Rubens)
-        (sala  Sala4)
+        (sala  4)
     )
 
     ([La_Flamma_de_la_Llibertat] of Obra_de_Arte
@@ -620,7 +620,7 @@
         (temàtica  "Història política")
         (època  "XVIII")
         (pintor  Antonio_Canova)
-        (sala  Sala4)
+        (sala  4)
     )
 
     ([La_Batalla_de_Ragnarök] of Obra_de_Arte
@@ -630,7 +630,7 @@
          (temàtica  "Mitologia nórdica")
          (època  "XIX")
          (pintor  Peter_Nicolai_Arbo)
-         (sala  Sala7)
+         (sala  7)
     )
 
     ([El_Viatge_d'Odin] of Obra_de_Arte
@@ -640,7 +640,7 @@
          (temàtica  "Mitologia nórdica")
          (època  "XIX")
          (pintor  Carl_Loewe)
-         (sala  Sala7)
+         (sala  7)
     )
 
     ([Thor_i_la_Serp] of Obra_de_Arte
@@ -650,7 +650,7 @@
          (temàtica  "Mitologia nórdica")
          (època  "XIX")
          (pintor  Henry_Fuseli)
-         (sala  Sala7)
+         (sala  7)
     )
 
     ([El_Cant_dels_Víking] of Obra_de_Arte
@@ -660,7 +660,7 @@
          (temàtica  "Mitologia nórdica")
          (època  "XIX")
          (pintor  Johan_Fredrik_Eckersberg)
-         (sala  Sala7)
+         (sala  7)
     )
 
     ([La_Creació_dels_Mons] of Obra_de_Arte
@@ -670,7 +670,7 @@
          (temàtica  "Mitologia nórdica")
          (època  "XIX")
          (pintor  Constantin_Hansen)
-         (sala  Sala7)
+         (sala  7)
     )
 
     ([El_Sacrifici_d'Odin] of Obra_de_Arte
@@ -680,7 +680,7 @@
          (temàtica  "Mitologia nórdica")
          (època  "XVIII")
          (pintor  Jens_Juel)
-         (sala  Sala7)
+         (sala  7)
     )
 
     ([Freya_i_els_Gats] of Obra_de_Arte
@@ -690,7 +690,7 @@
          (temàtica  "Mitologia nórdica")
          (època  "XIX")
          (pintor  August_Malmström)
-         (sala  Sala7)
+         (sala  7)
     )
 
     ([Els_Déus_d'Asgard] of Obra_de_Arte
@@ -700,7 +700,7 @@
          (temàtica  "Mitologia nórdica")
          (època  "XIX")
          (pintor  Nicolai_Abildgaard)
-         (sala  Sala7)
+         (sala  7)
     )
 
     ([El_Baladreig_de_Loki] of Obra_de_Arte
@@ -710,7 +710,7 @@
          (temàtica  "Mitologia nórdica")
          (època  "XIX")
          (pintor  Peter_Nicolai_Arbo)
-         (sala  Sala7)
+         (sala  7)
     )
 
     ([Els_Nans_d'Alviss] of Obra_de_Arte
@@ -720,7 +720,7 @@
          (temàtica  "Mitologia nórdica")
          (època  "XIX")
          (pintor  Johan_Fredrik_Eckersberg)
-         (sala  Sala7)
+         (sala  7)
     )
     ([La_Travessia_de_l'Ànima] of Obra_de_Arte
          (any_de_creació  1889)
@@ -729,7 +729,7 @@
          (temàtica  "Espiritualitat")
          (època  "XIX")
          (pintor  Odilon_Redon)
-         (sala  Sala5)
+         (sala  5)
     )
 
     ([La_Pau_dels_Justos] of Obra_de_Arte
@@ -739,7 +739,7 @@
          (temàtica  "Espiritualitat")
          (època  "XX")
          (pintor  Joaquim_Mir)
-         (sala  Sala5)
+         (sala  5)
     )
 
     ([El_Ball_de_la_Vida] of Obra_de_Arte
@@ -749,7 +749,7 @@
          (temàtica  "Vida quotidiana")
          (època  "XIX")
          (pintor  Edvard_Munch)
-         (sala  Sala2)
+         (sala  2)
     )
 
     ([La_Festa_del_Poble] of Obra_de_Arte
@@ -759,7 +759,7 @@
          (temàtica  "Vida quotidiana")
          (època  "XVIII")
          (pintor  Hubert_Robert)
-         (sala  Sala2)
+         (sala  2)
     )
 
     ([El_Cicle_dels_Herois] of Obra_de_Arte
@@ -769,7 +769,7 @@
          (temàtica  "Cultura grecorromana")
          (època  "XVIII")
          (pintor  Angelica_Kauffmann)
-         (sala  Sala3)
+         (sala  3)
     )
 
     ([La_Meditació_d'Hèrcules] of Obra_de_Arte
@@ -779,7 +779,7 @@
          (temàtica  "Cultura grecorromana")
          (època  "XIX")
          (pintor  Jean-Auguste-Dominique_Ingres)
-         (sala  Sala3)
+         (sala  3)
     )
 
     ([L'Alè_de_la_Revolució] of Obra_de_Arte
@@ -789,7 +789,7 @@
          (temàtica  "Història política")
          (època  "XIX")
          (pintor  Eugène_Delacroix)
-         (sala  Sala4)
+         (sala  4)
     )
 
     ([El_Consell_dels_Patriotes] of Obra_de_Arte
@@ -799,7 +799,7 @@
          (temàtica  "Història política")
          (època  "XVIII")
          (pintor  Benjamin_West)
-         (sala  Sala4)
+         (sala  4)
     )
 
     ([Els_Dracs_de_la_Batalla] of Obra_de_Arte
@@ -809,7 +809,7 @@
          (temàtica  "Història militar")
          (època  "XIX")
          (pintor  Franz_Russ)
-         (sala  Sala6)
+         (sala  6)
     )
 
     ([La_Mà_del_Destí] of Obra_de_Arte
@@ -819,7 +819,7 @@
          (temàtica  "Història militar")
          (època  "XIX")
          (pintor  Franz_von_Lenbach)
-         (sala  Sala6)
+         (sala  6)
     )
 
 
@@ -1020,61 +1020,61 @@
          (nacionalitat  "Alemanya")
     )
     ;; Salas
-    ([Sala1] of Sala
+    ([1] of Sala
          (conté  [La_Ronda_de_Nit] [La_nit_estrellada] [La_Tempesta] 
          [L'Horitzó_d'Argent][El_Port_d'Alba] [L'Aurora_de_l'Oceà] 
          [La_Posta_de_Sol] [El_Jardí_Seren])
-         (porta_a   [Sala2] [Sala3] [Sala4] [Sala5] [Sala6][Sala7])
+         (porta_a   [2] [3] [4] [5] [6][7])
          (temàtica  "Paisatges i emocions")
     )
 
-    ([Sala2] of Sala
+    ([2] of Sala
          (conté  [El_dinar_campestre] [El_gronxador] [Les_Menines] [El_Mercat] 
          [La_Gran_Bouffée] [Les_Carretas_d'Alba][L'Escena_del_Bosc] [La_Dansa_dels_Serfs] 
          [L'Alé_dels_Camps] [Els_Camps_de_Primavera] [El_Ball_de_la_Vida] [La_Festa_del_Poble])
-         (porta_a  [Sala1] [Sala3] [Sala4][Sala5][Sala6][Sala7])
+         (porta_a  [1] [3] [4][5][6][7])
          (temàtica  "Vida quotidiana")
     )
 
-    ([Sala3] of Sala
+    ([3] of Sala
          (conté  [El_jurament_dels_Horacis] [El_rapte_de_Prosèrpina] [La_mort_de_Sòcrates] 
          [El_Fill_de_La_Cultura] [El_Somni_dels_Déus] [El_Triomf_d'Aquiles]
          [El_Triomf_de_la_Virtut][L'Educació_d'Aquil·les] [El_Cicle_dels_Herois] [La_Meditació_d'Hèrcules])
-         (porta_a  [Sala1] [Sala2] [Sala4][Sala5][Sala6][Sala7])
+         (porta_a  [1] [2] [4][5][6][7])
          (temàtica  "Cultura grecorromana")
     )
 
-    ([Sala4] of Sala
+    ([4] of Sala
          (conté  [La_Llibertat_guiant_al_poble] [El_Brindis_dels_Patriotes] [El_Llamp_del_Destí] 
          [El_Riu_en_Flames] [La_Promesa_de_Llibertat][La_Flamma_de_la_Llibertat]
          [El_Pacte_dels_Herois][La_Declaració_d'Independència]
          [El_Somni_d'un_Rei][El_Gran_Consell] [L'Alè_de_la_Revolució] [El_Consell_dels_Patriotes]
          )
-         (porta_a  [Sala1] [Sala2] [Sala3][Sala5][Sala6][Sala7])
+         (porta_a  [1] [2] [3][5][6][7])
          (temàtica  "Història política")
     )
-    ([Sala5] of Sala
+    ([5] of Sala
          (conté  [El_Cant_dels_Angels] [El_Tempteig_de_Sant_Antoni] [El_Déu_del_Mar] 
          [La_Contemplació_Divina] [La_Visió_del_Sant][El_Somni_dels_Justos] 
          [La_Travessia_de_l'Ànima] [La_Pau_dels_Justos])
-         (porta_a  [Sala1] [Sala2] [Sala3] [Sala4][Sala6][Sala7])
+         (porta_a  [1] [2] [3] [4][6][7])
          (temàtica  "Espiritualitat")
     )
-    ([Sala6] of Sala
+    ([6] of Sala
          (conté  [El_tres_de_maig_de_1808] [A_Dos_passes_de_La_Guerra] 
          [La_Batalla_de_Waterloo][La_Victòria_de_Zama]
          [El_Rei_del_Nord][L'Últim_Ressò_d'Àtila][La_Tragedia_d'Hamlet]
          [La_Coronació_de_Carlomagne] [Els_Dracs_de_la_Batalla] [La_Mà_del_Destí]
          )
-         (porta_a  [Sala1] [Sala2] [Sala3][Sala5][Sala4][Sala7])
+         (porta_a  [1] [2] [4][5][3][7])
          (temàtica  "Història militar")
     )
-    ([Sala7] of Sala
+    ([7] of Sala
          (conté  [La_Batalla_de_Ragnarök] [El_Viatge_d'Odin] [Thor_i_la_Serp]
           [El_Cant_dels_Víking] [La_Creació_dels_Mons] [El_Sacrifici_d'Odin] 
           [Freya_i_els_Gats] [Els_Déus_d'Asgard] [El_Baladreig_de_Loki] 
           [Els_Nans_d'Alviss])
-         (porta_a [Sala1] [Sala2] [Sala3][Sala4][Sala5][Sala6]  )
+         (porta_a [1] [2] [3][4][5][6]  )
          (temàtica  "Mitologia nórdica")
     )
 
@@ -1376,15 +1376,15 @@
 )
 
 ;funcion para ordenar sales
-(deffunction MAIN::ordenar-sales ($?llista)
-   (bind ?minim 999999)      ; Un valor inicial suficientemente alto para comparar
+(deffunction sintesis::ordenar-sala ($?llista)
+   (bind ?minim 8)      ; Un valor inicial suficientemente alto para comparar
    (bind ?element nil)       ; Inicializar el elemento mínimo como nil
    (bind ?time 0)            ; Inicializar el tiempo como 0
 
    ; Recorrer cada elemento de la lista
    (foreach ?actual $?llista
       (bind ?QuadreActual (send ?actual get-nomQuadre)) 
-      (bind ?SalaValor (send ?QuadreActual get-Sala))   
+      (bind ?SalaValor (send ?QuadreActual get-sala))   
       (bind ?QuadreTime (send ?actual get-temps)) ; Obtener el tiempo de la obra actual
       
       (if (<= ?SalaValor ?minim) then
@@ -1418,11 +1418,10 @@
         (case 1 then (bind ?estil "Vida quotidiana"))
         (case 2 then (bind ?estil "Paisatges i emocions"))
         (case 3 then (bind ?estil "Cultura grecorromana"))
-        (case 4 then (bind ?estil "Història política"))
+        (case 4 then (bind ?estil "Història política")) 
         (case 5 then (bind ?estil "Espiritualitat"))
-        (case 6 then (bind ?estil "Història política"))
-        (case 7 then (bind ?estil "Història militar"))
-        (case 8 then (bind ?estil "Mitologia nórdica"))
+        (case 6 then (bind ?estil "Història militar"))
+        (case 7 then (bind ?estil "Mitologia nórdica"))
     )
     ?estil
 )
@@ -1730,36 +1729,19 @@
     (ruta (dies $?dies-assignats))
     (sales (quadres $?assignacio)) ; Informació d'assignació de quadres a sales
     =>
-    ; Iterar sobre els dies assignats, cada dia tindrà les 7 sales (poc escalable!!!)
-    (foreach ?dia $?dies-assignats do
-        ; Crear una estructura inicial de sales buides
-        ;si la sala al final és buida més endavant no la printarem
-        (bind ?sales-dia (create$))
+    (progn$ (?dia $?dies-assignats)
+        (bind $?sales (create$ ))
 
-        (foreach ?obra ?dia do
-           (bind ?obra-inst (fact-slot-value ?obra quadre)) 
-
-            ; (if ?obra-inst then
-            ;     (bind ?sala (send ?obra-inst get-slot sala))
-            ;     (if ?sala then
-            ;     ; Afegir l'obra a la sala corresponent
-            ;         (bind ?index (sub-string ?sala 5 (- (length$ ?sala) 0))) ; Extreure el número de la sala
-            ;         (if (not (exists$ ?sales-dia ?sala)) then
-            ;             (bind ?sales-dia (insert$ ?sales-dia (+ (length$ ?sales-dia) 1) (create$ ?sala ?obra)))
-            ;         else
-            ;             (bind ?sales-list (nth$ ?index ?sales-dia))
-            ;             (bind ?sales-list (insert$ ?sales-list (+ (length$ ?sales-list) 1) ?obra))
-            ;             (bind ?sales-dia (insert$ ?sales-dia (+ (length$ ?sales-dia) 1) ?sales-list))
-            ;         )
-            ;     )
-            ; )
+        (bind $?quadres (send ?dia get-quadres))
+        (while (not (eq (length$ $?quadres) 0)) do
+            (bind ?sala (ordenar-sala $?quadres))
+            (bind $?quadres (delete-member$ $?quadres ?sala))
+            (bind $?sales (insert$ $?sales (+ (length$ $?sales) 1) ?sala))
         )
-        ; Afegir les sales del dia a la llista general
-        (bind $?sales-per-dia (insert$ $?sales-per-dia (+ (length$ $?sales-per-dia) 1) ?sales-dia))
+        (send ?dia put-quadres $?sales)
     )
-
     
-    (assert (sales-assignades (dies $?sales-per-dia))) ;sales-assignades conté dies amb sales, les sales amb obres
+    (assert (sales-assignades (dies $?dies-assignats))) ;sales-assignades conté dies amb sales, les sales amb obres
 )
 
 
