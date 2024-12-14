@@ -1109,7 +1109,8 @@
 )
 
 (defmessage-handler MAIN::Obra_de_Arte imprimir primary ()
-	(format t "Any: %d" ?self:any_de_creació)
+	(printout t ?self crlf)
+    (format t "Any: %d" ?self:any_de_creació)
 	(printout t crlf)
     (format t "Època: %s" ?self:època)
 	(printout t crlf)
@@ -1117,8 +1118,31 @@
 	(printout t crlf)
     (format t "Rellevància: %s" ?self:rellevància)
 	(printout t crlf)
-    (format t "Estil: %s" ?self:estil get-estil)
+    (format t "Estil: %s" ?self:estil)
 	(printout t crlf)
+)
+
+(deffunction char (?cid) "Funció per obtenir un caràcter específic"
+    (bind ?c (format nil "%c" ?cid))
+    ?c
+)
+
+(defmessage-handler Ruta-dia imprimir primary ()
+    (printout t "DIA " ?self:num-dia crlf)
+    (if (> (length$ ?self:sales) 0) then
+        (foreach ?sala ?self:sales
+            (printout t (char 9) (send ?sala imprimir) crlf)
+        )
+        else
+        (printout t (char 9) "No hi ha obres per mostrar en aquest dia." crlf)
+    )
+)
+
+(defmessage-handler Ruta-sala imprimir primary ()
+    (printout t "SALA " ?self:sala crlf)
+    (foreach ?obra ?self:obres
+        (printout t (char 9) (char 9) (send ?obra imprimir) crlf)
+    )
 )
 
 ; ------------------------------------
@@ -1272,6 +1296,7 @@
 ; --------------------------------------------------
 ; 					 FUNCIONS
 ; --------------------------------------------------
+
 ;funcio per a preguntar dades obertes (per exemple: el nom)
 (deffunction preguntar_dades (?pregunta)
     (format t "%s" ?pregunta)
@@ -1720,20 +1745,20 @@
     )
 )
 
-
-
-
-
 ; --------------------------------------------------
 ; 			  MODUL IMPRIMIR RUTA - Ramón
 ; --------------------------------------------------
 
 (defrule imprimir-ruta::sortida "Imprimeix les rutes recomanades"
     (not (final))  ; Asegura que no se haya alcanzado el estado final
+    ?visitant <- (object (name [instVisitant]) (visita $?visita))
     =>
     (printout t crlf)
     (printout t "Aquesta és la planificació de les visites que us recomanem:" crlf)
     (printout t "===========================================================" crlf)
-    
+    (foreach ?dia $?visita
+        (printout t (send ?dia imprimir))
+    )
+
     (assert (final))  ; Marca que la ruta ha sido finalizada
 )
