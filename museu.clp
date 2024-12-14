@@ -35,8 +35,9 @@
     (is-a Visitant)
     (role concrete)
     (pattern-match reactive)
-    (multislot nens
+    (slot nens
         (type SYMBOL)
+        (default FALSE)
         (create-accessor read-write))
     (slot type (create-accessor read-write) (default Familia))
 )
@@ -45,8 +46,9 @@
     (is-a Visitant)
     (role concrete)
     (pattern-match reactive)
-    (multislot nens
+    (slot nens
         (type SYMBOL)
+        (default FALSE)
         (create-accessor read-write))
 )
 
@@ -1139,6 +1141,12 @@
          (crea  [La_Mà_del_Destí])
          (nacionalitat  "Alemanya")
     )
+    ([Jean-Auguste-Dominique_Ingres] of Pintor
+        (nom "Jean-Auguste-Dominique Ingres")
+        (crea [La_Meditació_d'Hèrcules])
+        (nacionalitat "Francesa")
+    )
+
     ;; Salas
     ([Sala-1] of Sala
         (número 1)
