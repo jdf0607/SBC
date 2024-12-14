@@ -75,6 +75,9 @@
     (is-a USER)
     (role concrete)
     (pattern-match reactive)
+    (slot títol
+        (type STRING)
+        (create-accessor read-write))
     (slot any_de_creació
         (type INTEGER)
         (create-accessor read-write))
@@ -102,6 +105,9 @@
     (is-a USER)
     (role concrete)
     (pattern-match reactive)
+    (slot nom
+        (type STRING)
+        (create-accessor read-write))
     (multislot crea
         (type INSTANCE)
         (create-accessor read-write))
@@ -124,6 +130,9 @@
     (is-a USER)
     (role concrete)
     (pattern-match reactive)
+    (slot número
+        (type INTEGER)
+        (create-accessor read-write))
     (multislot conté
         (type INSTANCE)
         (create-accessor read-write))
@@ -145,937 +154,1055 @@
 
     ;; Obras de arte con slots de pintor y sala añadidos
     ([El_dinar_campestre] of Obra_de_Arte
+         (títol "El Dinar Campestre")
          (any_de_creació  1863)
          (estil  "Impressionisme")
          (rellevància  "Referent")
          (temàtica  "Vida quotidiana")
          (època  "XIX")
-         (pintor  Édouard_Manet)
+         (pintor  [Édouard_Manet])
          (sala  2)
     )
 
     ([El_gronxador] of Obra_de_Arte
+         (títol "El Gronxador")
          (any_de_creació  1767)
          (estil  "Barroc tardà")
          (rellevància  "Destacat")
          (temàtica  "Vida quotidiana")
          (època  "XVIII")
-         (pintor  Jean-Honoré_Fragonard)
+         (pintor  [Jean-Honoré_Fragonard])
          (sala  2)
     )
 
     ([El_jurament_dels_Horacis] of Obra_de_Arte
+         (títol "El Jurament dels Horacis")
          (any_de_creació  1784)
          (estil  "Neoclassicisme")
          (rellevància  "Universal")
          (temàtica  "Cultura grecorromana")
          (època  "XVIII")
-         (pintor  Jacques-Louis_David)
+         (pintor [Jacques-Louis_David])
          (sala  3)
     )
 
     ([El_rapte_de_Prosèrpina] of Obra_de_Arte
+         (títol "El Rapte de Prosèrpina")
          (any_de_creació  1636)
          (estil  "Barroc")
          (rellevància  "Referent")
          (temàtica  "Cultura grecorromana")
          (època  "XVII")
-         (pintor  Peter_Paul_Rubens)
+         (pintor [Peter_Paul_Rubens])
          (sala  3)
     )
 
     ([El_tres_de_maig_de_1808] of Obra_de_Arte
+         (títol "El Tres de Maig de 1808")
          (any_de_creació  1814)
          (estil  "Romanticisme")
          (rellevància  "Universal")
          (temàtica  "Història militar")
          (època  "XIX")
-         (pintor  Francisco_de_Goya)
+         (pintor [Francisco_de_Goya])
          (sala  6)
     )
 
     ([La_Llibertat_guiant_al_poble] of Obra_de_Arte
+         (títol "La Llibertat Guiant el Poble")
          (any_de_creació  1830)
          (estil  "Romanticisme")
          (rellevància  "Magistral")
          (temàtica  "Història política")
          (època  "XIX")
-         (pintor  Eugène_Delacroix)
+         (pintor [Eugène_Delacroix])
          (sala  4)
     )
 
     ([La_Ronda_de_Nit] of Obra_de_Arte
+         (títol "La Ronda de Nit")
          (any_de_creació  1642)
          (estil  "Barroc")
          (rellevància  "Magistral")
          (temàtica  "Paisatges i Emocions")
          (època  "XVII")
-         (pintor  Rembrandt_van_Rijn)
+         (pintor [Rembrandt_van_Rijn])
          (sala  1)
     )
 
     ([La_mort_de_Sòcrates] of Obra_de_Arte
+         (títol "La Mort de Sòcrates")
          (any_de_creació  1787)
          (estil  "Neoclassicisme")
          (rellevància  "Magistral")
          (temàtica  "Cultura grecorromana")
          (època  "XVIII")
-         (pintor  Jacques-Louis_David)
+         (pintor [Jacques-Louis_David])
          (sala  3)
     )
 
     ([La_nit_estrellada] of Obra_de_Arte
+         (títol "La Nit Estrellada")
          (any_de_creació  1889)
          (estil  "Postimpressionisme")
          (rellevància  "Universal")
          (temàtica  "Paisatges i Emocions")
          (època  "XIX")
-         (pintor  Vincent_Van_Gogh)
+         (pintor [Vincent_Van_Gogh])
          (sala  1)
     )
 
     ([Les_Menines] of Obra_de_Arte
+         (títol "Les Menines")
          (any_de_creació  1656)
          (estil  "Barroc")
          (rellevància  "Universal")
          (temàtica  "Vida quotidiana")
          (època  "XVII")
-         (pintor  Diego_Velazquez)
+         (pintor [Diego_Velazquez])
          (sala  2)
     )
 
     ([El_Mercat] of Obra_de_Arte
+         (títol "El Mercat")
          (any_de_creació  1670)
          (estil  "Barroc")
          (rellevància  "Referent")
          (temàtica  "Vida quotidiana")
          (època  "XVII")
-         (pintor  Pieter_de_Hooch)
+         (pintor [Pieter_de_Hooch])
          (sala  2)
     )
 
     ([La_Tempesta] of Obra_de_Arte
+         (títol "La Tempesta")
          (any_de_creació  1849)
          (estil  "Romanticisme")
          (rellevància  "Destacat")
          (temàtica  "Paisatges i Emocions")
          (època  "XIX")
-         (pintor  Caspar_David_Friedrich)
+         (pintor [Caspar_David_Friedrich])
          (sala  1)
     )
 
     ([La_Gran_Bouffée] of Obra_de_Arte
+         (títol "El Gran Tiberi")
          (any_de_creació  1855)
          (estil  "Realisme")
          (rellevància  "Magistral")
          (temàtica  "Vida quotidiana")
          (època  "XIX")
-         (pintor  Gustave_Courbet)
+         (pintor [Gustave_Courbet])
          (sala  2)
     )
 
     ([A_Dos_passes_de_La_Guerra] of Obra_de_Arte
+         (títol "A Dues Passes de la Guerra")
          (any_de_creació  1805)
          (estil  "Romanticisme")
          (rellevància  "Universal")
          (temàtica  "Història política")
          (època  "XIX")
-         (pintor  Théodore_Géricault)
+         (pintor [Théodore_Géricault])
          (sala  4)
     )
 
     ([El_Fill_de_La_Cultura] of Obra_de_Arte
+         (títol "El Fill de la Cultura")
          (any_de_creació  1782)
          (estil  "Classicisme")
          (rellevància  "Destacat")
          (temàtica  "Cultura grecorromana")
          (època  "XVIII")
-         (pintor  Angelica_Kauffmann)
+         (pintor [Angelica_Kauffmann])
          (sala  3)
     )
 
     ([El_Brindis_dels_Patriotes] of Obra_de_Arte
+         (títol "El Brindis dels Patriotes")
          (any_de_creació  1811)
          (estil  "Realisme")
          (rellevància  "Destacat")
          (temàtica  "Història política")
          (època  "XIX")
-         (pintor  Francisco_de_Goya)
+         (pintor [Francisco_de_Goya])
          (sala  4)
     )
 
     ([El_Somni_dels_Déus] of Obra_de_Arte
+         (títol "El Somin dels Déus")
          (any_de_creació  1775)
          (estil  "Neoclassicisme")
          (rellevància  "Referent")
          (temàtica  "Cultura grecorromana")
          (època  "XVIII")
-         (pintor  Antonio_Canova)
+         (pintor [Antonio_Canova])
          (sala  3)
     )
 
     ([Les_Carretas_d'Alba] of Obra_de_Arte
+         (títol "Les Carretes d'Alba")
          (any_de_creació  1689)
          (estil  "Barroc tardà")
          (rellevància  "Destacat")
          (temàtica  "Vida quotidiana")
          (època  "XVII")
-         (pintor  Luca_Giordano)
+         (pintor [Luca_Giordano])
          (sala  2)
     )
 
     ([L'Horitzó_d'Argent] of Obra_de_Arte
+         (títol "L'Horitzó d'Argent")
          (any_de_creació  1867)
          (estil  "Postimpressionisme")
          (rellevància  "Magistral")
          (temàtica  "Paisatges i Emocions")
          (època  "XIX")
-         (pintor  Claude_Monet)
+         (pintor [Claude_Monet])
          (sala  1)
     )
 
     ([El_Triomf_d'Aquiles] of Obra_de_Arte
+         (títol "El Triomf d'Aquil·les")
          (any_de_creació  1791)
          (estil  "Neoclassicisme")
          (rellevància  "Universal")
          (temàtica  "Cultura grecorromana")
          (època  "XVIII")
-         (pintor  Jacques-Louis_David)
+         (pintor [Jacques-Louis_David])
          (sala  3)
     )
 
-        ([El_Cant_dels_Angels] of Obra_de_Arte
+    ([El_Cant_dels_Angels] of Obra_de_Arte
+         (títol "El Cant dels Àngels")
          (any_de_creació  1687)
          (estil  "Barroc")
          (rellevància  "Referent")
          (temàtica  "Espiritualitat")
-         (pintor  Bartolomé_Esteban_Murillo)
+         (pintor [Bartolomé_Esteban_Murillo])
          (sala  5)
     )
 
     ([L'Escena_del_Bosc] of Obra_de_Arte
+         (títol "L'Escena del Bosc")
          (any_de_creació  1752)
          (estil  "Barroc tardà")
          (rellevància  "Destacat")
          (temàtica  "Vida quotidiana")
-         (pintor  Jean-Baptiste_Pater)
+         (pintor [Jean-Baptiste_Pater])
          (sala  2)
     )
 
     ([La_Batalla_de_Waterloo] of Obra_de_Arte
+         (títol "La Batalla de Waterloo")
          (any_de_creació  1815)
          (estil  "Realisme")
          (rellevància  "Universal")
          (temàtica  "Història militar")
-         (pintor  William_Sadler)
+         (pintor [William_Sadler])
          (sala  6)
     )
 
     ([El_Tempteig_de_Sant_Antoni] of Obra_de_Arte
+         (títol "El Temptació de Sant Antoni")
          (any_de_creació  1645)
          (estil  "Barroc")
          (rellevància  "Magistral")
          (temàtica  "Espiritualitat")
-         (pintor  Matthias_Stom)
+         (pintor [Matthias_Stom])
          (sala  5)
     )
 
     ([El_Port_d'Alba] of Obra_de_Arte
+         (títol "El Port d'Alba")
          (any_de_creació  1845)
          (estil  "Romanticisme")
          (rellevància  "Magistral")
          (temàtica  "Paisatges i Emocions")
-         (pintor  Ivan_Aivazovsky)
+         (pintor [Ivan_Aivazovsky])
          (sala  1)
     )
 
     ([L'Alé_dels_Camps] of Obra_de_Arte
+         (títol "L'Alè dels Camps")
          (any_de_creació  1838)
          (estil  "Impressionisme")
          (rellevància  "Referent")
          (temàtica  "Vida quotidiana")
-         (pintor  Camille_Corot)
+         (pintor [Camille_Corot])
          (sala  2)
     )
 
     ([El_Triomf_de_la_Virtut] of Obra_de_Arte
+         (títol "El Triomf de la Virtut")
          (any_de_creació  1786)
          (estil  "Neoclassicisme")
          (rellevància  "Universal")
          (temàtica  "Cultura grecorromana")
-         (pintor Andrea_Mantegna)
+         (pintor [Andrea_Mantegna])
          (sala  3)
     )
 
     ([El_Déu_del_Mar] of Obra_de_Arte
+         (títol "El Déu del Mar")
          (any_de_creació  1693)
          (estil  "Barroc tardà")
          (rellevància  "Destacat")
          (temàtica  "Espiritualitat")
-         (pintor  Sebastiano_Ricci)
+         (pintor [Sebastiano_Ricci])
          (sala  5)
     )
 
     ([El_Riu_en_Flames] of Obra_de_Arte
+         (títol "El Riu en Flames")
          (any_de_creació  1856)
          (estil  "Realisme")
          (rellevància  "Referent")
          (temàtica  "Història política")
-         (pintor  Gustave_Courbet)
+         (pintor [Gustave_Courbet])
          (sala  4)
     )
 
     ([La_Posta_de_Sol] of Obra_de_Arte
+         (títol "La Posta de Sol")
          (any_de_creació  1887)
          (estil  "Postimpressionisme")
          (rellevància  "Universal")
          (temàtica  "Paisatges i Emocions")
-         (pintor  Paul_Cézanne)
+         (pintor [Paul_Cézanne])
          (sala  1)
     )
     ([El_Somni_dels_Justos] of Obra_de_Arte
+         (títol "El Somni dels Justos")
          (any_de_creació  1701)
          (estil  "Barroc")
          (rellevància  "Referent")
          (temàtica  "Espiritualitat")
-         (pintor  Bartolomé_Esteban_Murillo)
+         (pintor [Bartolomé_Esteban_Murillo])
          (sala  5)
     )
 
     ([La_Dansa_dels_Serfs] of Obra_de_Arte
+         (títol "La Dansa dels Serfs")
          (any_de_creació  1764)
          (estil  "Barroc tardà")
          (rellevància  "Destacat")
          (temàtica  "Vida quotidiana")
-         (pintor  Jean-Baptiste_Pater)
+         (pintor [Jean-Baptiste_Pater])
          (sala  2)
     )
 
     ([El_Llamp_del_Destí] of Obra_de_Arte
+         (títol "El Llamp del Destí")
          (any_de_creació  1819)
          (estil  "Romanticisme")
          (rellevància  "Universal")
          (temàtica  "Història política")
-         (pintor  William_Sadler)
+         (pintor [William_Sadler])
          (sala  4)
     )
 
     ([La_Contemplació_Divina] of Obra_de_Arte
+         (títol "La Contemplació Divina")
          (any_de_creació  1649)
          (estil  "Barroc")
          (rellevància  "Magistral")
          (temàtica  "Espiritualitat")
-         (pintor  Matthias_Stom)
+         (pintor [Matthias_Stom])
          (sala  5)
     )
 
     ([L'Aurora_de_l'Oceà] of Obra_de_Arte
+         (títol "L'Aurora de l'Oceà")
          (any_de_creació  1851)
          (estil  "Romanticisme")
          (rellevància  "Magistral")
          (temàtica  "Paisatges i Emocions")
-         (pintor  Ivan_Aivazovsky)
+         (pintor [Ivan_Aivazovsky])
          (sala  1)
     )
 
     ([Els_Camps_de_Primavera] of Obra_de_Arte
+         (títol "Els Camps de Primavera")
          (any_de_creació  1832)
          (estil  "Impressionisme")
          (rellevància  "Referent")
          (temàtica  "Vida quotidiana")
-         (pintor  Camille_Corot)
+         (pintor [Camille_Corot])
          (sala  2)
     )
 
     ([L'Educació_d'Aquil·les] of Obra_de_Arte
+         (títol "L'Educació d'Aquil·les")
          (any_de_creació  1783)
          (estil  "Neoclassicisme")
          (rellevància  "Universal")
          (temàtica  "Cultura grecorromana")
-         (pintor  Eugène_Delacroix)
+         (pintor [Eugène_Delacroix])
          (sala  3)
     )
 
     ([La_Visió_del_Sant] of Obra_de_Arte
+         (títol "La Visió del Sant")
          (any_de_creació  1695)
          (estil  "Barroc tardà")
          (rellevància  "Destacat")
          (temàtica  "Espiritualitat")
-         (pintor  Sebastiano_Ricci)
+         (pintor [Sebastiano_Ricci])
          (sala  5)
     )
 
     ([La_Promesa_de_Llibertat] of Obra_de_Arte
+         (títol "La Promesa de Llibertat")
          (any_de_creació  1860)
          (estil  "Realisme")
          (rellevància  "Referent")
          (temàtica  "Història política")
-         (pintor  Gustave_Courbet)
+         (pintor [Gustave_Courbet])
          (sala  4)
     )
 
     ([El_Jardí_Seren] of Obra_de_Arte
+         (títol "El Jardí Serè")
          (any_de_creació  1890)
          (estil  "Postimpressionisme")
          (rellevància  "Universal")
          (temàtica  "Paisatges i Emocions")
-         (pintor  Paul_Cézanne)
+         (pintor [Paul_Cézanne])
          (sala  1)
     )
 
     ([El_Gran_Consell] of Obra_de_Arte
-     (any_de_creació  1650)
-     (estil  "Barroc")
-     (rellevància  "Magistral")
-     (temàtica  "Història política")
-     (època  "XVII")
-     (pintor  Diego_Velazquez)
-     (sala  4)
+        (títol "El Gran Consell")
+        (any_de_creació  1650)
+        (estil  "Barroc")
+        (rellevància  "Magistral")
+        (temàtica  "Història política")
+        (època  "XVII")
+        (pintor [Diego_Velazquez])
+        (sala  4)
     )
 
     ([La_Coronació_de_Carlomagne] of Obra_de_Arte
+        (títol "La Coronació de Carlemany")
         (any_de_creació  1807)
         (estil  "Neoclassicisme")
         (rellevància  "Universal")
         (temàtica  "Història militar")
         (època  "XIX")
-        (pintor  Jacques-Louis_David)
+        (pintor [Jacques-Louis_David])
         (sala  6)
     )
 
     ([El_Somni_d'un_Rei] of Obra_de_Arte
+        (títol "El Somni d'un Rei")
         (any_de_creació  1682)
         (estil  "Barroc tardà")
         (rellevància  "Referent")
         (temàtica  "Història política")
         (època  "XVII")
-        (pintor  Luca_Giordano)
+        (pintor [Luca_Giordano])
         (sala  4)
     )
 
     ([La_Tragedia_d'Hamlet] of Obra_de_Arte
+        (títol "La Tragèdia de Hamlet")
         (any_de_creació  1834)
         (estil  "Romanticisme")
         (rellevància  "Magistral")
         (temàtica  "Història militar")
         (època  "XIX")
-        (pintor  Eugène_Delacroix)
+        (pintor [Eugène_Delacroix])
         (sala  6)
     )
 
     ([La_Declaració_d'Independència] of Obra_de_Arte
+        (títol "La Declaració d'Independència")
         (any_de_creació  1776)
         (estil  "Classicisme")
         (rellevància  "Universal")
         (temàtica  "Història política")
         (època  "XVIII")
-        (pintor  John_Trumbull)
+        (pintor [John_Trumbull])
         (sala  6)
     )
 
     ([L'Últim_Ressò_d'Àtila] of Obra_de_Arte
+        (títol "L'Últim Ressò d'Àtila")
         (any_de_creació  1862)
         (estil  "Realisme")
         (rellevància  "Destacat")
         (temàtica  "Història militar")
         (època  "XIX")
-        (pintor  Gustave_Courbet)
+        (pintor [Gustave_Courbet])
         (sala  6)
     )
 
     ([El_Rei_del_Nord] of Obra_de_Arte
+        (títol "El Rei del Nord")
         (any_de_creació  1725)
         (estil  "Barroc tardà")
         (rellevància  "Magistral")
         (temàtica  "Història militar")
         (època  "XVIII")
-        (pintor  Sebastiano_Ricci)
+        (pintor [Sebastiano_Ricci])
         (sala  6)
     )
 
     ([La_Victòria_de_Zama] of Obra_de_Arte
+        (títol "La Victòria de Zama")
         (any_de_creació  1817)
         (estil  "Romanticisme")
         (rellevància  "Universal")
         (temàtica  "Història militar")
         (època  "XIX")
-        (pintor  Théodore_Géricault)
+        (pintor [Théodore_Géricault])
         (sala  6)
     )
 
     ([El_Pacte_dels_Herois] of Obra_de_Arte
+        (títol "El Pacte dels Herois")
         (any_de_creació  1673)
         (estil  "Barroc")
         (rellevància  "Referent")
         (temàtica "Història política")
         (època  "XVII")
-        (pintor  Peter_Paul_Rubens)
+        (pintor [Peter_Paul_Rubens])
         (sala  4)
     )
 
     ([La_Flamma_de_la_Llibertat] of Obra_de_Arte
+        (títol "La Flama de la Llibertat")
         (any_de_creació  1793)
         (estil  "Neoclassicisme")
         (rellevància  "Destacat")
         (temàtica  "Història política")
         (època  "XVIII")
-        (pintor  Antonio_Canova)
+        (pintor [Antonio_Canova])
         (sala  4)
     )
 
     ([La_Batalla_de_Ragnarök] of Obra_de_Arte
+         (títol "La Batalla de Ragnarök")
          (any_de_creació  1872)
          (estil  "Romanticisme")
          (rellevància  "Magistral")
          (temàtica  "Mitologia nórdica")
          (època  "XIX")
-         (pintor  Peter_Nicolai_Arbo)
+         (pintor [Peter_Nicolai_Arbo])
          (sala  7)
     )
 
     ([El_Viatge_d'Odin] of Obra_de_Arte
+         (títol "El Viatge d'Odin")
          (any_de_creació  1843)
          (estil  "Romanticisme")
          (rellevància  "Referent")
          (temàtica  "Mitologia nórdica")
          (època  "XIX")
-         (pintor  Carl_Loewe)
+         (pintor [Carl_Loewe])
          (sala  7)
     )
 
     ([Thor_i_la_Serp] of Obra_de_Arte
+         (títol "Thor i la Serp")
          (any_de_creació  1864)
          (estil  "Romanticisme")
          (rellevància  "Universal")
          (temàtica  "Mitologia nórdica")
          (època  "XIX")
-         (pintor  Henry_Fuseli)
+         (pintor [Henry_Fuseli])
          (sala  7)
     )
 
     ([El_Cant_dels_Víking] of Obra_de_Arte
+         (títol "El Cant dels Víquings")
          (any_de_creació  1859)
          (estil  "Realisme")
          (rellevància  "Destacat")
          (temàtica  "Mitologia nórdica")
          (època  "XIX")
-         (pintor  Johan_Fredrik_Eckersberg)
+         (pintor [Johan_Fredrik_Eckersberg])
          (sala  7)
     )
 
     ([La_Creació_dels_Mons] of Obra_de_Arte
+         (títol "La Creació dels Mons")
          (any_de_creació  1830)
          (estil  "Classicisme")
          (rellevància  "Referent")
          (temàtica  "Mitologia nórdica")
          (època  "XIX")
-         (pintor  Constantin_Hansen)
+         (pintor [Constantin_Hansen])
          (sala  7)
     )
 
     ([El_Sacrifici_d'Odin] of Obra_de_Arte
+         (títol "El Sacrifici d'Odin")
          (any_de_creació  1755)
          (estil  "Barroc tardà")
          (rellevància  "Referent")
          (temàtica  "Mitologia nórdica")
          (època  "XVIII")
-         (pintor  Jens_Juel)
+         (pintor [Jens_Juel])
          (sala  7)
     )
 
     ([Freya_i_els_Gats] of Obra_de_Arte
+         (títol "Freia i els Gats")
          (any_de_creació  1895)
          (estil  "Postimpressionisme")
          (rellevància  "Destacat")
          (temàtica  "Mitologia nórdica")
          (època  "XIX")
-         (pintor  August_Malmström)
+         (pintor [August_Malmström])
          (sala  7)
     )
 
     ([Els_Déus_d'Asgard] of Obra_de_Arte
+         (títol "Els Déus d'Àsgard")
          (any_de_creació  1802)
          (estil  "Neoclassicisme")
          (rellevància  "Magistral")
          (temàtica  "Mitologia nórdica")
          (època  "XIX")
-         (pintor  Nicolai_Abildgaard)
+         (pintor [Nicolai_Abildgaard])
          (sala  7)
     )
 
     ([El_Baladreig_de_Loki] of Obra_de_Arte
+         (títol "El Baladreig de Loki")
          (any_de_creació  1878)
          (estil  "Romanticisme")
          (rellevància  "Magistral")
          (temàtica  "Mitologia nórdica")
          (època  "XIX")
-         (pintor  Peter_Nicolai_Arbo)
+         (pintor [Peter_Nicolai_Arbo])
          (sala  7)
     )
 
     ([Els_Nans_d'Alviss] of Obra_de_Arte
+         (títol "Els Nans d'Alviss")
          (any_de_creació  1812)
          (estil  "Realisme")
          (rellevància  "Destacat")
          (temàtica  "Mitologia nórdica")
          (època  "XIX")
-         (pintor  Johan_Fredrik_Eckersberg)
+         (pintor [Johan_Fredrik_Eckersberg])
          (sala  7)
     )
     ([La_Travessia_de_l'Ànima] of Obra_de_Arte
+         (títol "La Travessia de l'Ànima")
          (any_de_creació  1889)
          (estil  "Simbolisme")
          (rellevància  "Universal")
          (temàtica  "Espiritualitat")
          (època  "XIX")
-         (pintor  Odilon_Redon)
+         (pintor [Odilon_Redon])
          (sala  5)
     )
 
     ([La_Pau_dels_Justos] of Obra_de_Arte
+         (títol "La Pau dels Justos")
          (any_de_creació  1917)
          (estil  "Modernisme")
          (rellevància  "Destacat")
          (temàtica  "Espiritualitat")
          (època  "XX")
-         (pintor  Joaquim_Mir)
+         (pintor [Joaquim_Mir])
          (sala  5)
     )
 
     ([El_Ball_de_la_Vida] of Obra_de_Arte
+         (títol "El Ball de la Vida")
          (any_de_creació  1899)
          (estil  "Postimpressionisme")
          (rellevància  "Universal")
          (temàtica  "Vida quotidiana")
          (època  "XIX")
-         (pintor  Edvard_Munch)
+         (pintor [Edvard_Munch])
          (sala  2)
     )
 
     ([La_Festa_del_Poble] of Obra_de_Arte
+         (títol "La Festa del Poble")
          (any_de_creació  1788)
          (estil  "Neoclassicisme")
          (rellevància  "Magistral")
          (temàtica  "Vida quotidiana")
          (època  "XVIII")
-         (pintor  Hubert_Robert)
+         (pintor [Hubert_Robert])
          (sala  2)
     )
 
     ([El_Cicle_dels_Herois] of Obra_de_Arte
+         (títol "El Cicle dels Herois")
          (any_de_creació  1794)
          (estil  "Neoclassicisme")
          (rellevància  "Referent")
          (temàtica  "Cultura grecorromana")
          (època  "XVIII")
-         (pintor  Angelica_Kauffmann)
+         (pintor [Angelica_Kauffmann])
          (sala  3)
     )
 
     ([La_Meditació_d'Hèrcules] of Obra_de_Arte
+         (títol "La Meditació d'Hèrcules")
          (any_de_creació  1822)
          (estil  "Classicisme")
          (rellevància  "Destacat")
          (temàtica  "Cultura grecorromana")
          (època  "XIX")
-         (pintor  Jean-Auguste-Dominique_Ingres)
+         (pintor [Jean-Auguste-Dominique_Ingres])
          (sala  3)
     )
 
     ([L'Alè_de_la_Revolució] of Obra_de_Arte
+         (títol "L'Alè de la Revolució")
          (any_de_creació  1830)
          (estil  "Romanticisme")
          (rellevància  "Universal")
          (temàtica  "Història política")
          (època  "XIX")
-         (pintor  Eugène_Delacroix)
+         (pintor [Eugène_Delacroix])
          (sala  4)
     )
 
     ([El_Consell_dels_Patriotes] of Obra_de_Arte
+         (títol "El Consell dels Patriotes")
          (any_de_creació  1775)
          (estil  "Barroc tardà")
          (rellevància  "Referent")
          (temàtica  "Història política")
          (època  "XVIII")
-         (pintor  Benjamin_West)
+         (pintor [Benjamin_West])
          (sala  4)
     )
 
     ([Els_Dracs_de_la_Batalla] of Obra_de_Arte
+         (títol "Els Dracs de la Batalla")
          (any_de_creació  1861)
          (estil  "Romanticisme")
          (rellevància  "Destacat")
          (temàtica  "Història militar")
          (època  "XIX")
-         (pintor  Franz_Russ)
+         (pintor [Franz_Russ])
          (sala  6)
     )
 
     ([La_Mà_del_Destí] of Obra_de_Arte
+         (títol "La Mà del Destí")
          (any_de_creació  1890)
          (estil  "Postimpressionisme")
          (rellevància  "Magistral")
          (temàtica  "Història militar")
          (època  "XIX")
-         (pintor  Franz_von_Lenbach)
+         (pintor [Franz_von_Lenbach])
          (sala  6)
     )
 
 
-
     ;; Pintores
     ([Diego_Velazquez] of Pintor
-     (crea  [Les_Menines][El_Gran_Consell])
-     (nacionalitat  "Espanyola")
+        (nom "Diego Velázquez")
+        (crea  [Les_Menines][El_Gran_Consell])
+        (nacionalitat  "Espanyola")
     )
 
     ([Eugène_Delacroix] of Pintor
+         (nom "Eugène Delacroix")
          (crea  [La_Llibertat_guiant_al_poble][L'Educació_d'Aquil·les][La_Tragedia_d'Hamlet][L'Alè_de_la_Revolució])
          (nacionalitat  "Francesa")
     )
 
     ([Francisco_de_Goya] of Pintor
+         (nom "Francisco de Goya")
          (crea  [El_tres_de_maig_de_1808][El_Brindis_dels_Patriotes])
          (nacionalitat  "Espanyola")
     )
 
     ([Jacques-Louis_David] of Pintor
+        (nom "Jacques-Louis David")
         (crea  [El_jurament_dels_Horacis][La_mort_de_Sòcrates][El_Triomf_d'Aquiles][La_Coronació_de_Carlomagne])
         (nacionalitat  "Francesa")
     )
 
     ([Jean-Honoré_Fragonard] of Pintor
+         (nom "Jean-Honoré Fragonard")
          (crea  [El_gronxador])
          (nacionalitat  "Francesa")
     )
 
     ([Peter_Paul_Rubens] of Pintor
+         (nom "Peter Paul Reubens")
          (crea  [El_rapte_de_Prosèrpina][El_Pacte_dels_Herois])
          (nacionalitat  "Flamenca")
     )
 
     ([Rembrandt_van_Rijn] of Pintor
+         (nom "Rembrandt van Rijn")
          (crea  [La_Ronda_de_Nit])
          (nacionalitat  "Holandesa")
     )
 
     ([Vincent_Van_Gogh] of Pintor
+         (nom "Vincent van Gogh")
          (crea  [La_nit_estrellada])
          (nacionalitat  "Holandesa")
     )
 
     ([Édouard_Manet] of Pintor
+         (nom "Edouard Manet")
          (crea  [El_dinar_campestre])
          (nacionalitat  "Francesa")
     )
 
     ([Pieter_de_Hooch] of Pintor
+         (nom "Pieter de Hooch")
          (crea  [El_Mercat])
          (nacionalitat  "Holandesa")
     )
 
     ([Caspar_David_Friedrich] of Pintor
+         (nom "Caspar David Friedrich")
          (crea  [La_Tempesta])
          (nacionalitat  "Alemanya")
     )
 
     ([Gustave_Courbet] of Pintor
+        (nom "Gustave Courbet")
         (crea  [La_Gran_Bouffée][El_Riu_en_Flames][La_Promesa_de_Llibertat][L'Últim_Ressò_d'Àtila])
         (nacionalitat  "Francesa")
     )
 
     ([Théodore_Géricault] of Pintor
+         (nom "Théodore Géricault")
          (crea  [A_Dos_passes_de_La_Guerra][La_Victòria_de_Zama])
          (nacionalitat  "Francesa")
     )
 
     ([Angelica_Kauffmann] of Pintor
+         (nom "Angelica Kaufmann")
          (crea  [El_Fill_de_La_Cultura][El_Cicle_dels_Herois])
          (nacionalitat  "Suïssa")
     )
     ([John_Trumbull] of Pintor
+         (nom "John Trumbull")
          (crea [La_Declaració_d'Independència])
          (nacionalitat  "Estatunidenca")
     )
 
     ([Andrea_Mantegna] of Pintor
+         (nom "Andrea Mantegna")
          (crea  [El_Triomf_de_la_Virtut])
          (nacionalitat  "Italiana")
     )
 
     ([Antonio_Canova] of Pintor
+         (nom "Antonio Cánova")
          (crea  [El_Somni_dels_Déus][La_Flamma_de_la_Llibertat])
          (nacionalitat  "Italiana")
     )
 
     ([Luca_Giordano] of Pintor
+         (nom "Luca Giordano")
          (crea  [Les_Carretas_d'Alba][El_Somni_d'un_Rei])
          (nacionalitat  "Italiana")
     )
 
     ([Claude_Monet] of Pintor
+         (nom "Claude Monet")
          (crea  [L'Horitzó_d'Argent])
          (nacionalitat  "Francesa")
     )
      ([Bartolomé_Esteban_Murillo] of Pintor
+         (nom "Bartolomé Esteban Murillo")
          (crea  [El_Cant_dels_Angels][El_Somni_dels_Justos])
          (nacionalitat  "Espanyola")
     )
 
     ([Jean-Baptiste_Pater] of Pintor
+         (nom "Jean-Baptiste Pater")
          (crea  [L'Escena_del_Bosc][La_Dansa_dels_Serfs][La_Meditació_d'Hèrcules])
          (nacionalitat  "Francesa")
     )
 
     ([William_Sadler] of Pintor
+         (nom "William Sadler")
          (crea  [La_Batalla_de_Waterloo][El_Llamp_del_Destí])
          (nacionalitat  "Irlandesa")
     )
 
     ([Matthias_Stom] of Pintor
+         (nom "Matthias Stom")
          (crea  [El_Tempteig_de_Sant_Antoni][La_Contemplació_Divina])
          (nacionalitat  "Holandesa")
     )
 
     ([Ivan_Aivazovsky] of Pintor
+         (nom "Ivan Aivazovsky")
          (crea  [El_Port_d'Alba][L'Aurora_de_l'Oceà])
          (nacionalitat  "Russa")
     )
 
     ([Camille_Corot] of Pintor
+         (nom "Jean-Baptiste-Camille Corot")
          (crea  [L'Alé_dels_Camps][Els_Camps_de_Primavera])
          (nacionalitat  "Francesa")
     )
 
     ([Sebastiano_Ricci] of Pintor
-     (crea  [El_Déu_del_Mar][La_Visió_del_Sant][El_Rei_del_Nord])
-     (nacionalitat  "Italiana")
+        (nom "Sebastiano Ricci")
+        (crea  [El_Déu_del_Mar][La_Visió_del_Sant][El_Rei_del_Nord])
+        (nacionalitat  "Italiana")
     )
 
     ([Paul_Cézanne] of Pintor
+         (nom "Paul Cézanne")
          (crea  [La_Posta_de_Sol][El_Jardí_Seren])
          (nacionalitat  "Francesa")
     )
     ([Peter_Nicolai_Arbo] of Pintor
+         (nom "Peter Nicolai Arbo")
          (crea  [La_Batalla_de_Ragnarök] [El_Baladreig_de_Loki])
          (nacionalitat  "Noruega")
     )
     ([Carl_Loewe] of Pintor
+         (nom "Carl Löwe")
          (crea  [El_Viatge_d'Odin])
          (nacionalitat  "Alemanya")
     )
     ([Henry_Fuseli] of Pintor
+         (nom "Henry Fuseli")
          (crea  [Thor_i_la_Serp])
          (nacionalitat  "Suïssa")
     )
     ([Johan_Fredrik_Eckersberg] of Pintor
+         (nom "Johan Fredrik Eckersberg")
          (crea  [El_Cant_dels_Víking] [Els_Nans_d'Alviss])
          (nacionalitat  "Noruega")
     )
     ([Constantin_Hansen] of Pintor
+         (nom "Constantin Hansen")
          (crea  [La_Creació_dels_Mons])
          (nacionalitat  "Dinamarca")
     )
     ([Jens_Juel] of Pintor
+         (nom "Jens Juel")
          (crea  [El_Sacrifici_d'Odin])
          (nacionalitat  "Dinamarca")
     )
     ([August_Malmström] of Pintor
+         (nom "August Malmström")
          (crea  [Freya_i_els_Gats])
          (nacionalitat  "Suècia")
     )
     ([Nicolai_Abildgaard] of Pintor
+         (nom "Nicolai Abildgaard")
          (crea  [Els_Déus_d'Asgard])
          (nacionalitat  "Dinamarca")
     )
     ([Odilon_Redon] of Pintor
+         (nom "Odilon Redon")
          (crea  [La_Travessia_de_l'Ànima])
          (nacionalitat  "Francesa")
     )
 
     ([Joaquim_Mir] of Pintor
-            (crea  [La_Pau_dels_Justos])
-            (nacionalitat  "Catalana")
+        (nom "Joaquim Mir")
+        (crea  [La_Pau_dels_Justos])
+        (nacionalitat  "Catalana")
     )
     ([Edvard_Munch] of Pintor
+         (nom "Edvard Munch")
          (crea  [El_Ball_de_la_Vida])
          (nacionalitat  "Noruega")
     )
 
     ([Hubert_Robert] of Pintor
+         (nom "Hubert Robert")
          (crea  [La_Festa_del_Poble])
          (nacionalitat  "Francesa")
     )
     ([Benjamin_West] of Pintor
+         (nom "Benjamin West")
          (crea  [El_Consell_dels_Patriotes])
          (nacionalitat  "Estatunidenca")
     )
     ([Franz_Russ] of Pintor
+         (nom "Franz Russ")
          (crea  [Els_Dracs_de_la_Batalla])
          (nacionalitat  "Austríaca")
     )
     ([Franz_von_Lenbach] of Pintor
+         (nom "Franz von Lenbach")
          (crea  [La_Mà_del_Destí])
          (nacionalitat  "Alemanya")
     )
     ;; Salas
     ([Sala-1] of Sala
-         (conté  [La_Ronda_de_Nit] [La_nit_estrellada] [La_Tempesta] 
-         [L'Horitzó_d'Argent][El_Port_d'Alba] [L'Aurora_de_l'Oceà] 
-         [La_Posta_de_Sol] [El_Jardí_Seren])
-         (porta_a   [Sala-2] [Sala-3] [Sala-4] [Sala-5] [Sala-6][Sala-7])
-         (temàtica  "Paisatges i emocions")
+        (número 1)
+        (conté  [La_Ronda_de_Nit] [La_nit_estrellada] [La_Tempesta] 
+        [L'Horitzó_d'Argent][El_Port_d'Alba] [L'Aurora_de_l'Oceà] 
+        [La_Posta_de_Sol] [El_Jardí_Seren])
+        (porta_a   [Sala-2] [Sala-3] [Sala-4] [Sala-5] [Sala-6][Sala-7])
+        (temàtica  "Paisatges i emocions")
     )
 
     ([Sala-2] of Sala
-         (conté  [El_dinar_campestre] [El_gronxador] [Les_Menines] [El_Mercat] 
-         [La_Gran_Bouffée] [Les_Carretas_d'Alba][L'Escena_del_Bosc] [La_Dansa_dels_Serfs] 
-         [L'Alé_dels_Camps] [Els_Camps_de_Primavera] [El_Ball_de_la_Vida] [La_Festa_del_Poble])
-         (porta_a  [Sala-1] [Sala-3] [Sala-4][Sala-5][Sala-6][Sala-7])
-         (temàtica  "Vida quotidiana")
+        (número 2)
+        (conté  [El_dinar_campestre] [El_gronxador] [Les_Menines] [El_Mercat] 
+        [La_Gran_Bouffée] [Les_Carretas_d'Alba][L'Escena_del_Bosc] [La_Dansa_dels_Serfs] 
+        [L'Alé_dels_Camps] [Els_Camps_de_Primavera] [El_Ball_de_la_Vida] [La_Festa_del_Poble])
+        (porta_a  [Sala-1] [Sala-3] [Sala-4][Sala-5][Sala-6][Sala-7])
+        (temàtica  "Vida quotidiana")
     )
 
     ([Sala-3] of Sala
-         (conté  [El_jurament_dels_Horacis] [El_rapte_de_Prosèrpina] [La_mort_de_Sòcrates] 
-         [El_Fill_de_La_Cultura] [El_Somni_dels_Déus] [El_Triomf_d'Aquiles]
-         [El_Triomf_de_la_Virtut][L'Educació_d'Aquil·les] [El_Cicle_dels_Herois] [La_Meditació_d'Hèrcules])
-         (porta_a  [Sala-1] [Sala-2] [Sala-4][Sala-5][Sala-6][Sala-7])
-         (temàtica  "Cultura grecorromana")
+        (número 3)
+        (conté  [El_jurament_dels_Horacis] [El_rapte_de_Prosèrpina] [La_mort_de_Sòcrates] 
+        [El_Fill_de_La_Cultura] [El_Somni_dels_Déus] [El_Triomf_d'Aquiles]
+        [El_Triomf_de_la_Virtut][L'Educació_d'Aquil·les] [El_Cicle_dels_Herois] [La_Meditació_d'Hèrcules])
+        (porta_a  [Sala-1] [Sala-2] [Sala-4][Sala-5][Sala-6][Sala-7])
+        (temàtica  "Cultura grecorromana")
     )
 
     ([Sala-4] of Sala
-         (conté  [La_Llibertat_guiant_al_poble] [El_Brindis_dels_Patriotes] [El_Llamp_del_Destí] 
-         [El_Riu_en_Flames] [La_Promesa_de_Llibertat][La_Flamma_de_la_Llibertat]
-         [El_Pacte_dels_Herois][La_Declaració_d'Independència]
-         [El_Somni_d'un_Rei][El_Gran_Consell] [L'Alè_de_la_Revolució] [El_Consell_dels_Patriotes]
-         )
-         (porta_a  [Sala-1] [Sala-2] [Sala-3][Sala-5][Sala-6][Sala-7])
-         (temàtica  "Història política")
+        (número 4)
+        (conté  [La_Llibertat_guiant_al_poble] [El_Brindis_dels_Patriotes] [El_Llamp_del_Destí] 
+        [El_Riu_en_Flames] [La_Promesa_de_Llibertat][La_Flamma_de_la_Llibertat]
+        [El_Pacte_dels_Herois][La_Declaració_d'Independència]
+        [El_Somni_d'un_Rei][El_Gran_Consell] [L'Alè_de_la_Revolució] [El_Consell_dels_Patriotes]
+        )
+        (porta_a  [Sala-1] [Sala-2] [Sala-3][Sala-5][Sala-6][Sala-7])
+        (temàtica  "Història política")
     )
     ([Sala-5] of Sala
-         (conté  [El_Cant_dels_Angels] [El_Tempteig_de_Sant_Antoni] [El_Déu_del_Mar] 
-         [La_Contemplació_Divina] [La_Visió_del_Sant][El_Somni_dels_Justos] 
-         [La_Travessia_de_l'Ànima] [La_Pau_dels_Justos])
-         (porta_a  [Sala-1] [Sala-2] [Sala-3] [Sala-4][Sala-6][Sala-7])
-         (temàtica  "Espiritualitat")
+        (número 5)
+        (conté  [El_Cant_dels_Angels] [El_Tempteig_de_Sant_Antoni] [El_Déu_del_Mar] 
+        [La_Contemplació_Divina] [La_Visió_del_Sant][El_Somni_dels_Justos] 
+        [La_Travessia_de_l'Ànima] [La_Pau_dels_Justos])
+        (porta_a  [Sala-1] [Sala-2] [Sala-3] [Sala-4][Sala-6][Sala-7])
+        (temàtica  "Espiritualitat")
     )
     ([Sala-6] of Sala
-         (conté  [El_tres_de_maig_de_1808] [A_Dos_passes_de_La_Guerra] 
-         [La_Batalla_de_Waterloo][La_Victòria_de_Zama]
-         [El_Rei_del_Nord] [L'Últim_Ressò_d'Àtila] [La_Tragedia_d'Hamlet]
-         [La_Coronació_de_Carlomagne] [Els_Dracs_de_la_Batalla] [La_Mà_del_Destí]
-         )
-         (porta_a  [Sala-1] [Sala-2] [Sala-4][Sala-5][Sala-3][Sala-7])
-         (temàtica  "Història militar")
+        (número 6)
+        (conté  [El_tres_de_maig_de_1808] [A_Dos_passes_de_La_Guerra] 
+        [La_Batalla_de_Waterloo][La_Victòria_de_Zama]
+        [El_Rei_del_Nord] [L'Últim_Ressò_d'Àtila] [La_Tragedia_d'Hamlet]
+        [La_Coronació_de_Carlomagne] [Els_Dracs_de_la_Batalla] [La_Mà_del_Destí]
+        )
+        (porta_a  [Sala-1] [Sala-2] [Sala-4][Sala-5][Sala-3][Sala-7])
+        (temàtica  "Història militar")
     )
     ([Sala-7] of Sala
-         (conté  [La_Batalla_de_Ragnarök] [El_Viatge_d'Odin] [Thor_i_la_Serp]
-          [El_Cant_dels_Víking] [La_Creació_dels_Mons] [El_Sacrifici_d'Odin] 
-          [Freya_i_els_Gats] [Els_Déus_d'Asgard] [El_Baladreig_de_Loki] 
-          [Els_Nans_d'Alviss])
-         (porta_a [Sala-1] [Sala-2] [Sala-3][Sala-4][Sala-5][Sala-6]  )
-         (temàtica  "Mitologia nórdica")
+        (número 7)
+        (conté  [La_Batalla_de_Ragnarök] [El_Viatge_d'Odin] [Thor_i_la_Serp]
+         [El_Cant_dels_Víking] [La_Creació_dels_Mons] [El_Sacrifici_d'Odin] 
+         [Freya_i_els_Gats] [Els_Déus_d'Asgard] [El_Baladreig_de_Loki] 
+         [Els_Nans_d'Alviss])
+        (porta_a [Sala-1] [Sala-2] [Sala-3][Sala-4][Sala-5][Sala-6]  )
+        (temàtica  "Mitologia nórdica")
     )
 
 )
@@ -1108,30 +1235,35 @@
     (multislot obres (type INSTANCE))
 )
 
-(defmessage-handler MAIN::Obra_de_Arte imprimir primary ()
-	(printout t ?self crlf)
-    (format t "Any: %d" ?self:any_de_creació)
-	(printout t crlf)
-    (format t "Època: %s" ?self:època)
-	(printout t crlf)
-    (format t "Temàtica: %s" ?self:temàtica)
-	(printout t crlf)
-    (format t "Rellevància: %s" ?self:rellevància)
-	(printout t crlf)
-    (format t "Estil: %s" ?self:estil)
-	(printout t crlf)
-)
-
 (deffunction char (?cid) "Funció per obtenir un caràcter específic"
     (bind ?c (format nil "%c" ?cid))
     ?c
+)
+
+(defmessage-handler MAIN::Obra_de_Arte imprimir primary ()
+    (printout t (char 9) (char 9))
+    (format t "Títol: %s" ?self:títol)
+    (bind ?autor ?self:pintor)
+    (printout t crlf (char 9) (char 9))
+    (format t "Autor: %s" (send ?autor get-nom))
+	(printout t crlf (char 9) (char 9))
+    (format t "Any: %d" ?self:any_de_creació)
+	(printout t crlf (char 9) (char 9))
+    (format t "Època: %s" ?self:època)
+	(printout t crlf (char 9) (char 9))
+    (format t "Temàtica: %s" ?self:temàtica)
+	(printout t crlf (char 9) (char 9))
+    (format t "Rellevància: %s" ?self:rellevància)
+	(printout t crlf (char 9) (char 9))
+    (format t "Estil: %s" ?self:estil)
+	(printout t crlf (char 9) (char 9))
 )
 
 (defmessage-handler Ruta-dia imprimir primary ()
     (printout t "DIA " ?self:num-dia crlf)
     (if (> (length$ ?self:sales) 0) then
         (foreach ?sala ?self:sales
-            (printout t (char 9) (send ?sala imprimir) crlf)
+            (printout t (send ?sala imprimir) crlf)
         )
         else
         (printout t (char 9) "No hi ha obres per mostrar en aquest dia." crlf)
@@ -1139,9 +1271,10 @@
 )
 
 (defmessage-handler Ruta-sala imprimir primary ()
-    (printout t "SALA " ?self:sala crlf)
+    (bind ?sala ?self:sala)
+    (printout t (char 9) "SALA " (send ?sala get-número) crlf)
     (foreach ?obra ?self:obres
-        (printout t (char 9) (char 9) (send ?obra imprimir) crlf)
+        (printout t (send ?obra imprimir) crlf)
     )
 )
 
@@ -1697,7 +1830,7 @@
     (retract ?ovo)
 )
 
-(defrule sintesis::assigna-dies "Ordena la ruta en dies "
+(defrule sintesis::assigna-dies "Ordena la ruta en diesz"
     ?oat <- (obres-amb-temps (quadres-recomanats $?recs-ordenades) (temps $?temps-ordenats))
     ?visitant <- (object (name [instVisitant]) (dies ?dies) (hores ?hores))
     =>
