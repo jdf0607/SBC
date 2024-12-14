@@ -1236,7 +1236,7 @@
 
 
 (deftemplate obres-valorades-ordenades
-    (multislot quadres-recomanats (type FACT-ADDRESS))
+    (multislot quadres-recomanats)
 )
 
 (deftemplate obres-amb-temps
@@ -1631,7 +1631,9 @@
 ; --------------------------------------------------
 
 (defrule sintesis::assigna-temps "una llista amb les obres que dona temps a visitar"
-    (not (obres-amb-temps)) ; Asegurarse de que no exista una obres-amb-temps previamente definida
+    (declare (salience 20))
+    (printout t "arriba a assignar temps")
+    ;(not (obres-amb-temps)) ; Asegurarse de que no exista una obres-amb-temps previamente definida
     (obres-valorades-ordenades (quadres-recomanats $?recorregut)) ; Lista de obras ordenades per valoracio
     ?visitant <-  (object (name [instVisitant]) (dies ?numDies) (hores ?hores) (nens ?nens)) 
     =>
@@ -1673,6 +1675,7 @@
 )
 
 (defrule sintesis::ordenar-ruta "Ordena la ruta en dias "
+    (declare (salience 10))
     (not (ruta))
     (obres-amb-temps (quadres-recomanats $?recs-ordenades) (temps $?temps-ordenats))
     (object (name [instVisitant]) (dies ?dies) (hores ?hores))
@@ -1711,6 +1714,7 @@
 )
 
 (defrule sintesis::assignar-a-sales "Divideix les obres per sales segons el dia"
+    (declare (salience 8))
     (not (sales-assignades))
     (ruta (dies $?dies-assignats))
     =>
