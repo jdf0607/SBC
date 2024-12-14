@@ -1230,7 +1230,7 @@
 
 
 (deftemplate obres-valorades-ordenades
-    (multislot quadres-recomanats (type FACT-ADDRESS))
+    (multislot quadres-recomanats)
 )
 
 (deftemplate obres-amb-temps
