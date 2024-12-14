@@ -1148,31 +1148,34 @@
     )
 
     ;; Salas
-    ([Sala-1] of Sala
-        (número 1)
-        (conté  [La_Ronda_de_Nit] [La_nit_estrellada] [La_Tempesta] 
-        [L'Horitzó_d'Argent][El_Port_d'Alba] [L'Aurora_de_l'Oceà] 
-        [La_Posta_de_Sol] [El_Jardí_Seren])
-        (porta_a   [Sala-2] [Sala-3] [Sala-4] [Sala-5] [Sala-6][Sala-7])
-        (temàtica  "Paisatges i emocions")
+    ([Sala-7] of Sala
+        (número 7)
+        (conté  [La_Batalla_de_Ragnarök] [El_Viatge_d'Odin] [Thor_i_la_Serp]
+         [El_Cant_dels_Víking] [La_Creació_dels_Mons] [El_Sacrifici_d'Odin] 
+         [Freya_i_els_Gats] [Els_Déus_d'Asgard] [El_Baladreig_de_Loki] 
+         [Els_Nans_d'Alviss])
+        (porta_a [Sala-1] [Sala-2] [Sala-3][Sala-4][Sala-5][Sala-6]  )
+        (temàtica  "Mitologia nórdica")
     )
 
-    ([Sala-2] of Sala
-        (número 2)
-        (conté  [El_dinar_campestre] [El_gronxador] [Les_Menines] [El_Mercat] 
-        [La_Gran_Bouffée] [Les_Carretas_d'Alba][L'Escena_del_Bosc] [La_Dansa_dels_Serfs] 
-        [L'Alé_dels_Camps] [Els_Camps_de_Primavera] [El_Ball_de_la_Vida] [La_Festa_del_Poble])
-        (porta_a  [Sala-1] [Sala-3] [Sala-4][Sala-5][Sala-6][Sala-7])
-        (temàtica  "Vida quotidiana")
+    ([Sala-6] of Sala
+        (número 6)
+        (conté  [El_tres_de_maig_de_1808] [A_Dos_passes_de_La_Guerra] 
+        [La_Batalla_de_Waterloo][La_Victòria_de_Zama]
+        [El_Rei_del_Nord] [L'Últim_Ressò_d'Àtila] [La_Tragedia_d'Hamlet]
+        [La_Coronació_de_Carlomagne] [Els_Dracs_de_la_Batalla] [La_Mà_del_Destí]
+        )
+        (porta_a  [Sala-1] [Sala-2] [Sala-4][Sala-5][Sala-3][Sala-7])
+        (temàtica  "Història militar")
     )
 
-    ([Sala-3] of Sala
-        (número 3)
-        (conté  [El_jurament_dels_Horacis] [El_rapte_de_Prosèrpina] [La_mort_de_Sòcrates] 
-        [El_Fill_de_La_Cultura] [El_Somni_dels_Déus] [El_Triomf_d'Aquiles]
-        [El_Triomf_de_la_Virtut][L'Educació_d'Aquil·les] [El_Cicle_dels_Herois] [La_Meditació_d'Hèrcules])
-        (porta_a  [Sala-1] [Sala-2] [Sala-4][Sala-5][Sala-6][Sala-7])
-        (temàtica  "Cultura grecorromana")
+    ([Sala-5] of Sala
+        (número 5)
+        (conté  [El_Cant_dels_Angels] [El_Tempteig_de_Sant_Antoni] [El_Déu_del_Mar] 
+        [La_Contemplació_Divina] [La_Visió_del_Sant][El_Somni_dels_Justos] 
+        [La_Travessia_de_l'Ànima] [La_Pau_dels_Justos])
+        (porta_a  [Sala-1] [Sala-2] [Sala-3] [Sala-4][Sala-6][Sala-7])
+        (temàtica  "Espiritualitat")
     )
 
     ([Sala-4] of Sala
@@ -1185,34 +1188,33 @@
         (porta_a  [Sala-1] [Sala-2] [Sala-3][Sala-5][Sala-6][Sala-7])
         (temàtica  "Història política")
     )
-    ([Sala-5] of Sala
-        (número 5)
-        (conté  [El_Cant_dels_Angels] [El_Tempteig_de_Sant_Antoni] [El_Déu_del_Mar] 
-        [La_Contemplació_Divina] [La_Visió_del_Sant][El_Somni_dels_Justos] 
-        [La_Travessia_de_l'Ànima] [La_Pau_dels_Justos])
-        (porta_a  [Sala-1] [Sala-2] [Sala-3] [Sala-4][Sala-6][Sala-7])
-        (temàtica  "Espiritualitat")
-    )
-    ([Sala-6] of Sala
-        (número 6)
-        (conté  [El_tres_de_maig_de_1808] [A_Dos_passes_de_La_Guerra] 
-        [La_Batalla_de_Waterloo][La_Victòria_de_Zama]
-        [El_Rei_del_Nord] [L'Últim_Ressò_d'Àtila] [La_Tragedia_d'Hamlet]
-        [La_Coronació_de_Carlomagne] [Els_Dracs_de_la_Batalla] [La_Mà_del_Destí]
-        )
-        (porta_a  [Sala-1] [Sala-2] [Sala-4][Sala-5][Sala-3][Sala-7])
-        (temàtica  "Història militar")
-    )
-    ([Sala-7] of Sala
-        (número 7)
-        (conté  [La_Batalla_de_Ragnarök] [El_Viatge_d'Odin] [Thor_i_la_Serp]
-         [El_Cant_dels_Víking] [La_Creació_dels_Mons] [El_Sacrifici_d'Odin] 
-         [Freya_i_els_Gats] [Els_Déus_d'Asgard] [El_Baladreig_de_Loki] 
-         [Els_Nans_d'Alviss])
-        (porta_a [Sala-1] [Sala-2] [Sala-3][Sala-4][Sala-5][Sala-6]  )
-        (temàtica  "Mitologia nórdica")
+
+    ([Sala-3] of Sala
+        (número 3)
+        (conté  [El_jurament_dels_Horacis] [El_rapte_de_Prosèrpina] [La_mort_de_Sòcrates] 
+        [El_Fill_de_La_Cultura] [El_Somni_dels_Déus] [El_Triomf_d'Aquiles]
+        [El_Triomf_de_la_Virtut][L'Educació_d'Aquil·les] [El_Cicle_dels_Herois] [La_Meditació_d'Hèrcules])
+        (porta_a  [Sala-1] [Sala-2] [Sala-4][Sala-5][Sala-6][Sala-7])
+        (temàtica  "Cultura grecorromana")
     )
 
+    ([Sala-2] of Sala
+        (número 2)
+        (conté  [El_dinar_campestre] [El_gronxador] [Les_Menines] [El_Mercat] 
+        [La_Gran_Bouffée] [Les_Carretas_d'Alba][L'Escena_del_Bosc] [La_Dansa_dels_Serfs] 
+        [L'Alé_dels_Camps] [Els_Camps_de_Primavera] [El_Ball_de_la_Vida] [La_Festa_del_Poble])
+        (porta_a  [Sala-1] [Sala-3] [Sala-4][Sala-5][Sala-6][Sala-7])
+        (temàtica  "Vida quotidiana")
+    )
+    
+    ([Sala-1] of Sala
+        (número 1)
+        (conté  [La_Ronda_de_Nit] [La_nit_estrellada] [La_Tempesta] 
+        [L'Horitzó_d'Argent][El_Port_d'Alba] [L'Aurora_de_l'Oceà] 
+        [La_Posta_de_Sol] [El_Jardí_Seren])
+        (porta_a   [Sala-2] [Sala-3] [Sala-4] [Sala-5] [Sala-6][Sala-7])
+        (temàtica  "Paisatges i emocions")
+    )
 )
 
 
@@ -1522,7 +1524,7 @@
       (bind ?index (+ ?index 1)) 
    )
 
-   (format t "%s" "Respon amb els nombres (numeros) associats a les teves respostes separats per un espai: ")
+   (format t "%s" "Respon amb els nombres (numeros) associats a les teves respostes separats per un espai, 0 per no triar-ne cap: ")
    (bind ?resp (readline)) 
 
    (bind ?numeros (explode$ ?resp))  
@@ -1685,36 +1687,42 @@
     ;; Afegegir més preguntes si fa falta
 
     (modify ?v (nivell_cultural (/ ?valoracio 10.0)))
-    (assert (estils preguntar))
-    (assert (tematiques preguntar))
 )
 
 (defrule recopilacio-informacio-visitant::consultar-preferencies-estil
     ?v <- (visita)
-    ?f <- (estils preguntar)
+    (not (demanat-prefs-estil))
     =>
     (bind ?estils (create$ "Barroc" "Barroc tardà" "Classicisme" "Neoclassicisme" "Romanticisme" "Realisme" "Impressionisme" "Postimpressionisme"))
     (bind $?pref-indexs (pregunta-multiresposta "Seleccioneu els vostres estils artístics preferits:" ?estils))
     (bind ?prefs (create$))
-    (foreach ?pref-i $?pref-indexs
-        (bind ?prefs (create$ ?prefs (mapa-num-estil ?pref-i)))
+    (if (not (member$ 0 $?pref-indexs)) then
+        (foreach ?pref-i $?pref-indexs
+            (bind ?prefs (create$ ?prefs (mapa-num-estil ?pref-i)))
+        )
+        else
+        (printout t "No s'han triat preferències d'estil." crlf)
     )
     (modify ?v (preferencies_estil ?prefs))
-    (retract ?f)
+    (assert (demanat-prefs-estil))
 )
 
 (defrule recopilacio-informacio-visitant::consultar-preferencies-temàtica
     ?v <- (visita)
-    ?f <- (tematiques preguntar)
+    (not (demanat-prefs-tematica))
     =>
     (bind ?temes (create$ "Vida quotidiana" "Paisatges i emocions" "Cultura grecorromana" "Història política" "Espiritualitat" "Història militar" "Mitologia nórdica"))
     (bind $?pref-indexs (pregunta-multiresposta "Seleccioneu les vostres temàtiques preferides:" ?temes))
     (bind ?prefs (create$))
-    (foreach ?pref-i $?pref-indexs
-        (bind ?prefs (create$ ?prefs (mapa-num-temàtica ?pref-i)))
+    (if (not (member$ 0 $?pref-indexs)) then
+        (foreach ?pref-i $?pref-indexs
+            (bind ?prefs (create$ ?prefs (mapa-num-temàtica ?pref-i)))
+        )
+        else
+        (printout t "No s'han triat preferències de temàtica." crlf)
     )
     (modify ?v (preferencies_temàtica ?prefs))
-    (retract ?f)
+    (assert (demanat-prefs-tematica))
 )
 
 
