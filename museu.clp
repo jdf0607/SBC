@@ -1092,18 +1092,20 @@
 ; 				  Classes
 ; ------------------------------------
 
-(defclass ruta-per-Dia
-	(is-a USER)
-	(role concrete)
-	(multislot quadres-recomanats
-		(type INSTANCE)
-		(create-accessor read-write))
-    (multislot sales 
-        (type INSTANCE)
-        (create-accessor read-write))
-	(slot temps
-		(type INTEGER)
-		(create-accessor read-write))
+(defclass Ruta-dia
+    (is-a USER)
+    (role concrete)
+    (pattern-match reactive)
+    (slot num-dia (type INTEGER))
+    (multislot sales (type INSTANCE))
+)
+
+(defclass Ruta-sala
+    (is-a USER)
+    (role concrete)
+    (pattern-match reactive)
+    (slot sala (type INSTANCE))
+    (multislot obres (type INSTANCE))
 )
 
 (defmessage-handler MAIN::Obra_de_Arte imprimir primary ()
@@ -1117,14 +1119,6 @@
 	(printout t crlf)
     (format t "Estil: %s" ?self:estil get-estil)
 	(printout t crlf)
-)
-
-(defmessage-handler MAIN::ruta-per-Dia imprimir primary ()
-    (printout t "Quadres recomanats: " crlf)
-    (foreach ?quadre ?self:quadres-recomanats
-        (printout t (send ?quadre imprimir))  
-        (printout t crlf)
-    )
 )
 
 ; ------------------------------------
@@ -1242,6 +1236,11 @@
 (deftemplate obres-amb-temps
     (multislot quadres-recomanats (type INSTANCE))
     (multislot temps(type INTEGER) (default 0))
+)
+
+(deftemplate obres-per-dia
+    (slot dia (type INTEGER))
+    (multislot quadres (type INSTANCE))
 )
 
 (deftemplate ruta
@@ -1631,9 +1630,8 @@
 ; --------------------------------------------------
 
 (defrule sintesis::assigna-temps "una llista amb les obres que dona temps a visitar"
-    (not (obres-amb-temps)) ; Asegurarse de que no exista una obres-amb-temps previamente definida
-    (obres-valorades-ordenades (quadres-recomanats $?recorregut)) ; Lista de obras ordenades per valoracio
-    ?visitant <-  (object (name [instVisitant]) (dies ?numDies) (hores ?hores) (nens ?nens)) 
+    ?ovo <- (obres-valorades-ordenades (quadres-recomanats $?recomanacions)) ; Lista de obras ordenades per valoracio
+    ?visitant <- (object (name [instVisitant]) (dies ?numDies) (hores ?hores) (nens ?nens)) 
     =>
     (bind ?mins (* ?hores 60)) 
     (bind ?t-max (* ?numDies ?mins))
@@ -1641,93 +1639,79 @@
     (bind $?recs-final (create$)) ; output, llista amb les obres
     (bind $?temps-final (create$)) ; llista amb el temps de cada obra
     ;calculem el temps que trigarà en aquesta obra
-    (foreach ?rec $?recorregut
-            (bind ?tobra 3)
-            (bind ?obra (fact-slot-value ?rec quadre)) ; Obtener la instancia de la obra
-            (bind ?valoracio (fact-slot-value ?rec valoracio))
+    (bind ?i 1)
+    (while (and (<= ?t-ocu ?t-max) (not (eq (nth$ ?i $?recomanacions) nil))) do
+        (bind ?rec (nth$ ?i $?recomanacions))
+        (bind ?t-obra 5)
+        (bind ?obra (fact-slot-value ?rec quadre))
+        (bind ?valoracio (fact-slot-value ?rec valoracio))
 
-            (if (> ?valoracio 0) then (bind ?tobra (+ ?tobra 1)))
-            (if (> ?valoracio 40) then (bind ?tobra (+ ?tobra 2)))
-            (if (> ?valoracio 80) then (bind ?tobra (+ ?tobra 3)))
-            (if (> ?valoracio 100) then (bind ?tobra (+ ?tobra 4)))
-
-            (if (eq ?nens TRUE) then
-                (bind ?tobra (* ?tobra 0.6))
-            )
-
-            ; Verificar si hay tiempo suficiente para la obra
-            (if (<= (+ ?t-ocu ?tobra) ?t-max) then
-                (progn
-                    (bind ?t-ocu (+ ?t-ocu ?tobra)) ; Incrementar tiempo ocupado
-                    (bind $?recs-final 
-                        (insert$ $?recs-final (+ (length$ $?recs-final) 1) ?obra)) ; Añadir obra 
-                    (bind $?temps-final
-                        (insert$ $?temps-final (+ (length$ $?temps-final) 1) ?tobra)) ; Añadir tiempo
-                )
-            )
+        (if (> ?valoracio 0) then (bind ?t-obra (+ ?t-obra 5)))
+        (if (> ?valoracio 40) then (bind ?t-obra (+ ?t-obra 10)))
+        (if (> ?valoracio 80) then (bind ?t-obra (+ ?t-obra 15)))
+        (if (> ?valoracio 100) then (bind ?t-obra (+ ?t-obra 25)))
+        (if (eq ?nens TRUE) then (bind ?t-obra (* ?t-obra 0.6)))
+        ; TODO: Afegir més condicions depenent del tipus de visitant?
+        (bind $?recs-final (insert$ $?recs-final (+ (length$ $?recs-final) 1) ?obra)) ; Afegir obra 
+        (bind $?temps-final (insert$ $?temps-final (+ (length$ $?temps-final) 1) ?t-obra)) ; Afegir temps
+        (bind ?t-ocu (+ ?t-ocu ?t-obra))
+        (bind ?i (+ ?i 1))
     )
+
     ; Crear y asertar la obres-amb-temps final
-    (printout t "recs-final: " $?recs-final crlf)
-    (printout t "temps-final: " $?temps-final crlf)
     (assert (obres-amb-temps (quadres-recomanats $?recs-final) (temps $?temps-final)))
+    (retract ?ovo)
 )
 
-(defrule sintesis::ordenar-ruta "Ordena la ruta en dias "
-    (not (ruta))
-    (obres-amb-temps (quadres-recomanats $?recs-ordenades) (temps $?temps-ordenats))
-    (object (name [instVisitant]) (dies ?dies) (hores ?hores))
+(defrule sintesis::assigna-dies "Ordena la ruta en dies "
+    ?oat <- (obres-amb-temps (quadres-recomanats $?recs-ordenades) (temps $?temps-ordenats))
+    ?visitant <- (object (name [instVisitant]) (dies ?dies) (hores ?hores))
     =>
     (bind ?temps-per-dia (* ?hores 60)) ; Temps disponible per dia (en minuts)
-    (bind $?dies-assignats (create$))  ; Llista per guardar les obres de cada dia
-    (bind ?obres-dia (create$))        ; Obres pel dia actual
-    (bind ?temps-dia 0)  
-
     (bind ?longitud (min (length$ $?recs-ordenades) (length$ $?temps-ordenats)))
-    (bind ?index 1)
-    (while (<= ?index ?longitud) do
-        (bind ?obra (nth$ ?index $?recs-ordenades))
-        (bind ?temps (nth$ ?index $?temps-ordenats))
-        
-        (if (> (+ ?temps-dia ?temps) ?temps-per-dia) then ; Dia acabat, guarda les obres del dia anterior
-            (progn 
-                (bind $?dies-assignats (insert$ $?dies-assignats (+ (length$ $?dies-assignats) 1) ?obres-dia))
-                (bind ?obres-dia (create$))
-                (bind ?temps-dia 0)
-            )
+    (bind ?i 1)
+    (loop-for-count (?dia 1 ?dies) do 
+        (bind ?temps-dia 0)
+        (bind ?obres-dia (create$))
+        (while (and (<= ?temps-dia ?temps-per-dia) (<= ?i ?longitud)) do
+            (bind ?obra (nth$ ?i $?recs-ordenades))
+            (bind ?t-obra (nth$ ?i $?temps-ordenats))
+            (bind ?obres-dia (insert$ ?obres-dia (+ (length$ ?obres-dia) 1) ?obra))
+            (bind ?temps-dia (+ ?temps-dia ?t-obra))
+            (bind ?i (+ ?i 1))
         )
-        (bind ?obres-dia (insert$ ?obres-dia (+ (length$ ?obres-dia) 1) ?obra))
-        (bind ?temps-dia (+ ?temps-dia ?temps))
-        (bind ?index (+ ?index 1))
+        ; Assertir el dia amb les obres corresponents
+        (assert (obres-per-dia (dia ?dia) (quadres $?obres-dia)))
     )
 
-    
-    (if (> (length$ ?obres-dia) 0) then
-        (bind $?dies-assignats (insert$ $?dies-assignats (+ (length$ $?dies-assignats) 1) ?obres-dia))
-    )
-  
-
-    ; Asertar la ruta ordenada con obras y tiempos
-    (assert (ruta (dies $?dies-assignats)))
+    (retract ?oat)
 )
 
 (defrule sintesis::assignar-a-sales "Divideix les obres per sales segons el dia"
-    (not (sales-assignades))
-    (ruta (dies $?dies-assignats))
+    ?opd <- (obres-per-dia (dia ?dia) (quadres $?quadres))
+    ?visitant <- (object (name [instVisitant]) (visita $?visita))
     =>
-    (progn$ (?dia $?dies-assignats)
-        (bind $?sales-dia (create$ ))
-        (bind ?quadres (send ?dia get-slot quadres-recomanats))
-        (bind ?sala-num 1)
-        (while (< ?sala-num 8) do
-            (bind ?quadres-sala (ordenar-sala $?quadres ?sala-num))
-            (bind $?quadres (delete-member$ $?quadres $?quadres-sala))
-            (bind ?sales-dia (insert$ ?sales-dia (+ (length$ ?sales-dia) 1) (create$ ?sala-num ?quadres-sala) )) 
-            (bind ?sala-num (+ ?sala-num 1))
+    (bind ?o-dia (make-instance (gensym) of Ruta-dia))
+    (send ?o-dia put-num-dia ?dia)
+    (bind ?sales-visitades (create$))
+    (bind ?objectes-sala (create$))
+    (foreach ?quadre $?quadres
+        (bind ?num-sala (send ?quadre get-sala))
+        (if (not (member$ ?num-sala $?sales-visitades)) then 
+            (bind ?sales-visitades (insert$ ?sales-visitades (+ (length$ ?sales-visitades) 1) ?num-sala))
+            (bind ?o-sala-nova (make-instance (gensym) of Ruta-sala (sala [?num-sala])))
+            (bind ?objectes-sala (insert$ ?objectes-sala ?num-sala ?o-sala-nova))
         )
-        (send ?dia put-slot sales $?sales-dia)
+        (bind ?o-sala (nth$ ?num-sala $?objectes-sala))
+        (bind ?obres-sala (send ?o-sala get-obres))
+        (slot-insert$ ?o-sala obres (+ (length$ ?obres-sala) 1) ?quadre)
     )
-    
-    (assert (sales-assignades (dies $?dies-assignats))) ;sales-assignades conté dies amb sales, les sales amb obres
+    (bind ?sales-dia (send ?o-dia get-sales))
+    (foreach ?sala $?sales-visitades
+        (slot-insert$ ?o-dia sales (+ (length$ ?sales-dia) 1) (nth$ ?sala $?objectes-sala))
+    )
+    (send ?visitant put-visita (insert$ $?visita ?dia ?o-dia))    
+    (retract ?opd)
 )
 
 
@@ -1739,35 +1723,11 @@
 ; --------------------------------------------------
 
 (defrule imprimir-ruta::sortida "Imprimeix les rutes recomanades"
-    (sales-assignades (dies $?llista))  ; Asegura que hay una ruta con días asignados
     (not (final))  ; Asegura que no se haya alcanzado el estado final
     =>
     (printout t crlf)
     (printout t "Aquesta és la planificació de les visites que us recomanem:" crlf)
     (printout t "===========================================================" crlf)
     
-    ;; Iterar sobre cada día en la lista de rutas
-    (bind ?i 1)  ; Inicializa el contador de días
-    (while (<= ?i (length$ $?llista)) do
-        (bind ?dia (nth$ ?i $?llista))  ; Obté el dia corresponent
-        (format t "Dia %d:" ?i)  ; Imprime el número del día
-        (printout t crlf)
-        
-        ;; Obtiene los cuadros recomendados para ese día
-        (bind ?recs-dia (send ?dia get-quadres-recomanats))  ; Obtiene las obras recomendadas para ese día
-        
-        ;; Imprime cada obra recomendada
-        (if (eq (length$ ?recs-dia) 0)
-            then
-                (printout t "  No hi ha obres recomanades per a aquest dia." crlf)
-            else
-                (foreach ?rec ?recs-dia
-                    (printout t (send ?rec get-nom-obra) crlf)
-                    (printout t "\t- " (send ?rec imprimir))  ; Imprime los detalles de la obra
-                    (printout t crlf)
-                )
-        )
-        (bind ?i (+ ?i 1))  ; Pasa al siguiente día
-    )
     (assert (final))  ; Marca que la ruta ha sido finalizada
 )
