@@ -1020,61 +1020,61 @@
          (nacionalitat  "Alemanya")
     )
     ;; Salas
-    ([1] of Sala
+    ([Sala-1] of Sala
          (conté  [La_Ronda_de_Nit] [La_nit_estrellada] [La_Tempesta] 
          [L'Horitzó_d'Argent][El_Port_d'Alba] [L'Aurora_de_l'Oceà] 
          [La_Posta_de_Sol] [El_Jardí_Seren])
-         (porta_a   [2] [3] [4] [5] [6][7])
+         (porta_a   [Sala-2] [Sala-3] [Sala-4] [Sala-5] [Sala-6][Sala-7])
          (temàtica  "Paisatges i emocions")
     )
 
-    ([2] of Sala
+    ([Sala-2] of Sala
          (conté  [El_dinar_campestre] [El_gronxador] [Les_Menines] [El_Mercat] 
          [La_Gran_Bouffée] [Les_Carretas_d'Alba][L'Escena_del_Bosc] [La_Dansa_dels_Serfs] 
          [L'Alé_dels_Camps] [Els_Camps_de_Primavera] [El_Ball_de_la_Vida] [La_Festa_del_Poble])
-         (porta_a  [1] [3] [4][5][6][7])
+         (porta_a  [Sala-1] [Sala-3] [Sala-4][Sala-5][Sala-6][Sala-7])
          (temàtica  "Vida quotidiana")
     )
 
-    ([3] of Sala
+    ([Sala-3] of Sala
          (conté  [El_jurament_dels_Horacis] [El_rapte_de_Prosèrpina] [La_mort_de_Sòcrates] 
          [El_Fill_de_La_Cultura] [El_Somni_dels_Déus] [El_Triomf_d'Aquiles]
          [El_Triomf_de_la_Virtut][L'Educació_d'Aquil·les] [El_Cicle_dels_Herois] [La_Meditació_d'Hèrcules])
-         (porta_a  [1] [2] [4][5][6][7])
+         (porta_a  [Sala-1] [Sala-2] [Sala-4][Sala-5][Sala-6][Sala-7])
          (temàtica  "Cultura grecorromana")
     )
 
-    ([4] of Sala
+    ([Sala-4] of Sala
          (conté  [La_Llibertat_guiant_al_poble] [El_Brindis_dels_Patriotes] [El_Llamp_del_Destí] 
          [El_Riu_en_Flames] [La_Promesa_de_Llibertat][La_Flamma_de_la_Llibertat]
          [El_Pacte_dels_Herois][La_Declaració_d'Independència]
          [El_Somni_d'un_Rei][El_Gran_Consell] [L'Alè_de_la_Revolució] [El_Consell_dels_Patriotes]
          )
-         (porta_a  [1] [2] [3][5][6][7])
+         (porta_a  [Sala-1] [Sala-2] [Sala-3][Sala-5][Sala-6][Sala-7])
          (temàtica  "Història política")
     )
-    ([5] of Sala
+    ([Sala-5] of Sala
          (conté  [El_Cant_dels_Angels] [El_Tempteig_de_Sant_Antoni] [El_Déu_del_Mar] 
          [La_Contemplació_Divina] [La_Visió_del_Sant][El_Somni_dels_Justos] 
          [La_Travessia_de_l'Ànima] [La_Pau_dels_Justos])
-         (porta_a  [1] [2] [3] [4][6][7])
+         (porta_a  [Sala-1] [Sala-2] [Sala-3] [Sala-4][Sala-6][Sala-7])
          (temàtica  "Espiritualitat")
     )
-    ([6] of Sala
+    ([Sala-6] of Sala
          (conté  [El_tres_de_maig_de_1808] [A_Dos_passes_de_La_Guerra] 
          [La_Batalla_de_Waterloo][La_Victòria_de_Zama]
-         [El_Rei_del_Nord][L'Últim_Ressò_d'Àtila][La_Tragedia_d'Hamlet]
+         [El_Rei_del_Nord] [L'Últim_Ressò_d'Àtila] [La_Tragedia_d'Hamlet]
          [La_Coronació_de_Carlomagne] [Els_Dracs_de_la_Batalla] [La_Mà_del_Destí]
          )
-         (porta_a  [1] [2] [4][5][3][7])
+         (porta_a  [Sala-1] [Sala-2] [Sala-4][Sala-5][Sala-3][Sala-7])
          (temàtica  "Història militar")
     )
-    ([7] of Sala
+    ([Sala-7] of Sala
          (conté  [La_Batalla_de_Ragnarök] [El_Viatge_d'Odin] [Thor_i_la_Serp]
           [El_Cant_dels_Víking] [La_Creació_dels_Mons] [El_Sacrifici_d'Odin] 
           [Freya_i_els_Gats] [Els_Déus_d'Asgard] [El_Baladreig_de_Loki] 
           [Els_Nans_d'Alviss])
-         (porta_a [1] [2] [3][4][5][6]  )
+         (porta_a [Sala-1] [Sala-2] [Sala-3][Sala-4][Sala-5][Sala-6]  )
          (temàtica  "Mitologia nórdica")
     )
 
@@ -1372,6 +1372,15 @@
         (bind ?i (+ ?i 1))
     )
     ?i
+)
+
+(deffunction sintesis::convertir-inst-adreces-noms (?inst-adrs)
+    (bind ?inst-noms (create$))
+    (foreach ?inst-adr ?inst-adrs
+        (bind ?inst-nom (instance-name ?inst-adr))
+        (bind ?inst-noms (insert$ ?inst-noms (+ (length$ ?inst-noms) 1) ?inst-nom))
+    )
+    ?inst-noms
 )
 
 ;funcion para ordenar sales
@@ -1687,31 +1696,28 @@
     (retract ?oat)
 )
 
+(defrule sintesis::crear-dies-visita
+    ?visitant <- (object (name [instVisitant]) (dies ?dies))
+    =>
+    (loop-for-count (?i 1 ?dies) do
+        (bind ?v-dia (make-instance (gensym) of Ruta-dia (num-dia ?i)))
+        (slot-insert$ ?visitant visita ?i ?v-dia)
+    )
+)
+
 (defrule sintesis::assignar-a-sales "Divideix les obres per sales segons el dia"
     ?opd <- (obres-per-dia (dia ?dia) (quadres $?quadres))
-    ?visitant <- (object (name [instVisitant]) (visita $?visita))
+    ?dia-visita <- (object (is-a Ruta-dia) (num-dia ?dia))
+    ?sala <- (object (is-a Sala) (conté $?obres-sala) (porta_a $?veines))
     =>
-    (bind ?o-dia (make-instance (gensym) of Ruta-dia))
-    (send ?o-dia put-num-dia ?dia)
-    (bind ?sales-visitades (create$))
-    (bind ?objectes-sala (create$))
-    (foreach ?quadre $?quadres
-        (bind ?num-sala (send ?quadre get-sala))
-        (if (not (member$ ?num-sala $?sales-visitades)) then 
-            (bind ?sales-visitades (insert$ ?sales-visitades (+ (length$ ?sales-visitades) 1) ?num-sala))
-            (bind ?o-sala-nova (make-instance (gensym) of Ruta-sala (sala [?num-sala])))
-            (bind ?objectes-sala (insert$ ?objectes-sala ?num-sala ?o-sala-nova))
-        )
-        (bind ?o-sala (nth$ ?num-sala $?objectes-sala))
-        (bind ?obres-sala (send ?o-sala get-obres))
-        (slot-insert$ ?o-sala obres (+ (length$ ?obres-sala) 1) ?quadre)
+    (bind $?quadres-noms (convertir-inst-adreces-noms $?quadres))
+    (bind ?interseccio (intersection$ $?quadres-noms $?obres-sala))
+    (if (> (length$ $?interseccio) 0) then
+        (bind ?v-sala (make-instance (gensym) of Ruta-sala (sala ?sala)))
+        (bind ?sales (send ?dia-visita get-sales))
+        (slot-insert$ ?dia-visita sales (+ (length$ $?sales) 1) ?v-sala)
+        (send ?v-sala put-obres $?interseccio)
     )
-    (bind ?sales-dia (send ?o-dia get-sales))
-    (foreach ?sala $?sales-visitades
-        (slot-insert$ ?o-dia sales (+ (length$ ?sales-dia) 1) (nth$ ?sala $?objectes-sala))
-    )
-    (send ?visitant put-visita (insert$ $?visita ?dia ?o-dia))    
-    (retract ?opd)
 )
 
 
