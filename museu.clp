@@ -1218,7 +1218,6 @@
 )
 
 
-
 ; -----------------------------------------
 ; -----------------------------------------
 ; ----------------  CODI  -----------------
@@ -1609,7 +1608,7 @@
 (defrule recopilacio-informacio-visitant::determinar-num-persones
     (not (visita))
     =>
-    (bind ?num (pregunta-numero "Quantes persones sou al vostre grup?" 1 50))
+    (bind ?num (pregunta-numero "Quantes persones sou al vostre grup?" 1 20))
     (assert (visita (num_persones ?num)))
 )
 
@@ -1637,7 +1636,7 @@
     ?v <- (visita (num_dies ?d) (hores_visita ?h))
     (test (and (eq ?d 0) (eq ?h 0)))
     =>
-    (bind ?dies (pregunta-numero "Quants dies durarà la visita? " 1 15))
+    (bind ?dies (pregunta-numero "Quants dies durarà la visita? " 1 10))
     (bind ?hores (pregunta-numero "Quantes hores per dia dedicarà a la visita? " 1 8))
     (modify ?v (num_dies ?dies) (hores_visita ?hores))
 )
@@ -1649,7 +1648,7 @@
     (bind ?valoracio 0.0)
     (bind ?format (create$ "Sí" "No"))
 
-    (bind ?resp (pregunta-opcions "Coneixes 'El Grito' de Munch?" ?format))
+    (bind ?resp (pregunta-opcions "Coneixes 'El Crit' de Munch?" ?format))
     (if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
 
     (bind ?resp (pregunta-opcions "Coneixes 'Las Meninas' de Velázquez?" ?format))
@@ -1665,22 +1664,22 @@
     (if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
 
     (bind ?tria (create$ "Klimt" "Tiziano" "Yanyez" "El Greco"))
-	(bind ?resp (pregunta-opcions "Qui va pintar el quadre 'El Beso'?" ?tria))
+	(bind ?resp (pregunta-opcions "Qui va pintar el quadre 'El Petó'?" ?tria))
 	(if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
 
     (bind ?tria (create$ "El Greco." "Francisco de Goya." "Diego Velazquez."))
-	(bind ?resp (pregunta-opcions "¿Qui va pintar el quadre 'Las Hilanderas'?" ?tria))
+	(bind ?resp (pregunta-opcions "¿Qui va pintar el quadre 'Les Filadores'?" ?tria))
 	(if (= ?resp 3) then (bind ?valoracio (+ 10.0 ?valoracio)))
 
     (bind ?tria (create$ "La Pietà" "David" "El Moisès" "Venus de Milo"))
     (bind ?resp (pregunta-opcions "Quina obra és de Miquel Àngel?" ?tria))
     (if (= ?resp 2) then (bind ?valoracio (+ 10.0 ?valoracio)))
 
-    (bind ?tria (create$ "Pablo Picasso" "Salvador Dalí" "Marc Chagall" "Henri Matisse"))
+    (bind ?tria (create$ "Salvador Dalí" "Marc Chagall" "Henri Matisse" "Pablo Picasso"))
     (bind ?resp (pregunta-opcions "Qui va pintar 'Gernika'?" ?tria))
-    (if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
+    (if (= ?resp 4) then (bind ?valoracio (+ 10.0 ?valoracio)))
 
-    (bind ?tria (create$ "Salvador Dalí" "Vincent van Gogh" "Claude Monet" "Frida Kahlo"))
+    (bind ?tria (create$ "Salvador Dalí" "Vincent van Gogh" "Claude Monet" "Amedeo Modigliani"))
     (bind ?resp (pregunta-opcions "Quin pintor va ser conegut pel seu estil surrealista?" ?tria))
     (if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
 
@@ -1746,8 +1745,8 @@
 
 
 (defrule abstraccio-dades::valorar-coneixement
-    ?v <- (visita (nivell_cultural ?nc))
-    (object(name [instVisitant]))
+    (visita (nivell_cultural ?nc))
+    ?v <- (object(name [instVisitant]))
     =>
     (if (< ?nc 2.0) then (send [instVisitant] put-coneixement 0)) ; Nivell cultural novell
     (if (and (>= ?nc 2.0) (< ?nc 5.0)) then (send [instVisitant] put-coneixement 1)) ; Nivell cultural aficionat
@@ -1789,7 +1788,7 @@
 
 (defrule inferir-dades::crear-solucio-ordenada
     (not (obres-valorades-ordenades))
-    ?vq <- (valoracio-quadre (quadre ?q) (valoracio ?val))
+    ?vq <- (valoracio-quadre)
     =>
     (assert (obres-valorades-ordenades (quadres-recomanats (create$ ?vq))))
 )
@@ -1797,7 +1796,7 @@
 ;ara tindrem primer els quadres que volem visitar
 (defrule inferir-dades::ordenar-solucio
     ?ovo <- (obres-valorades-ordenades (quadres-recomanats $?llista))
-    ?vq <- (valoracio-quadre (quadre ?q) (valoracio ?val))
+    ?vq <- (valoracio-quadre (valoracio ?val))
     (test (not (member$ ?vq $?llista)))
     =>
     (bind ?pos (trobar-quadre-valorat $?llista ?val))
@@ -1846,7 +1845,7 @@
     (retract ?ovo)
 )
 
-(defrule sintesis::assigna-dies "Ordena la ruta en diesz"
+(defrule sintesis::assigna-dies "Ordena la ruta en dies"
     ?oat <- (obres-amb-temps (quadres-recomanats $?recs-ordenades) (temps $?temps-ordenats))
     ?visitant <- (object (name [instVisitant]) (dies ?dies) (hores ?hores))
     =>
@@ -1882,7 +1881,7 @@
 (defrule sintesis::assignar-a-sales "Divideix les obres per sales segons el dia"
     ?opd <- (obres-per-dia (dia ?dia) (quadres $?quadres))
     ?dia-visita <- (object (is-a Ruta-dia) (num-dia ?dia))
-    ?sala <- (object (is-a Sala) (conté $?obres-sala) (porta_a $?veines))
+    ?sala <- (object (is-a Sala) (conté $?obres-sala))
     =>
     (bind $?quadres-noms (convertir-inst-adreces-noms $?quadres))
     (bind ?interseccio (intersection$ $?quadres-noms $?obres-sala))
