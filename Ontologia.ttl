@@ -52,28 +52,20 @@ owl:topObjectProperty rdfs:domain :Visitant ;
 
 ###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#nom
 :nom rdf:type owl:DatatypeProperty ;
-     rdfs:domain [ rdf:type owl:Restriction ;
-                   owl:onProperty owl:topObjectProperty ;
-                   owl:allValuesFrom :Pintor
-                 ] ;
+     rdfs:domain :Pintor ;
      rdfs:range xsd:string .
 
 
 ###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#número
 :número rdf:type owl:DatatypeProperty ;
-        rdfs:domain [ rdf:type owl:Restriction ;
-                      owl:onProperty owl:topObjectProperty ;
-                      owl:allValuesFrom :Sala
-                    ] ;
-        rdfs:range xsd:int .
+        rdfs:domain :Sala ;
+        rdfs:range xsd:integer .
 
 
 ###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4#títol
 :títol rdf:type owl:DatatypeProperty ;
-       rdfs:domain [ rdf:type owl:Restriction ;
-                     owl:onProperty owl:topObjectProperty ;
-                     owl:allValuesFrom :Obra_de_Arte
-                   ] .
+       rdfs:domain :Obra_de_Arte ;
+       rdfs:range xsd:string .
 
 
 ###  http://www.semanticweb.org/jdura/ontologies/2024/10/untitled-ontology-4/any_de_creació
