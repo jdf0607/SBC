@@ -1726,11 +1726,11 @@
 
 
 ; --------------------------------------------------
-; 				MODUL ABSTRACCIO - Ramóm
+; 				MODUL ABSTRACCIO 
 ; --------------------------------------------------
 
 (defrule abstraccio-dades::crear-visitant
-    (visita (num_persones ?np) (num_nens ?nn) (familia ?fam) (num_dies ?nd) (hores_visita ?hd) (preferencies_estil $?pe) (preferencies_temàtica $?pt)(is-a ?tipusVisitant))
+    (visita (num_persones ?np) (num_nens ?nn) (familia ?fam) (num_dies ?nd) (hores_visita ?hd) (preferencies_estil $?pe) (preferencies_temàtica $?pt))
     =>
     (if (eq ?fam TRUE) then (make-instance instVisitant of Familia)
     else (if (eq ?np 1) then (make-instance instVisitant of Individu)
@@ -1756,7 +1756,7 @@
 
 
 ; --------------------------------------------------
-; 				MODUL Inferencia - José
+; 				MODUL Inferencia 
 ; --------------------------------------------------
 
 
@@ -1808,7 +1808,7 @@
        
 
 ; --------------------------------------------------
-; 			MODUL SINTESIS - Aleix
+; 			MODUL SINTESIS 
 ; --------------------------------------------------
 
 (defrule sintesis::assigna-temps "una llista amb les obres que dona temps a visitar"
@@ -1834,9 +1834,10 @@
         (if (> ?valoracio 100) then (bind ?t-obra (+ ?t-obra 25)))
         (if (eq ?nens TRUE) then (bind ?t-obra (* ?t-obra 0.6)))
         ;temps per tipus de visitant 
-        (if (eq ?tipusVisitant Grup_Gran) then (bind ?t-obra (+ ?t-obra 5)))
-        (if (eq ?tipusVisitant Grup_Petit) then (bind ?t-obra (+ ?t-obra 3)))
-        (if (eq ?tipusVisitant Familia) then (bind ?t-obra (+ ?t-obra 1)))
+        (if (eq (class [instVisitant]) Grup_Gran) then (bind ?t-obra (+ ?t-obra 5)))
+        (if (eq (class [instVisitant]) Grup_Petit) then (bind ?t-obra (+ ?t-obra 3)))
+        (if (eq (class [instVisitant]) Familia) then (bind ?t-obra (+ ?t-obra 1)))
+
         
         ; TODO: Afegir més condicions depenent del tipus de visitant?
         (bind $?recs-final (insert$ $?recs-final (+ (length$ $?recs-final) 1) ?obra)) ; Afegir obra 
