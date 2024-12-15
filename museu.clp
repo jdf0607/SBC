@@ -1831,7 +1831,7 @@
         (if (> ?valoracio 0) then (bind ?t-obra (+ ?t-obra 5)))
         (if (> ?valoracio 40) then (bind ?t-obra (+ ?t-obra 10)))
         (if (> ?valoracio 80) then (bind ?t-obra (+ ?t-obra 15)))
-        (if (> ?valoracio 100) then (bind ?t-obra (+ ?t-obra 25)))
+        (if (> ?valoracio 100) then (bind ?t-obra (+ ?t-obra 20)))
         (if (eq ?nens TRUE) then (bind ?t-obra (* ?t-obra 0.6)))
         ;temps per tipus de visitant 
         (if (eq (class [instVisitant]) Grup_Gran) then (bind ?t-obra (+ ?t-obra 5)))
