@@ -1636,7 +1636,7 @@
     ?v <- (visita (num_dies ?d) (hores_visita ?h))
     (test (and (eq ?d 0) (eq ?h 0)))
     =>
-    (bind ?dies (pregunta-numero "Quants dies durarà la visita? " 1 10))
+    (bind ?dies (pregunta-numero "Quants dies durarà la visita? " 1 15))
     (bind ?hores (pregunta-numero "Quantes hores per dia dedicarà a la visita? " 1 8))
     (modify ?v (num_dies ?dies) (hores_visita ?hores))
 )
@@ -1772,7 +1772,7 @@
     (bind ?prioritat 40)
 
     (while (>= ?c 0) do
-        (if (>= ?c (mapa-rellevància-num ?rel)) then
+        (if (= ?c (mapa-rellevància-num ?rel)) then
             (bind ?val (+ ?val ?prioritat))
         )
         (bind ?prioritat (/ ?prioritat 2))
