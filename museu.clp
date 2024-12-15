@@ -1154,7 +1154,7 @@
          [El_Cant_dels_Víking] [La_Creació_dels_Mons] [El_Sacrifici_d'Odin] 
          [Freya_i_els_Gats] [Els_Déus_d'Asgard] [El_Baladreig_de_Loki] 
          [Els_Nans_d'Alviss])
-        (porta_a [Sala-1] [Sala-2] [Sala-3][Sala-4][Sala-5][Sala-6]  )
+        (porta_a [Sala-6]  )
         (temàtica  "Mitologia nórdica")
     )
 
@@ -1165,7 +1165,7 @@
         [El_Rei_del_Nord] [L'Últim_Ressò_d'Àtila] [La_Tragedia_d'Hamlet]
         [La_Coronació_de_Carlomagne] [Els_Dracs_de_la_Batalla] [La_Mà_del_Destí]
         )
-        (porta_a  [Sala-1] [Sala-2] [Sala-4][Sala-5][Sala-3][Sala-7])
+        (porta_a  [Sala-5][Sala-7])
         (temàtica  "Història militar")
     )
 
@@ -1174,7 +1174,7 @@
         (conté  [El_Cant_dels_Angels] [El_Tempteig_de_Sant_Antoni] [El_Déu_del_Mar] 
         [La_Contemplació_Divina] [La_Visió_del_Sant][El_Somni_dels_Justos] 
         [La_Travessia_de_l'Ànima] [La_Pau_dels_Justos])
-        (porta_a  [Sala-1] [Sala-2] [Sala-3] [Sala-4][Sala-6][Sala-7])
+        (porta_a  [Sala-4][Sala-6])
         (temàtica  "Espiritualitat")
     )
 
@@ -1185,7 +1185,7 @@
         [El_Pacte_dels_Herois][La_Declaració_d'Independència]
         [El_Somni_d'un_Rei][El_Gran_Consell] [L'Alè_de_la_Revolució] [El_Consell_dels_Patriotes]
         )
-        (porta_a  [Sala-1] [Sala-2] [Sala-3][Sala-5][Sala-6][Sala-7])
+        (porta_a [Sala-3][Sala-5])
         (temàtica  "Història política")
     )
 
@@ -1194,7 +1194,7 @@
         (conté  [El_jurament_dels_Horacis] [El_rapte_de_Prosèrpina] [La_mort_de_Sòcrates] 
         [El_Fill_de_La_Cultura] [El_Somni_dels_Déus] [El_Triomf_d'Aquiles]
         [El_Triomf_de_la_Virtut][L'Educació_d'Aquil·les] [El_Cicle_dels_Herois] [La_Meditació_d'Hèrcules])
-        (porta_a  [Sala-1] [Sala-2] [Sala-4][Sala-5][Sala-6][Sala-7])
+        (porta_a  [Sala-2] [Sala-4])
         (temàtica  "Cultura grecorromana")
     )
 
@@ -1203,7 +1203,7 @@
         (conté  [El_dinar_campestre] [El_gronxador] [Les_Menines] [El_Mercat] 
         [La_Gran_Bouffée] [Les_Carretas_d'Alba][L'Escena_del_Bosc] [La_Dansa_dels_Serfs] 
         [L'Alé_dels_Camps] [Els_Camps_de_Primavera] [El_Ball_de_la_Vida] [La_Festa_del_Poble])
-        (porta_a  [Sala-1] [Sala-3] [Sala-4][Sala-5][Sala-6][Sala-7])
+        (porta_a  [Sala-1] [Sala-3] )
         (temàtica  "Vida quotidiana")
     )
     
@@ -1212,7 +1212,7 @@
         (conté  [La_Ronda_de_Nit] [La_nit_estrellada] [La_Tempesta] 
         [L'Horitzó_d'Argent][El_Port_d'Alba] [L'Aurora_de_l'Oceà] 
         [La_Posta_de_Sol] [El_Jardí_Seren])
-        (porta_a   [Sala-2] [Sala-3] [Sala-4] [Sala-5] [Sala-6][Sala-7])
+        (porta_a   [Sala-2])
         (temàtica  "Paisatges i emocions")
     )
 )
