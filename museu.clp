@@ -1617,7 +1617,7 @@
     (test (> ?np 1))
     (not (preguntat-nens))
     =>
-    (bind ?nens (pregunta-numero "Quants nens hi ha al grup? " 0 (- ?np 1)))
+    (bind ?nens (pregunta-numero "Quants nens hi ha al grup?" 0 (- ?np 1)))
     (modify ?v (num_nens ?nens))
     (assert (preguntat-nens))
 )
@@ -1769,10 +1769,10 @@
     ; Establecer la prioridad según el nivell_cultural del visitante
     (bind ?val 0)
     (bind ?c ?coneixement) 
-    (bind ?prioritat 40)
+    (bind ?prioritat 10)
 
     (while (>= ?c 0) do
-        (if (= ?c (mapa-rellevància-num ?rel)) then
+        (if (>= ?c (mapa-rellevància-num ?rel)) then
             (bind ?val (+ ?val ?prioritat))
         )
         (bind ?prioritat (/ ?prioritat 2))
