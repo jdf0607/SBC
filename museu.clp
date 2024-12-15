@@ -1769,7 +1769,7 @@
 
 (defrule abstraccio-dades::valorar-coneixement
     (visita (nivell_cultural ?nc))
-    (object(name [instVisitant]))
+    (object (name [instVisitant]))
     =>
     (if (< ?nc 2.0) then (send [instVisitant] put-coneixement 0)) ; Nivell cultural novell
     (if (and (>= ?nc 2.0) (< ?nc 5.0)) then (send [instVisitant] put-coneixement 1)) ; Nivell cultural aficionat
@@ -1851,10 +1851,10 @@
         (bind ?obra (fact-slot-value ?rec quadre))
         (bind ?valoracio (fact-slot-value ?rec valoracio))
         ;temps segons valoració (incloeix rellevància i preferències d'estil i temàtica)
-        (if (> ?valoracio 0) then (bind ?t-obra (+ ?t-obra 5)))
-        (if (> ?valoracio 40) then (bind ?t-obra (+ ?t-obra 10)))
-        (if (> ?valoracio 80) then (bind ?t-obra (+ ?t-obra 15)))
-        (if (> ?valoracio 100) then (bind ?t-obra (+ ?t-obra 20)))
+        (if (>= ?valoracio 100) then (bind ?t-obra (+ ?t-obra 20)))
+        (if (and (>= ?valoracio 80) (< ?valoracio 100)) then (bind ?t-obra (+ ?t-obra 15)))
+        (if (and (>= ?valoracio 40) (< ?valoracio 80)) then (bind ?t-obra (+ ?t-obra 10)))
+        (if (and (>= ?valoracio 0) (< ?valoracio 40)) then (bind ?t-obra (+ ?t-obra 5)))
         
         ;temps per tipus de visitant 
         (if (eq (class [instVisitant]) Grup_Gran) then (bind ?t-obra (+ ?t-obra 5)))
