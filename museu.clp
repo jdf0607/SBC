@@ -298,7 +298,7 @@
          (sala  2)
     )
 
-    ([Oficial_de_caçadors ] of Obra_de_Arte
+    ([Oficial_de_caçadors] of Obra_de_Arte
          (títol "Oficial de caçadors")
          (any_de_creació  1812)
          (estil  "Romanticisme")
