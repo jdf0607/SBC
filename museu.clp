@@ -1813,7 +1813,7 @@
 
 (defrule sintesis::assigna-temps "una llista amb les obres que dona temps a visitar"
     ?ovo <- (obres-valorades-ordenades (quadres-recomanats $?recomanacions)) ; Lista de obras ordenades per valoracio
-    ?visitant <- (object (name [instVisitant]) (dies ?numDies) (hores ?hores) (nens ?nens)) 
+    ?visitant <- (object (name [instVisitant]) (dies ?numDies) (hores ?hores)) 
     =>
     (bind ?mins (* ?hores 60)) 
     (bind ?t-max (* ?numDies ?mins))
@@ -1832,12 +1832,14 @@
         (if (> ?valoracio 40) then (bind ?t-obra (+ ?t-obra 10)))
         (if (> ?valoracio 80) then (bind ?t-obra (+ ?t-obra 15)))
         (if (> ?valoracio 100) then (bind ?t-obra (+ ?t-obra 20)))
-        (if (eq ?nens TRUE) then (bind ?t-obra (* ?t-obra 0.6)))
+        
         ;temps per tipus de visitant 
         (if (eq (class [instVisitant]) Grup_Gran) then (bind ?t-obra (+ ?t-obra 5)))
         (if (eq (class [instVisitant]) Grup_Petit) then (bind ?t-obra (+ ?t-obra 3)))
         (if (eq (class [instVisitant]) Familia) then (bind ?t-obra (+ ?t-obra 1)))
-
+        (if (and (not (eq (class [instVisitant]) Individu)) (eq (send [instVisitant] get-nens) TRUE)) then
+            (bind ?t-obra (* ?t-obra 0.6))
+        )
         
         ; TODO: Afegir més condicions depenent del tipus de visitant?
         (bind $?recs-final (insert$ $?recs-final (+ (length$ $?recs-final) 1) ?obra)) ; Afegir obra 
