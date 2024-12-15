@@ -1613,8 +1613,7 @@
 )
 
 (defrule recopilacio-informacio-visitant::establir-num-nens
-    ?v <- (visita (num_persones ?np))
-    (test (> ?np 1))
+    ?v <- (visita (num_persones ?np&:(> ?np 1)))
     (not (preguntat-nens))
     =>
     (bind ?nens (pregunta-numero "Quants nens hi ha al grup?" 0 (- ?np 1)))
@@ -1623,8 +1622,7 @@
 )
 
 (defrule recopilacio-informacio-visitant::determinar-familia
-    ?v <- (visita (num_nens ?nn))
-    (test (> ?nn 0))
+    ?v <- (visita (num_nens ?nn&:(> ?nn 0)))
     (not (preguntat-familia))
     =>
     (bind ?familia (pregunta-opcions "El grup és una família? (1: Sí, 2: No)" (create$ "Sí" "No")))
@@ -1642,8 +1640,8 @@
 )
 
 (defrule recopilacio-informacio-visitant::calcular-nivell-cultural
-    ?v <- (visita (nivell_cultural ?nc))
-    (test (eq ?nc 0.0))
+    ?v <- (visita)
+    (not (demanat-nivell-cultural))
     =>
     (bind ?valoracio 0.0)
     (bind ?format (create$ "Sí" "No"))
@@ -1686,6 +1684,7 @@
     ;; Afegegir més preguntes si fa falta
 
     (modify ?v (nivell_cultural (/ ?valoracio 10.0)))
+    (assert (demanat-nivell-cultural))
 )
 
 (defrule recopilacio-informacio-visitant::consultar-preferencies-estil
@@ -1729,24 +1728,48 @@
 ; 				MODUL ABSTRACCIO 
 ; --------------------------------------------------
 
-(defrule abstraccio-dades::crear-visitant
-    (visita (num_persones ?np) (num_nens ?nn) (familia ?fam) (num_dies ?nd) (hores_visita ?hd) (preferencies_estil $?pe) (preferencies_temàtica $?pt))
+(defrule abstraccio-dades::crear-individu
+    (visita (num_persones ?np&:(= ?np 1)))
     =>
-    (if (eq ?fam TRUE) then (make-instance instVisitant of Familia)
-    else (if (eq ?np 1) then (make-instance instVisitant of Individu)
-        else (if (> ?np 9) then (make-instance instVisitant of Grup_Gran)
-            else (make-instance instVisitant of Grup_Petit))))
-    (if (> ?nn 0) then (send [instVisitant] put-nens TRUE))
+    (make-instance instVisitant of Individu)
+)
+
+(defrule abstraccio-dades::crear-familia
+    (visita (familia ?fam&:(eq ?fam TRUE)))
+    =>
+    (make-instance instVisitant of Familia)
+)
+
+(defrule abstraccio-dades::crear-grup
+    (visita (num_persones ?np&:(> ?np 1)) (familia ?fam&:(eq ?fam FALSE)))
+    =>
+    (if (>= ?np 10) then 
+        (make-instance instVisitant of Grup_Gran)
+        else
+        (make-instance instVisitant of Grup_Petit)    
+    )
+)
+
+(defrule abstraccio-dades::emplenar-visitant
+    (visita (num_dies ?nd) (hores_visita ?hd) (preferencies_estil $?pe) (preferencies_temàtica $?pt))
+    (object (name [instVisitant]))
+    =>
     (send [instVisitant] put-dies ?nd)
     (send [instVisitant] put-hores ?hd)
     (send [instVisitant] put-preferencies_estil $?pe)
     (send [instVisitant] put-preferencies_temàtica $?pt)
 )
 
+(defrule abstraccio-dades::declarar-nens
+    (visita (num_nens ?nn&:(> ?nn 0)))
+    (object (name [instVisitant]))
+    =>
+    (send [instVisitant] put-nens TRUE)
+)
 
 (defrule abstraccio-dades::valorar-coneixement
     (visita (nivell_cultural ?nc))
-    ?v <- (object(name [instVisitant]))
+    (object(name [instVisitant]))
     =>
     (if (< ?nc 2.0) then (send [instVisitant] put-coneixement 0)) ; Nivell cultural novell
     (if (and (>= ?nc 2.0) (< ?nc 5.0)) then (send [instVisitant] put-coneixement 1)) ; Nivell cultural aficionat
