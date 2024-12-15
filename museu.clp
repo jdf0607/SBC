@@ -1730,7 +1730,7 @@
 ; --------------------------------------------------
 
 (defrule abstraccio-dades::crear-visitant
-    (visita (num_persones ?np) (num_nens ?nn) (familia ?fam) (num_dies ?nd) (hores_visita ?hd) (preferencies_estil $?pe) (preferencies_temàtica $?pt))
+    (visita (num_persones ?np) (num_nens ?nn) (familia ?fam) (num_dies ?nd) (hores_visita ?hd) (preferencies_estil $?pe) (preferencies_temàtica $?pt)(is-a ?tipusVisitant))
     =>
     (if (eq ?fam TRUE) then (make-instance instVisitant of Familia)
     else (if (eq ?np 1) then (make-instance instVisitant of Individu)
@@ -1827,12 +1827,17 @@
         (bind ?t-obra 5)
         (bind ?obra (fact-slot-value ?rec quadre))
         (bind ?valoracio (fact-slot-value ?rec valoracio))
-
+        ;temps segons valoració (incloeix rellevància i preferències d'estil i temàtica)
         (if (> ?valoracio 0) then (bind ?t-obra (+ ?t-obra 5)))
         (if (> ?valoracio 40) then (bind ?t-obra (+ ?t-obra 10)))
         (if (> ?valoracio 80) then (bind ?t-obra (+ ?t-obra 15)))
         (if (> ?valoracio 100) then (bind ?t-obra (+ ?t-obra 25)))
         (if (eq ?nens TRUE) then (bind ?t-obra (* ?t-obra 0.6)))
+        ;temps per tipus de visitant 
+        (if (eq ?tipusVisitant Grup_Gran) then (bind ?t-obra (+ ?t-obra 5)))
+        (if (eq ?tipusVisitant Grup_Petit) then (bind ?t-obra (+ ?t-obra 3)))
+        (if (eq ?tipusVisitant Familia) then (bind ?t-obra (+ ?t-obra 1)))
+        
         ; TODO: Afegir més condicions depenent del tipus de visitant?
         (bind $?recs-final (insert$ $?recs-final (+ (length$ $?recs-final) 1) ?obra)) ; Afegir obra 
         (bind $?temps-final (insert$ $?temps-final (+ (length$ $?temps-final) 1) ?t-obra)) ; Afegir temps
