@@ -1853,10 +1853,7 @@
     ?sala <- (object (is-a Sala) (conté $?obres-sala))
     =>
     (bind $?quadres-noms (convertir-inst-adreces-noms $?quadres))
-    (printout t "Quadres del dia " ?dia ": " $?quadres-noms crlf)
-    (printout t "Quadres en la sala " (send ?sala get-número) ": " $?obres-sala crlf)
     (bind ?interseccio (intersection$ $?quadres-noms $?obres-sala))
-    (printout t "Intersecció: " $?interseccio crlf)
     (if (> (length$ $?interseccio) 0) then
         (bind ?v-sala (make-instance (gensym) of Ruta-sala (sala ?sala)))
         (bind ?sales (send ?dia-visita get-sales))
