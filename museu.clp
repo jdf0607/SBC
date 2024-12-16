@@ -1601,6 +1601,10 @@
     (bind ?resp (pregunta-opcions "Quina obra no va ser creada per 'Jean-Baptiste Pater'?" ?tria))
     (if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
 
+    (bind ?tria (create$ "Antonio Canova" "Bartolomé Esteban Murillo" "Francisco de Goya" "Diego Velazquez"))
+    (bind ?resp (pregunta-opcions "Quin d'aquests pintors no és espanyol?" ?tria))
+    (if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
+
     (bind ?tria (create$ "Carl Loewe" "Marc Chagall" "Henry Fuseli" "Constantin Hansen"))
     (bind ?resp (pregunta-opcions "Qui va pintar 'El Viatge d'Odin'?" ?tria))
     (if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
@@ -1608,13 +1612,20 @@
     (bind ?tria (create$ "Hubert Robert" "Benjamin West" "Franz Russ" "Edouard Manet"))
     (bind ?resp (pregunta-opcions "Qui va pintar 'La Festa del Poble'?" ?tria))
     (if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
-
-    (bind ?tria (create$ "Antonio_Canova" "Bartolomé Esteban Murillo" "Francisco de Goya" "Diego Velazquez"))
-    (bind ?resp (pregunta-opcions "Quin d'aquests pintors no és espanyol?" ?tria))
-    (if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
     
+    (bind ?tria (create$ "El Cant dels Víking" "El Rei del Nord" "El Déu del Mar" "La Visió del San"))
+    (bind ?resp (pregunta-opcions "Quina obra no va ser creada per 'Sebastiano Ricci'?" ?tria))
+    (if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
 
-    (modify ?v (nivell_cultural (/ ?valoracio 10.0)))
+    (bind ?tria (create$ "Jens Juel" "Jacques-Louis David" "Gustave Courbet" "Théodore Géricault"))
+    (bind ?resp (pregunta-opcions "Quin d'aquests pintors no és francès?" ?tria))
+    (if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
+
+    (bind ?tria (create$ "La Pau dels Justos" "El Ball de la Vida" "La Mà del Destí" "L'Onada"))
+    (bind ?resp (pregunta-opcions "Quina obra va ser creada per 'Joaquim Mir'?" ?tria))
+    (if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
+
+    (modify ?v (nivell_cultural (/ ?valoracio 13.0)))
     (assert (demanat-nivell-cultural))
 )
 
