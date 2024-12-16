@@ -342,9 +342,9 @@
          (sala  3)
     )
 
-    ([Les_Carretas_d'Alba] of Obra_de_Arte
-         (títol "Les Carretes d'Alba")
-         (any_de_creació  1689)
+    ([Homenatge_a_Velázquez] of Obra_de_Arte
+         (títol "Homenatge a Velázquez")
+         (any_de_creació  1700)
          (estil  "Barroc tardà")
          (rellevància  "Destacat")
          (temàtica  "Vida quotidiana")
@@ -353,8 +353,8 @@
          (sala  2)
     )
 
-    ([L'Horitzó_d'Argent] of Obra_de_Arte
-         (títol "L'Horitzó d'Argent")
+    ([La_platja_de_Sainte-Andresse] of Obra_de_Arte
+         (títol "La platja de Sainte-Andresse")
          (any_de_creació  1867)
          (estil  "Postimpressionisme")
          (rellevància  "Magistral")
@@ -375,9 +375,9 @@
          (sala  3)
     )
 
-    ([El_Cant_dels_Angels] of Obra_de_Arte
+    ([La_cuina_dels_Angels] of Obra_de_Arte
          (títol "El Cant dels Àngels")
-         (any_de_creació  1687)
+         (any_de_creació  1646)
          (estil  "Barroc")
          (rellevància  "Referent")
          (temàtica  "Espiritualitat")
@@ -405,9 +405,9 @@
          (sala  6)
     )
 
-    ([El_Tempteig_de_Sant_Antoni] of Obra_de_Arte
-         (títol "El Temptació de Sant Antoni")
-         (any_de_creació  1645)
+    ([Adoració_dels_Mags] of Obra_de_Arte
+         (títol "Adoració dels Mags")
+         (any_de_creació  1635)
          (estil  "Barroc")
          (rellevància  "Magistral")
          (temàtica  "Espiritualitat")
@@ -455,14 +455,14 @@
          (sala  5)
     )
 
-    ([El_Riu_en_Flames] of Obra_de_Arte
-         (títol "El Riu en Flames")
-         (any_de_creació  1856)
+    ([L'onada] of Obra_de_Arte
+         (títol "L'onada")
+         (any_de_creació  1870)
          (estil  "Realisme")
          (rellevància  "Referent")
-         (temàtica  "Història política")
+         (temàtica  "Paisatges i Emocions")
          (pintor [Gustave_Courbet])
-         (sala  4)
+         (sala  1)
     )
 
     ([La_Posta_de_Sol] of Obra_de_Arte
@@ -585,8 +585,8 @@
         (sala  4)
     )
 
-    ([La_Coronació_de_Carlomagne] of Obra_de_Arte
-        (títol "La Coronació de Carlemany")
+    ([La_Coronació_de_Napoleó] of Obra_de_Arte
+        (títol "La Coronació de Napoleó")
         (any_de_creació  1807)
         (estil  "Neoclassicisme")
         (rellevància  "Universal")
@@ -925,7 +925,7 @@
 
     ([Jacques-Louis_David] of Pintor
         (nom "Jacques-Louis David")
-        (crea  [El_jurament_dels_Horacis][La_mort_de_Sòcrates][El_Triomf_d'Aquiles][La_Coronació_de_Carlomagne])
+        (crea  [El_jurament_dels_Horacis][La_mort_de_Sòcrates][El_Triomf_d'Aquiles][La_Coronació_de_Napoleó])
         (nacionalitat  "Francesa")
     )
 
@@ -973,7 +973,7 @@
 
     ([Gustave_Courbet] of Pintor
         (nom "Gustave Courbet")
-        (crea  [El_taller_del_pintor][El_Riu_en_Flames][La_Promesa_de_Llibertat][L'Últim_Ressò_d'Àtila])
+        (crea  [El_taller_del_pintor][L'Onada][La_Promesa_de_Llibertat][L'Últim_Ressò_d'Àtila])
         (nacionalitat  "Francesa")
     )
 
@@ -1008,18 +1008,18 @@
 
     ([Luca_Giordano] of Pintor
          (nom "Luca Giordano")
-         (crea  [Les_Carretas_d'Alba][El_Somni_d'un_Rei])
+         (crea  [Homenatge_a_Velázquez][El_Somni_d'un_Rei])
          (nacionalitat  "Italiana")
     )
 
     ([Claude_Monet] of Pintor
          (nom "Claude Monet")
-         (crea  [L'Horitzó_d'Argent])
+         (crea  [La_platja_de_Sainte-Andresse])
          (nacionalitat  "Francesa")
     )
      ([Bartolomé_Esteban_Murillo] of Pintor
          (nom "Bartolomé Esteban Murillo")
-         (crea  [El_Cant_dels_Angels][El_Somni_dels_Justos])
+         (crea  [La_cuina_dels_Angels][El_Somni_dels_Justos])
          (nacionalitat  "Espanyola")
     )
 
@@ -1037,7 +1037,7 @@
 
     ([Matthias_Stom] of Pintor
          (nom "Matthias Stom")
-         (crea  [El_Tempteig_de_Sant_Antoni][La_Contemplació_Divina])
+         (crea  [Adoració_dels_Mags][La_Contemplació_Divina])
          (nacionalitat  "Holandesa")
     )
 
@@ -1163,7 +1163,7 @@
         (conté  [El_tres_de_maig_de_1808] [Oficial_de_caçadors] 
         [La_Batalla_de_Waterloo][La_Victòria_de_Zama]
         [El_Rei_del_Nord] [L'Últim_Ressò_d'Àtila] [La_Tragedia_d'Hamlet]
-        [La_Coronació_de_Carlomagne] [Els_Dracs_de_la_Batalla] [La_Mà_del_Destí]
+        [La_Coronació_de_Napoleó] [Els_Dracs_de_la_Batalla] [La_Mà_del_Destí]
         )
         (porta_a  [Sala-5][Sala-7])
         (temàtica  "Història militar")
@@ -1171,7 +1171,7 @@
 
     ([Sala-5] of Sala
         (número 5)
-        (conté  [El_Cant_dels_Angels] [El_Tempteig_de_Sant_Antoni] [El_Déu_del_Mar] 
+        (conté  [La_cuina_dels_Angels] [Adoració_dels_Mags] [El_Déu_del_Mar] 
         [La_Contemplació_Divina] [La_Visió_del_Sant][El_Somni_dels_Justos] 
         [La_Travessia_de_l'Ànima] [La_Pau_dels_Justos])
         (porta_a  [Sala-4][Sala-6])
@@ -1181,7 +1181,7 @@
     ([Sala-4] of Sala
         (número 4)
         (conté  [La_Llibertat_guiant_al_poble] [La_família_de_Carles_IV] [El_Llamp_del_Destí] 
-        [El_Riu_en_Flames] [La_Promesa_de_Llibertat][La_Flamma_de_la_Llibertat]
+        [La_Promesa_de_Llibertat][La_Flamma_de_la_Llibertat]
         [El_Pacte_dels_Herois][La_Declaració_d'Independència]
         [El_Somni_d'un_Rei][El_Gran_Consell] [L'Alè_de_la_Revolució] [El_Consell_dels_Patriotes]
         )
@@ -1201,7 +1201,7 @@
     ([Sala-2] of Sala
         (número 2)
         (conté  [El_dinar_campestre] [El_gronxador] [Les_Menines] [El_Mercat] 
-        [El_taller_del_pintor] [Les_Carretas_d'Alba][L'Escena_del_Bosc] [La_Dansa_dels_Serfs] 
+        [El_taller_del_pintor] [Homenatge_a_Velázquez][L'Escena_del_Bosc] [La_Dansa_dels_Serfs] 
         [L'Alé_dels_Camps] [Els_Camps_de_Primavera] [El_Ball_de_la_Vida] [La_Festa_del_Poble])
         (porta_a  [Sala-1] [Sala-3] )
         (temàtica  "Vida quotidiana")
@@ -1210,8 +1210,8 @@
     ([Sala-1] of Sala
         (número 1)
         (conté  [La_Ronda_de_Nit] [La_nit_estrellada] [Vaixell_naufragat] 
-        [L'Horitzó_d'Argent][El_Port_d'Alba] [L'Aurora_de_l'Oceà] 
-        [La_Posta_de_Sol] [El_Jardí_Seren])
+        [La_platja_de_Sainte-Andresse][El_Port_d'Alba] [L'Aurora_de_l'Oceà] 
+        [La_Posta_de_Sol] [El_Jardí_Seren][L'onada])
         (porta_a   [Sala-2])
         (temàtica  "Paisatges i emocions")
     )
