@@ -454,6 +454,17 @@
          (pintor [Sebastiano_Ricci])
          (sala  5)
     )
+     ([Angel_Custodi] of Obra_de_Arte
+         (títol "Angel Custodi")
+         (any_de_creació  1694)
+         (estil  "Barroc tardà")
+         (rellevància  "Destacat")
+         (temàtica  "Espiritualitat")
+         (pintor [Sebastiano_Ricci])
+         (sala  5)
+    )
+
+
 
     ([L'onada] of Obra_de_Arte
          (títol "L'onada")
@@ -640,17 +651,6 @@
         (sala  6)
     )
 
-    ([El_Rei_del_Nord] of Obra_de_Arte
-        (títol "El Rei del Nord")
-        (any_de_creació  1725)
-        (estil  "Barroc tardà")
-        (rellevància  "Magistral")
-        (temàtica  "Història militar")
-        (època  "XVIII")
-        (pintor [Sebastiano_Ricci])
-        (sala  6)
-    )
-
     ([La_Victòria_de_Zama] of Obra_de_Arte
         (títol "La Victòria de Zama")
         (any_de_creació  1817)
@@ -702,7 +702,7 @@
          (rellevància  "Referent")
          (temàtica  "Mitologia nórdica")
          (època  "XIX")
-         (pintor [Carl_Loewe])
+         (pintor [Henry_Fuseli])
          (sala  7)
     )
 
@@ -717,15 +717,15 @@
          (sala  7)
     )
 
-    ([El_Cant_dels_Víking] of Obra_de_Arte
-         (títol "El Cant dels Víquings")
-         (any_de_creació  1859)
-         (estil  "Realisme")
+    ([Muntanyes_altes] of Obra_de_Arte
+         (títol "Muntanyes altes")
+         (any_de_creació  1863)
+         (estil  "Romanticisme")
          (rellevància  "Destacat")
          (temàtica  "Mitologia nórdica")
          (època  "XIX")
          (pintor [Johan_Fredrik_Eckersberg])
-         (sala  7)
+         (sala  1)
     )
 
     ([La_Creació_dels_Mons] of Obra_de_Arte
@@ -796,7 +796,7 @@
     ([La_Travessia_de_l'Ànima] of Obra_de_Arte
          (títol "La Travessia de l'Ànima")
          (any_de_creació  1889)
-         (estil  "Simbolisme")
+         (estil  "Postimpressionisme")
          (rellevància  "Universal")
          (temàtica  "Espiritualitat")
          (època  "XIX")
@@ -807,7 +807,7 @@
     ([La_Pau_dels_Justos] of Obra_de_Arte
          (títol "La Pau dels Justos")
          (any_de_creació  1917)
-         (estil  "Modernisme")
+         (estil  "Impressionisme")
          (rellevància  "Destacat")
          (temàtica  "Espiritualitat")
          (època  "XX")
@@ -1069,19 +1069,15 @@
          (crea  [La_Batalla_de_Ragnarök] [El_Baladreig_de_Loki])
          (nacionalitat  "Noruega")
     )
-    ([Carl_Loewe] of Pintor
-         (nom "Carl Löwe")
-         (crea  [El_Viatge_d'Odin])
-         (nacionalitat  "Alemanya")
-    )
+
     ([Henry_Fuseli] of Pintor
          (nom "Henry Fuseli")
-         (crea  [Thor_i_la_Serp])
+         (crea  [Thor_i_la_Serp][El_Viatge_d'Odin])
          (nacionalitat  "Suïssa")
     )
     ([Johan_Fredrik_Eckersberg] of Pintor
          (nom "Johan Fredrik Eckersberg")
-         (crea  [El_Cant_dels_Víking] [Els_Nans_d'Alviss])
+         (crea  [Muntanyes_altes] [Els_Nans_d'Alviss])
          (nacionalitat  "Noruega")
     )
     ([Constantin_Hansen] of Pintor
@@ -1151,7 +1147,7 @@
     ([Sala-7] of Sala
         (número 7)
         (conté  [La_Batalla_de_Ragnarök] [El_Viatge_d'Odin] [Thor_i_la_Serp]
-         [El_Cant_dels_Víking] [La_Creació_dels_Mons] [El_Sacrifici_d'Odin] 
+          [La_Creació_dels_Mons] [El_Sacrifici_d'Odin] 
          [Freya_i_els_Gats] [Els_Déus_d'Asgard] [El_Baladreig_de_Loki] 
          [Els_Nans_d'Alviss])
         (porta_a [Sala-6]  )
@@ -1605,7 +1601,7 @@
     (bind ?resp (pregunta-opcions "Quin d'aquests pintors no és espanyol?" ?tria))
     (if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
 
-    (bind ?tria (create$ "Carl Loewe" "Marc Chagall" "Henry Fuseli" "Constantin Hansen"))
+    (bind ?tria (create$ "Henry Fuseli" "Luca Giordano" "Marc Chagall"  "Constantin Hansen"))
     (bind ?resp (pregunta-opcions "Qui va pintar 'El Viatge d'Odin'?" ?tria))
     (if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
 
@@ -1613,8 +1609,8 @@
     (bind ?resp (pregunta-opcions "Qui va pintar 'La Festa del Poble'?" ?tria))
     (if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
     
-    (bind ?tria (create$ "El Cant dels Víkings" "El Rei del Nord" "El Déu del Mar" "La Visió del Sant"))
-    (bind ?resp (pregunta-opcions "Quina obra no va ser creada per Sebastiano Ricci?" ?tria))
+    (bind ?tria (create$ "Muntanyes Altes" "Angel Custodi" "El Déu del Mar" "La Visió del San"))
+    (bind ?resp (pregunta-opcions "Quina obra no va ser creada per 'Sebastiano Ricci'?" ?tria))
     (if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
 
     (bind ?tria (create$ "Jens Juel" "Jacques-Louis David" "Gustave Courbet" "Théodore Géricault"))
