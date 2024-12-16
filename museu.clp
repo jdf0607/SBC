@@ -1646,42 +1646,41 @@
     (bind ?valoracio 0.0)
     (bind ?format (create$ "Sí" "No"))
 
-    (bind ?resp (pregunta-opcions "Coneixes 'El Crit' de Munch?" ?format))
+    (bind ?resp (pregunta-opcions "Coneixes 'La Nit Estrellada' de Van Gogh?" ?format))
+    (if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
+
+    (bind ?resp (pregunta-opcions "Coneixes 'El Tres de Maig de 1808' de Goya?" ?format))
     (if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
 
     (bind ?resp (pregunta-opcions "Coneixes 'Las Meninas' de Velázquez?" ?format))
     (if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
 
-    (bind ?resp (pregunta-opcions "Coneixes 'El Greco' de Goya?" ?format))
+    (bind ?resp (pregunta-opcions "Coneixes 'La Batalla de Waterloo' de William Sadler?" ?format))
     (if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
 
-    (bind ?resp (pregunta-opcions "Coneixes 'La Gioconda' de Da Vinci?" ?format))
+    (bind ?resp (pregunta-opcions "Coneixes 'La Declaració d'independència' de John Trumbull?" ?format))
     (if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
 
-    (bind ?resp (pregunta-opcions "Coneixes 'La Nit Estrellada' de Van Gogh?" ?format))
+    (bind ?tria (create$ "Eugène Delacroix" "Pieter de Hooch" "Gustave Courbet" "John Trumbull"))
+    (bind ?resp (pregunta-opcions "Qui va pintar 'L'Alè de la Revolució'?" ?tria))
     (if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
 
-    (bind ?tria (create$ "Klimt" "Tiziano" "Yanyez" "El Greco"))
-	(bind ?resp (pregunta-opcions "Qui va pintar el quadre 'El Petó'?" ?tria))
-	(if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
-
-    (bind ?tria (create$ "El Greco." "Francisco de Goya." "Diego Velazquez."))
-	(bind ?resp (pregunta-opcions "¿Qui va pintar el quadre 'Les Filadores'?" ?tria))
-	(if (= ?resp 3) then (bind ?valoracio (+ 10.0 ?valoracio)))
-
-    (bind ?tria (create$ "La Pietà" "David" "El Moisès" "Venus de Milo"))
-    (bind ?resp (pregunta-opcions "Quina obra és de Miquel Àngel?" ?tria))
-    (if (= ?resp 2) then (bind ?valoracio (+ 10.0 ?valoracio)))
-
-    (bind ?tria (create$ "Salvador Dalí" "Marc Chagall" "Henri Matisse" "Pablo Picasso"))
-    (bind ?resp (pregunta-opcions "Qui va pintar 'Gernika'?" ?tria))
-    (if (= ?resp 4) then (bind ?valoracio (+ 10.0 ?valoracio)))
-
-    (bind ?tria (create$ "Salvador Dalí" "Vincent van Gogh" "Claude Monet" "Amedeo Modigliani"))
-    (bind ?resp (pregunta-opcions "Quin pintor va ser conegut pel seu estil surrealista?" ?tria))
+    (bind ?tria (create$ "La Batalla de Ragnarök" "L'Escena del Bosc" "La Dansa dels Serfs" "La Meditació d'Hèrcules"))
+    (bind ?resp (pregunta-opcions "Quina obra no va ser creada per 'Jean-Baptiste Pater'?" ?tria))
     (if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
 
-    ;; Afegegir més preguntes si fa falta
+    (bind ?tria (create$ "Carl Loewe" "Marc Chagall" "Henry Fuseli" "Constantin Hansen"))
+    (bind ?resp (pregunta-opcions "Qui va pintar 'El Viatge d'Odin'?" ?tria))
+    (if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
+
+    (bind ?tria (create$ "Hubert Robert" "Benjamin West" "Franz Russ" "Edouard Manet"))
+    (bind ?resp (pregunta-opcions "Qui va pintar 'La Festa del Poble'?" ?tria))
+    (if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
+
+    (bind ?tria (create$ "Antonio_Canova" "Bartolomé Esteban Murillo" "Francisco de Goya" "Diego Velazquez"))
+    (bind ?resp (pregunta-opcions "Quin d'aquests pintors no és espanyol?" ?tria))
+    (if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
+    
 
     (modify ?v (nivell_cultural (/ ?valoracio 10.0)))
     (assert (demanat-nivell-cultural))
