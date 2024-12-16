@@ -1252,14 +1252,13 @@
 (defmessage-handler MAIN::Obra_de_Arte imprimir primary ()
     (printout t (char 9) (char 9))
     (format t "Títol: %s" ?self:títol)
-    (bind ?autor ?self:pintor)
     (printout t crlf (char 9) (char 9))
-    (format t "Autor: %s" (send ?autor get-nom))
+    (format t "Autor: %s" (send ?self:pintor get-nom))
 	(printout t crlf (char 9) (char 9))
     (format t "Any: %d" ?self:any_de_creació)
 	(printout t crlf (char 9) (char 9))
     (format t "Època: %s" ?self:època)
-	(printout t crlf (char 9) (char 9))
+    (printout t crlf (char 9) (char 9))
     (format t "Temàtica: %s" ?self:temàtica)
 	(printout t crlf (char 9) (char 9))
     (format t "Rellevància: %s" ?self:rellevància)
@@ -1280,8 +1279,7 @@
 )
 
 (defmessage-handler Ruta-sala imprimir primary ()
-    (bind ?sala ?self:sala)
-    (printout t (char 9) "SALA " (send ?sala get-número) crlf)
+    (printout t (char 9) "SALA " (send ?self:sala get-número) crlf)
     (foreach ?obra ?self:obres
         (printout t (send ?obra imprimir) crlf)
     )
@@ -1930,7 +1928,7 @@
 
 (defrule imprimir-ruta::sortida "Imprimeix les rutes recomanades"
     (not (final))  ; Asegura que no se haya alcanzado el estado final
-    ?visitant <- (object (name [instVisitant]) (visita $?visita))
+    (object (name [instVisitant]) (visita $?visita))
     =>
     (printout t crlf)
     (printout t "Aquesta és la planificació de les visites que us recomanem:" crlf)
