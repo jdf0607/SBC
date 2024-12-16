@@ -190,7 +190,7 @@
 
     ([El_rapte_de_Prosèrpina] of Obra_de_Arte
          (títol "El Rapte de Prosèrpina")
-         (any_de_creació  1636)
+         (any_de_creació  1621)
          (estil  "Barroc")
          (rellevància  "Referent")
          (temàtica  "Cultura grecorromana")
@@ -267,7 +267,7 @@
 
     ([El_Mercat] of Obra_de_Arte
          (títol "El Mercat")
-         (any_de_creació  1670)
+         (any_de_creació  1656)
          (estil  "Barroc")
          (rellevància  "Referent")
          (temàtica  "Vida quotidiana")
@@ -276,9 +276,9 @@
          (sala  2)
     )
 
-    ([La_Tempesta] of Obra_de_Arte
-         (títol "La Tempesta")
-         (any_de_creació  1849)
+    ([Vaixell_naufragat] of Obra_de_Arte
+         (títol "Vaixell_naufragat")
+         (any_de_creació  1798)
          (estil  "Romanticisme")
          (rellevància  "Destacat")
          (temàtica  "Paisatges i Emocions")
@@ -287,8 +287,8 @@
          (sala  1)
     )
 
-    ([La_Gran_Bouffée] of Obra_de_Arte
-         (títol "El Gran Tiberi")
+    ([El_taller_del_pintor] of Obra_de_Arte
+         (títol "El Taller del Pintor")
          (any_de_creació  1855)
          (estil  "Realisme")
          (rellevància  "Magistral")
@@ -298,9 +298,9 @@
          (sala  2)
     )
 
-    ([A_Dos_passes_de_La_Guerra] of Obra_de_Arte
-         (títol "A Dues Passes de la Guerra")
-         (any_de_creació  1805)
+    ([Oficial_de_caçadors] of Obra_de_Arte
+         (títol "Oficial de caçadors")
+         (any_de_creació  1812)
          (estil  "Romanticisme")
          (rellevància  "Universal")
          (temàtica  "Història política")
@@ -309,8 +309,8 @@
          (sala  4)
     )
 
-    ([El_Fill_de_La_Cultura] of Obra_de_Arte
-         (títol "El Fill de la Cultura")
+    ([Miranda_i_Ferdinand] of Obra_de_Arte
+         (títol "Miranda i Ferdinand")
          (any_de_creació  1782)
          (estil  "Classicisme")
          (rellevància  "Destacat")
@@ -320,9 +320,9 @@
          (sala  3)
     )
 
-    ([El_Brindis_dels_Patriotes] of Obra_de_Arte
-         (títol "El Brindis dels Patriotes")
-         (any_de_creació  1811)
+    ([La_família_de_Carles_IV] of Obra_de_Arte
+         (títol "La família de Carles IV")
+         (any_de_creació  1801)
          (estil  "Realisme")
          (rellevància  "Destacat")
          (temàtica  "Història política")
@@ -331,8 +331,8 @@
          (sala  4)
     )
 
-    ([El_Somni_dels_Déus] of Obra_de_Arte
-         (títol "El Somin dels Déus")
+    ([Orfeu_i_Eurídice] of Obra_de_Arte
+         (títol "Orfeu i Eurídice")
          (any_de_creació  1775)
          (estil  "Neoclassicisme")
          (rellevància  "Referent")
@@ -919,7 +919,7 @@
 
     ([Francisco_de_Goya] of Pintor
          (nom "Francisco de Goya")
-         (crea  [El_tres_de_maig_de_1808][El_Brindis_dels_Patriotes])
+         (crea  [El_tres_de_maig_de_1808][La_família_de_Carles_IV])
          (nacionalitat  "Espanyola")
     )
 
@@ -967,25 +967,25 @@
 
     ([Caspar_David_Friedrich] of Pintor
          (nom "Caspar David Friedrich")
-         (crea  [La_Tempesta])
+         (crea  [Vaixell_naufragat])
          (nacionalitat  "Alemanya")
     )
 
     ([Gustave_Courbet] of Pintor
         (nom "Gustave Courbet")
-        (crea  [La_Gran_Bouffée][El_Riu_en_Flames][La_Promesa_de_Llibertat][L'Últim_Ressò_d'Àtila])
+        (crea  [El_taller_del_pintor][El_Riu_en_Flames][La_Promesa_de_Llibertat][L'Últim_Ressò_d'Àtila])
         (nacionalitat  "Francesa")
     )
 
     ([Théodore_Géricault] of Pintor
          (nom "Théodore Géricault")
-         (crea  [A_Dos_passes_de_La_Guerra][La_Victòria_de_Zama])
+         (crea  [Oficial_de_caçadors ][La_Victòria_de_Zama])
          (nacionalitat  "Francesa")
     )
 
     ([Angelica_Kauffmann] of Pintor
          (nom "Angelica Kaufmann")
-         (crea  [El_Fill_de_La_Cultura][El_Cicle_dels_Herois])
+         (crea  [Miranda_i_Ferdinand][El_Cicle_dels_Herois])
          (nacionalitat  "Suïssa")
     )
     ([John_Trumbull] of Pintor
@@ -1002,7 +1002,7 @@
 
     ([Antonio_Canova] of Pintor
          (nom "Antonio Cánova")
-         (crea  [El_Somni_dels_Déus][La_Flamma_de_la_Llibertat])
+         (crea  [Orfeu_i_Eurídice][La_Flamma_de_la_Llibertat])
          (nacionalitat  "Italiana")
     )
 
@@ -1160,7 +1160,7 @@
 
     ([Sala-6] of Sala
         (número 6)
-        (conté  [El_tres_de_maig_de_1808] [A_Dos_passes_de_La_Guerra] 
+        (conté  [El_tres_de_maig_de_1808] [Oficial_de_caçadors] 
         [La_Batalla_de_Waterloo][La_Victòria_de_Zama]
         [El_Rei_del_Nord] [L'Últim_Ressò_d'Àtila] [La_Tragedia_d'Hamlet]
         [La_Coronació_de_Carlomagne] [Els_Dracs_de_la_Batalla] [La_Mà_del_Destí]
@@ -1180,7 +1180,7 @@
 
     ([Sala-4] of Sala
         (número 4)
-        (conté  [La_Llibertat_guiant_al_poble] [El_Brindis_dels_Patriotes] [El_Llamp_del_Destí] 
+        (conté  [La_Llibertat_guiant_al_poble] [La_família_de_Carles_IV] [El_Llamp_del_Destí] 
         [El_Riu_en_Flames] [La_Promesa_de_Llibertat][La_Flamma_de_la_Llibertat]
         [El_Pacte_dels_Herois][La_Declaració_d'Independència]
         [El_Somni_d'un_Rei][El_Gran_Consell] [L'Alè_de_la_Revolució] [El_Consell_dels_Patriotes]
@@ -1192,7 +1192,7 @@
     ([Sala-3] of Sala
         (número 3)
         (conté  [El_jurament_dels_Horacis] [El_rapte_de_Prosèrpina] [La_mort_de_Sòcrates] 
-        [El_Fill_de_La_Cultura] [El_Somni_dels_Déus] [El_Triomf_d'Aquiles]
+        [Miranda_i_Ferdinand] [Orfeu_i_Eurídice] [El_Triomf_d'Aquiles]
         [El_Triomf_de_la_Virtut][L'Educació_d'Aquil·les] [El_Cicle_dels_Herois] [La_Meditació_d'Hèrcules])
         (porta_a  [Sala-2] [Sala-4])
         (temàtica  "Cultura grecorromana")
@@ -1201,7 +1201,7 @@
     ([Sala-2] of Sala
         (número 2)
         (conté  [El_dinar_campestre] [El_gronxador] [Les_Menines] [El_Mercat] 
-        [La_Gran_Bouffée] [Les_Carretas_d'Alba][L'Escena_del_Bosc] [La_Dansa_dels_Serfs] 
+        [El_taller_del_pintor] [Les_Carretas_d'Alba][L'Escena_del_Bosc] [La_Dansa_dels_Serfs] 
         [L'Alé_dels_Camps] [Els_Camps_de_Primavera] [El_Ball_de_la_Vida] [La_Festa_del_Poble])
         (porta_a  [Sala-1] [Sala-3] )
         (temàtica  "Vida quotidiana")
@@ -1209,7 +1209,7 @@
     
     ([Sala-1] of Sala
         (número 1)
-        (conté  [La_Ronda_de_Nit] [La_nit_estrellada] [La_Tempesta] 
+        (conté  [La_Ronda_de_Nit] [La_nit_estrellada] [Vaixell_naufragat] 
         [L'Horitzó_d'Argent][El_Port_d'Alba] [L'Aurora_de_l'Oceà] 
         [La_Posta_de_Sol] [El_Jardí_Seren])
         (porta_a   [Sala-2])
@@ -1383,9 +1383,7 @@
     (slot nivell_cultural (type FLOAT) (default 0.0))
 )
 
-(deftemplate dia
-    (multislot quadres-recomanats (type INSTANCE))
-)
+
 
 (deftemplate valoracio-quadre
     (slot quadre (type INSTANCE))
@@ -1405,31 +1403,6 @@
 (deftemplate obres-per-dia
     (slot dia (type INTEGER))
     (multislot quadres (type INSTANCE))
-)
-
-(deftemplate ruta
-    (multislot dies 
-        (type INSTANCE)
-        )
-    ;(multislot temps(type INTEGER) (default 0))
-)
-
-(deftemplate sales-assignades
-    (multislot dies 
-        (type INSTANCE)
-        )
-)
-
-(deftemplate dies  
-   (multislot sales 
-        (type INSTANCE)
-        )
-)
-
-(deftemplate sales  
-   (multislot quadres 
-       (type INSTANCE)
-        )
 )
 
 
@@ -1478,35 +1451,6 @@
 	?resposta
 )
 
-;funcio per a preguntes tancades (si/no)
-(deffunction MAIN::pregunta-tancada (?pregunta)
-   (bind ?response (pregunta-opcions ?pregunta si no))
-   (if (or (eq ?response si) (eq ?response s))
-       then TRUE
-       else FALSE)
-)
-
-;funcio per a preguntes amb opcions textuals limitades
-(deffunction MAIN::pregunta-limitada (?pregunta $?opcions)
-   (format t "%s "?pregunta)
-   (progn$ (?actual $?opcions)
-       (format t "[%s]" ?actual)
-   )
-   (printout t ": ")
-   (bind ?answer (read))
-   (if (lexemep ?resposta)
-       then (bind ?resposta (lowcase ?answer)))
-   (while (not (member$ ?resposta ?opcions)) do
-      (format t "%s "?pregunta)
-     (progn$ (?actual $?opcions)
-       (format t "[%s]" ?actual)
-     )
-     (printout t ": ")
-     (bind ?resposta (read))
-     (if (lexemep ?answer)
-         then (bind ?answer (lowcase ?resposta))))
-  ?resposta
-)
 
 ;funcio per fer preguntes multiresposta amb index
 (deffunction MAIN::pregunta-multiresposta (?pregunta $?opcions)
@@ -1548,16 +1492,6 @@
     ?inst-noms
 )
 
-;funcion para ordenar sales
-(deffunction sintesis::ordenar-sala (?quadres ?sala)
-       (bind ?result (create$))
-    (foreach ?quadre ?quadres do
-        (if (eq (fact-slot-value ?quadre sala) ?sala) then
-            (bind ?result (insert$ ?result (+ (length$ ?result) 1) ?quadre))
-        )
-    )
-    ?result
-)
 
 (deffunction MAIN::mapa-num-estil (?num)
     (bind ?estil nil)
