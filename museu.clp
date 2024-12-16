@@ -907,25 +907,25 @@
     ;; Pintores
     ([Diego_Velazquez] of Pintor
         (nom "Diego Velázquez")
-        (crea  [Les_Menines][El_Gran_Consell])
+        (crea  [Les_Menines] [El_Gran_Consell])
         (nacionalitat  "Espanyola")
     )
 
     ([Eugène_Delacroix] of Pintor
          (nom "Eugène Delacroix")
-         (crea  [La_Llibertat_guiant_al_poble][L'Educació_d'Aquil·les][La_Tragedia_d'Hamlet][L'Alè_de_la_Revolució])
+         (crea  [La_Llibertat_guiant_al_poble] [L'Educació_d'Aquil·les] [La_Tragedia_d'Hamlet] [L'Alè_de_la_Revolució])
          (nacionalitat  "Francesa")
     )
 
     ([Francisco_de_Goya] of Pintor
          (nom "Francisco de Goya")
-         (crea  [El_tres_de_maig_de_1808][La_família_de_Carles_IV])
+         (crea  [El_tres_de_maig_de_1808] [La_família_de_Carles_IV])
          (nacionalitat  "Espanyola")
     )
 
     ([Jacques-Louis_David] of Pintor
         (nom "Jacques-Louis David")
-        (crea  [El_jurament_dels_Horacis][La_mort_de_Sòcrates][El_Triomf_d'Aquiles][La_Coronació_de_Napoleó])
+        (crea  [El_jurament_dels_Horacis] [La_mort_de_Sòcrates] [El_Triomf_d'Aquiles] [La_Coronació_de_Napoleó])
         (nacionalitat  "Francesa")
     )
 
@@ -937,7 +937,7 @@
 
     ([Peter_Paul_Rubens] of Pintor
          (nom "Peter Paul Reubens")
-         (crea  [El_rapte_de_Prosèrpina][El_Pacte_dels_Herois])
+         (crea  [El_rapte_de_Prosèrpina] [El_Pacte_dels_Herois])
          (nacionalitat  "Flamenca")
     )
 
@@ -973,19 +973,19 @@
 
     ([Gustave_Courbet] of Pintor
         (nom "Gustave Courbet")
-        (crea  [El_taller_del_pintor][L'Onada][La_Promesa_de_Llibertat][L'Últim_Ressò_d'Àtila])
+        (crea  [El_taller_del_pintor] [L'Onada] [La_Promesa_de_Llibertat] [L'Últim_Ressò_d'Àtila])
         (nacionalitat  "Francesa")
     )
 
     ([Théodore_Géricault] of Pintor
          (nom "Théodore Géricault")
-         (crea  [Oficial_de_caçadors ][La_Victòria_de_Zama])
+         (crea  [Oficial_de_caçadors ] [La_Victòria_de_Zama])
          (nacionalitat  "Francesa")
     )
 
     ([Angelica_Kauffmann] of Pintor
          (nom "Angelica Kaufmann")
-         (crea  [Miranda_i_Ferdinand][El_Cicle_dels_Herois])
+         (crea  [Miranda_i_Ferdinand] [El_Cicle_dels_Herois])
          (nacionalitat  "Suïssa")
     )
     ([John_Trumbull] of Pintor
@@ -1002,13 +1002,13 @@
 
     ([Antonio_Canova] of Pintor
          (nom "Antonio Cánova")
-         (crea  [Orfeu_i_Eurídice][La_Flamma_de_la_Llibertat])
+         (crea  [Orfeu_i_Eurídice] [La_Flamma_de_la_Llibertat])
          (nacionalitat  "Italiana")
     )
 
     ([Luca_Giordano] of Pintor
          (nom "Luca Giordano")
-         (crea  [Homenatge_a_Velázquez][El_Somni_d'un_Rei])
+         (crea  [Homenatge_a_Velázquez] [El_Somni_d'un_Rei])
          (nacionalitat  "Italiana")
     )
 
@@ -1019,49 +1019,49 @@
     )
      ([Bartolomé_Esteban_Murillo] of Pintor
          (nom "Bartolomé Esteban Murillo")
-         (crea  [La_cuina_dels_Angels][El_Somni_dels_Justos])
+         (crea  [La_cuina_dels_Angels] [El_Somni_dels_Justos])
          (nacionalitat  "Espanyola")
     )
 
     ([Jean-Baptiste_Pater] of Pintor
          (nom "Jean-Baptiste Pater")
-         (crea  [L'Escena_del_Bosc][La_Dansa_dels_Serfs][La_Meditació_d'Hèrcules])
+         (crea  [L'Escena_del_Bosc] [La_Dansa_dels_Serfs] [La_Meditació_d'Hèrcules])
          (nacionalitat  "Francesa")
     )
 
     ([William_Sadler] of Pintor
          (nom "William Sadler")
-         (crea  [La_Batalla_de_Waterloo][El_Llamp_del_Destí])
+         (crea  [La_Batalla_de_Waterloo] [El_Llamp_del_Destí])
          (nacionalitat  "Irlandesa")
     )
 
     ([Matthias_Stom] of Pintor
          (nom "Matthias Stom")
-         (crea  [Adoració_dels_Mags][La_Contemplació_Divina])
+         (crea  [Adoració_dels_Mags] [La_Contemplació_Divina])
          (nacionalitat  "Holandesa")
     )
 
     ([Ivan_Aivazovsky] of Pintor
          (nom "Ivan Aivazovsky")
-         (crea  [El_Port_d'Alba][L'Aurora_de_l'Oceà])
+         (crea  [El_Port_d'Alba] [L'Aurora_de_l'Oceà])
          (nacionalitat  "Russa")
     )
 
     ([Camille_Corot] of Pintor
          (nom "Jean-Baptiste-Camille Corot")
-         (crea  [L'Alé_dels_Camps][Els_Camps_de_Primavera])
+         (crea  [L'Alé_dels_Camps] [Els_Camps_de_Primavera])
          (nacionalitat  "Francesa")
     )
 
     ([Sebastiano_Ricci] of Pintor
         (nom "Sebastiano Ricci")
-        (crea  [El_Déu_del_Mar][La_Visió_del_Sant][El_Rei_del_Nord])
+        (crea  [El_Déu_del_Mar] [La_Visió_del_Sant] [El_Rei_del_Nord])
         (nacionalitat  "Italiana")
     )
 
     ([Paul_Cézanne] of Pintor
          (nom "Paul Cézanne")
-         (crea  [La_Posta_de_Sol][El_Jardí_Seren])
+         (crea  [La_Posta_de_Sol] [El_Jardí_Seren])
          (nacionalitat  "Francesa")
     )
     ([Peter_Nicolai_Arbo] of Pintor
@@ -1161,31 +1161,31 @@
     ([Sala-6] of Sala
         (número 6)
         (conté  [El_tres_de_maig_de_1808] [Oficial_de_caçadors] 
-        [La_Batalla_de_Waterloo][La_Victòria_de_Zama]
+        [La_Batalla_de_Waterloo] [La_Victòria_de_Zama]
         [El_Rei_del_Nord] [L'Últim_Ressò_d'Àtila] [La_Tragedia_d'Hamlet]
         [La_Coronació_de_Napoleó] [Els_Dracs_de_la_Batalla] [La_Mà_del_Destí]
         )
-        (porta_a  [Sala-5][Sala-7])
+        (porta_a  [Sala-5] [Sala-7])
         (temàtica  "Història militar")
     )
 
     ([Sala-5] of Sala
         (número 5)
         (conté  [La_cuina_dels_Angels] [Adoració_dels_Mags] [El_Déu_del_Mar] 
-        [La_Contemplació_Divina] [La_Visió_del_Sant][El_Somni_dels_Justos] 
+        [La_Contemplació_Divina] [La_Visió_del_Sant] [El_Somni_dels_Justos] 
         [La_Travessia_de_l'Ànima] [La_Pau_dels_Justos])
-        (porta_a  [Sala-4][Sala-6])
+        (porta_a  [Sala-4] [Sala-6])
         (temàtica  "Espiritualitat")
     )
 
     ([Sala-4] of Sala
         (número 4)
         (conté  [La_Llibertat_guiant_al_poble] [La_família_de_Carles_IV] [El_Llamp_del_Destí] 
-        [La_Promesa_de_Llibertat][La_Flamma_de_la_Llibertat]
-        [El_Pacte_dels_Herois][La_Declaració_d'Independència]
-        [El_Somni_d'un_Rei][El_Gran_Consell] [L'Alè_de_la_Revolució] [El_Consell_dels_Patriotes]
+        [La_Promesa_de_Llibertat] [La_Flamma_de_la_Llibertat]
+        [El_Pacte_dels_Herois] [La_Declaració_d'Independència]
+        [El_Somni_d'un_Rei] [El_Gran_Consell] [L'Alè_de_la_Revolució] [El_Consell_dels_Patriotes]
         )
-        (porta_a [Sala-3][Sala-5])
+        (porta_a [Sala-3] [Sala-5])
         (temàtica  "Història política")
     )
 
@@ -1193,7 +1193,7 @@
         (número 3)
         (conté  [El_jurament_dels_Horacis] [El_rapte_de_Prosèrpina] [La_mort_de_Sòcrates] 
         [Miranda_i_Ferdinand] [Orfeu_i_Eurídice] [El_Triomf_d'Aquiles]
-        [El_Triomf_de_la_Virtut][L'Educació_d'Aquil·les] [El_Cicle_dels_Herois] [La_Meditació_d'Hèrcules])
+        [El_Triomf_de_la_Virtut] [L'Educació_d'Aquil·les] [El_Cicle_dels_Herois] [La_Meditació_d'Hèrcules])
         (porta_a  [Sala-2] [Sala-4])
         (temàtica  "Cultura grecorromana")
     )
@@ -1201,7 +1201,7 @@
     ([Sala-2] of Sala
         (número 2)
         (conté  [El_dinar_campestre] [El_gronxador] [Les_Menines] [El_Mercat] 
-        [El_taller_del_pintor] [Homenatge_a_Velázquez][L'Escena_del_Bosc] [La_Dansa_dels_Serfs] 
+        [El_taller_del_pintor] [Homenatge_a_Velázquez] [L'Escena_del_Bosc] [La_Dansa_dels_Serfs] 
         [L'Alé_dels_Camps] [Els_Camps_de_Primavera] [El_Ball_de_la_Vida] [La_Festa_del_Poble])
         (porta_a  [Sala-1] [Sala-3] )
         (temàtica  "Vida quotidiana")
@@ -1210,8 +1210,8 @@
     ([Sala-1] of Sala
         (número 1)
         (conté  [La_Ronda_de_Nit] [La_nit_estrellada] [Vaixell_naufragat] 
-        [La_platja_de_Sainte-Andresse][El_Port_d'Alba] [L'Aurora_de_l'Oceà] 
-        [La_Posta_de_Sol] [El_Jardí_Seren][L'onada])
+        [La_platja_de_Sainte-Andresse] [El_Port_d'Alba] [L'Aurora_de_l'Oceà] 
+        [La_Posta_de_Sol] [El_Jardí_Seren] [L'onada])
         (porta_a   [Sala-2])
         (temàtica  "Paisatges i emocions")
     )
@@ -1613,8 +1613,8 @@
     (bind ?resp (pregunta-opcions "Qui va pintar 'La Festa del Poble'?" ?tria))
     (if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
     
-    (bind ?tria (create$ "El Cant dels Víking" "El Rei del Nord" "El Déu del Mar" "La Visió del San"))
-    (bind ?resp (pregunta-opcions "Quina obra no va ser creada per 'Sebastiano Ricci'?" ?tria))
+    (bind ?tria (create$ "El Cant dels Víkings" "El Rei del Nord" "El Déu del Mar" "La Visió del Sant"))
+    (bind ?resp (pregunta-opcions "Quina obra no va ser creada per Sebastiano Ricci?" ?tria))
     (if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
 
     (bind ?tria (create$ "Jens Juel" "Jacques-Louis David" "Gustave Courbet" "Théodore Géricault"))
@@ -1622,7 +1622,7 @@
     (if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
 
     (bind ?tria (create$ "La Pau dels Justos" "El Ball de la Vida" "La Mà del Destí" "L'Onada"))
-    (bind ?resp (pregunta-opcions "Quina obra va ser creada per 'Joaquim Mir'?" ?tria))
+    (bind ?resp (pregunta-opcions "Quina obra va ser creada per Joaquim Mir?" ?tria))
     (if (= ?resp 1) then (bind ?valoracio (+ 10.0 ?valoracio)))
 
     (modify ?v (nivell_cultural (/ ?valoracio 13.0)))
@@ -1852,12 +1852,15 @@
 )
 
 (defrule sintesis::assignar-a-sales "Divideix les obres per sales segons el dia"
-    ?opd <- (obres-per-dia (dia ?dia) (quadres $?quadres))
+    (obres-per-dia (dia ?dia) (quadres $?quadres))
     ?dia-visita <- (object (is-a Ruta-dia) (num-dia ?dia))
     ?sala <- (object (is-a Sala) (conté $?obres-sala))
     =>
     (bind $?quadres-noms (convertir-inst-adreces-noms $?quadres))
+    (printout t "Quadres del dia " ?dia ": " $?quadres-noms crlf)
+    (printout t "Quadres en la sala " (send ?sala get-número) ": " $?obres-sala crlf)
     (bind ?interseccio (intersection$ $?quadres-noms $?obres-sala))
+    (printout t "Intersecció: " $?interseccio crlf)
     (if (> (length$ $?interseccio) 0) then
         (bind ?v-sala (make-instance (gensym) of Ruta-sala (sala ?sala)))
         (bind ?sales (send ?dia-visita get-sales))
